@@ -1,7 +1,10 @@
 package Tile;
 import main.GamePanel;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 
@@ -16,16 +19,20 @@ public class TileManager {
     }
 
     public void getTileManager() {
+        String filePath00 = "res/tile/00.png";
+        String filePath05 = "res/tile/05.png";
 
-        try {
+        try (InputStream inputStream00 = new FileInputStream(new File(filePath00));
+             InputStream inputStream05 = new FileInputStream(new File(filePath05))) {
+
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read((Objects.requireNonNull(getClass().getResourceAsStream("tile/00.png"))));
+            tile[0].image = ImageIO.read(inputStream00);
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("tile/05.png")));
+            tile[1].image = ImageIO.read(inputStream05);
 
-        } catch(IOException e) {
-           e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public void draw(Graphics2D g2) {

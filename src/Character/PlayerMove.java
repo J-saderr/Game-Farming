@@ -16,7 +16,9 @@ public class PlayerMove extends Enty{
         public PlayerMove(GamePanel gp, KeyHandler keyH) {
             this.gp = gp;
             this.keyH = keyH;
+
             setDefault();
+            getPlayerImage();
         }
         public void setDefault() {
             x = 100;
@@ -25,16 +27,39 @@ public class PlayerMove extends Enty{
             direction = "left";
         }
         public void getPlayerImage() {
-            try (InputStream inputStream00 = new FileInputStream(new File("res/player/left1.png"));
-                 InputStream inputStream01 = new FileInputStream(new File("res/player/right1.png"))) {
+            try
+                (InputStream inputStream00 = new FileInputStream(new File("res/player/left1.png"));
+                 InputStream inputStream01 = new FileInputStream(new File("res/player/left2.png"));
+                 InputStream inputStream02 = new FileInputStream(new File("res/player/left3.png"));
+                 InputStream inputStream03 = new FileInputStream(new File("res/player/right1.png"));
+                 InputStream inputStream04 = new FileInputStream(new File("res/player/right2.png"));
+                 InputStream inputStream05 = new FileInputStream(new File("res/player/right3.png"));
+                 InputStream inputStream06 = new FileInputStream(new File("res/player/back1.png"));
+                 InputStream inputStream07 = new FileInputStream(new File("res/player/back2.png"));
+                 InputStream inputStream08 = new FileInputStream(new File("res/player/back3.png"));
+                 InputStream inputStream09 = new FileInputStream(new File("res/player/up1.png"));
+                 InputStream inputStream10 = new FileInputStream(new File("res/player/up2.png"));
+                 InputStream inputStream11 = new FileInputStream(new File("res/player/up3.png"))) {
                 left1 = ImageIO.read(inputStream00);
-                right1 = ImageIO.read(inputStream01);
+                left2 = ImageIO.read(inputStream01);
+                left3 = ImageIO.read(inputStream02);
+                right1 = ImageIO.read(inputStream03);
+                right2 = ImageIO.read(inputStream04);
+                right3 = ImageIO.read(inputStream05);
+                up1 = ImageIO.read(inputStream06);
+                up2 = ImageIO.read(inputStream07);
+                up3 = ImageIO.read(inputStream08);
+                back1 = ImageIO.read(inputStream09);
+                back2 = ImageIO.read(inputStream10);
+                back3 = ImageIO.read(inputStream11);
             } catch(IOException e) {
                 e.printStackTrace();
             }
         }
         public void update() {
-            if (keyH.up) {
+
+            if (keyH.up == true || keyH.down == true || keyH.right == true || keyH.left == true) {
+                if (keyH.up) {
                 direction = "up";
                 y -= speed;
             } else if (keyH.down) {
@@ -47,7 +72,19 @@ public class PlayerMove extends Enty{
                 direction = "right";
                 x += speed;
             }
+
+            spriteCounter++;
+            if(spriteCounter > 12) {
+                if(spriteNum == 1) {
+                    spriteNum = 2;
+                }
+                else if(spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
         }
+    }
         public void draw (Graphics2D g2) {
             //g2.setColor(Color.black);
             //g2.dispose();
@@ -56,12 +93,49 @@ public class PlayerMove extends Enty{
             if (direction != null) {
                 switch (direction) {
                     case "left":
-                        image = left1;
+                        if(spriteNum == 1) {
+                            image = left1;
+                        }
+                        if(spriteNum == 2) {
+                            image = left2;
+                        }
+                        if(spriteNum == 3) {
+                            image = left3;
+                        }
                         break;
                     case "right":
-                        image = right1;
+                        if(spriteNum == 1) {
+                            image = right1;
+                        }
+                        if(spriteNum == 2) {
+                            image = right2;
+                        }
+                        if(spriteNum == 3) {
+                            image = right3;
+                        }
                         break;
-                    // Add other cases if needed
+                    case "up":
+                        if(spriteNum == 1) {
+                            image = up1;
+                        }
+                        if(spriteNum == 2) {
+                            image = up2;
+                        }
+                        if(spriteNum == 3) {
+                            image = up3;
+                        }
+                        break;
+                    case "down":
+                        if(spriteNum == 1) {
+                            image = back1;
+                        }
+                        if(spriteNum == 2) {
+                            image = back2;
+                        }
+                        if(spriteNum == 3) {
+                            image = back3;
+                        }
+                        break;
                 }
             }
             if (image != null) {

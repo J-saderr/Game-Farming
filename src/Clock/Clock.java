@@ -1,6 +1,6 @@
 package Clock;
 
-import Game.Game;
+import Main.Game;
 
 public class Clock {
     //private int day;

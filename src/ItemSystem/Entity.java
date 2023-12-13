@@ -1,4 +1,7 @@
 package ItemSystem;
+
+import java.awt.image.BufferedImage;
+
 //money
 public class Entity {
     private int id;

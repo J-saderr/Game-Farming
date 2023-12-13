@@ -1,4 +1,4 @@
-package NPC;
+package Character;
 
 public class MerchantNPC {
 

@@ -1,11 +1,10 @@
-package Game;
+package Main;
 
 //import ItemSystem.Entities.Tools.Axe;
 //import ItemSystem.Entities.Tools.*;
 import ItemSystem.InventorySlot;
 import Character.*;
 import Clock.Clock;
-import Game.UI.UI;
 
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class Game {
 
     public static void newGame() {
         setUpPlayer();
-        UI.playerSetup(player);
+        Main.playerSetup(player);
     }
 
     private static void setUpPlayer() {

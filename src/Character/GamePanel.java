@@ -1,7 +1,6 @@
-package main;
+package Character;
 
 import Tile.TileManager;
-import entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     TileManager tile = new TileManager(this);
 
     KeyHandler keyH = new KeyHandler();
-    Player player = new Player(this, keyH);
+    PlayerMove player = new PlayerMove(this, keyH);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;

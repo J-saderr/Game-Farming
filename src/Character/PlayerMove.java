@@ -1,19 +1,16 @@
-package entity;
-
-import main.GamePanel;
-import main.KeyHandler;
+package Character;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Player extends Entity{
+public class PlayerMove extends Enty{
     GamePanel gp;
     KeyHandler keyH;
     private BufferedImage upload;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public PlayerMove(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
     }

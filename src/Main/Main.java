@@ -1,6 +1,7 @@
-package main;
+package Main;
 
 import javax.swing.*;
+import Character.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,5 +18,10 @@ public class Main {
         window.setVisible(true);
 
         gamePanel.startGameThread();
+    }
+    public static void mainMenu() {
+    }
+
+    public static void playerSetup(Player player) {
     }
 }

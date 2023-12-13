@@ -1,11 +1,10 @@
 package Tile;
-import main.GamePanel;
+import Character.GamePanel;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import javax.imageio.ImageIO;
 
 public class TileManager {
@@ -50,6 +49,7 @@ public class TileManager {
             if (col == gp.maxScreenCol) {
                 col = 0;
                 x = 0;
+                row++;
                 y += gp.tileSize;
             }
         }

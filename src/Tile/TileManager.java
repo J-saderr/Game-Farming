@@ -12,7 +12,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[24];
+        tile = new Tile[27];
         Map = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Map/Map.txt");
@@ -43,7 +43,9 @@ public class TileManager {
              InputStream inputStream5 = new FileInputStream("res/Decor/5.png");
              InputStream inputStream6 = new FileInputStream("res/Decor/6.png");
              InputStream inputStream8 = new FileInputStream("res/Decor/8.png");
-             InputStream inputStream9 = new FileInputStream("res/Decor/9.png")) {
+             InputStream inputStream9 = new FileInputStream("res/Decor/9.png");
+             InputStream inputStream10 = new FileInputStream("res/Decor/10.png");
+             InputStream inputStream11 = new FileInputStream("res/Decor/11.png")) {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(inputStream00);
@@ -116,6 +118,12 @@ public class TileManager {
 
             tile[23] = new Tile();
             tile[23].image = ImageIO.read(inputStream9);
+
+            tile[25] = new Tile();
+            tile[25].image = ImageIO.read(inputStream10);
+
+            tile[24] = new Tile();
+            tile[24].image = ImageIO.read(inputStream11);
 
         } catch (IOException e) {
             e.printStackTrace();

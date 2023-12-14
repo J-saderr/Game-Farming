@@ -12,7 +12,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[16]; //5 types of tile
+        tile = new Tile[16];
         Map = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Map/Map.txt");
@@ -20,22 +20,22 @@ public class TileManager {
 
     public void getTileManager() {
 
-        try (InputStream inputStream00 = new FileInputStream(new File("res/tile/00.png"));
-             InputStream inputStream05 = new FileInputStream(new File("res/tile/05.png"));
-             InputStream inputStreamup = new FileInputStream(new File("res/tile/up.png"));
-             InputStream inputStreamleftup = new FileInputStream(new File("res/tile/leftup.png"));
-             InputStream inputStreamleft = new FileInputStream(new File("res/tile/left.png"));
-             InputStream inputStreamleftbottom = new FileInputStream(new File("res/tile/leftbottom.png"));
-             InputStream inputStreambottom = new FileInputStream(new File("res/tile/bottom.png"));
-             InputStream inputStreamrightbottom = new FileInputStream(new File("res/tile/rightbottom.png"));
-             InputStream inputStreamright = new FileInputStream(new File("res/tile/right.png"));
-             InputStream inputStreamrightup = new FileInputStream(new File("res/tile/rightup.png"));
-             InputStream inputStreamroad1up = new FileInputStream(new File("res/tile/road1up.png"));
-             InputStream inputStreamroad1down = new FileInputStream(new File("res/tile/road1down.png"));
-             InputStream inputStreamroad2up = new FileInputStream(new File("res/tile/road2up.png"));
-             InputStream inputStreamroad2down = new FileInputStream(new File("res/tile/road2down.png"));
-             InputStream inputStreamroad3up = new FileInputStream(new File("res/tile/road3up.png"));
-             InputStream inputStreamroad3down = new FileInputStream(new File("res/tile/road3down.png"))) {
+        try (InputStream inputStream00 = new FileInputStream("res/tile/00.png");
+             InputStream inputStream05 = new FileInputStream("res/tile/05.png");
+             InputStream inputStreamup = new FileInputStream("res/tile/up.png");
+             InputStream inputStreamleftup = new FileInputStream("res/tile/leftup.png");
+             InputStream inputStreamleft = new FileInputStream("res/tile/left.png");
+             InputStream inputStreamleftbottom = new FileInputStream("res/tile/leftbottom.png");
+             InputStream inputStreambottom = new FileInputStream("res/tile/bottom.png");
+             InputStream inputStreamrightbottom = new FileInputStream("res/tile/rightbottom.png");
+             InputStream inputStreamright = new FileInputStream("res/tile/right.png");
+             InputStream inputStreamrightup = new FileInputStream("res/tile/rightup.png");
+             InputStream inputStreamroad1up = new FileInputStream("res/tile/road1up.png");
+             InputStream inputStreamroad1down = new FileInputStream("res/tile/road1bot.png");
+             InputStream inputStreamroad2up = new FileInputStream("res/tile/road2up.png");
+             InputStream inputStreamroad2down = new FileInputStream("res/tile/road2bot.png");
+             InputStream inputStreamroad3up = new FileInputStream("res/tile/road3up.png");
+             InputStream inputStreamroad3down = new FileInputStream("res/tile/road3bot.png")) {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(inputStream00);
@@ -90,7 +90,7 @@ public class TileManager {
         }
     }
     public void loadMap(String filePath) {
-        try (InputStream is = new FileInputStream(new File(filePath));
+        try (InputStream is = new FileInputStream(filePath);
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 
             int col = 0;
@@ -138,9 +138,9 @@ public class TileManager {
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
             if(worldX + gp.tileSize> gp.player.worldX - gp.player.screenX && worldX -gp.tileSize < gp.player.worldX + gp.player.screenX && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
-
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-
+                if (tile[tileNum] != null && tile[tileNum].image != null) {
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                }
             }
             worldCol++;
             if(worldCol == gp.maxWorldCol) {

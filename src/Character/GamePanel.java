@@ -16,12 +16,17 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int maxScreenRow = 12; // dai 12
     final int screenWidth = tileSize * maxScreenCol;
     final int screenHeight = tileSize * maxScreenRow;
-    //tile
 
+    public final int maxWorldCol = 30;
+    public final int maxWorldRow = 20;
+    public final int worldWidth = tileSize * maxWorldCol;
+
+    public final int worldHeight = tileSize * maxWorldRow;
+    //tile
     TileManager tile = new TileManager(this);
 
     KeyHandler keyH = new KeyHandler();
-    PlayerMove player = new PlayerMove(this, keyH);
+    public PlayerMove player = new PlayerMove(this, keyH);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;

@@ -13,16 +13,20 @@ public class PlayerMove extends Enty{
         KeyHandler keyH;
         private BufferedImage upload;
 
+        public final int screenX;
+        public final int screenY;
+
         public PlayerMove(GamePanel gp, KeyHandler keyH) {
             this.gp = gp;
             this.keyH = keyH;
-
+            screenX = gp.screenWidth/2 - (gp.tileSize/2);
+            screenY = gp.screenHeight/2 - (gp.tileSize/2);
             setDefault();
             getPlayerImage();
         }
         public void setDefault() {
-            x = 100;
-            y = 100;
+            worldX = gp.tileSize * 10;
+            worldY = gp.tileSize * 10;
             speed = 4;
             direction = "left";
         }
@@ -61,16 +65,16 @@ public class PlayerMove extends Enty{
             if (keyH.up == true || keyH.down == true || keyH.right == true || keyH.left == true) {
                 if (keyH.up) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (keyH.down) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if(keyH.left) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             } else if (keyH.right) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             spriteCounter++;
@@ -139,7 +143,7 @@ public class PlayerMove extends Enty{
                 }
             }
             if (image != null) {
-                g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
         }
     }

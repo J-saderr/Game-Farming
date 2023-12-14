@@ -10,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     //FPs 60
     int fps = 60;
     final int originalTileSize = 16; //16x16 tile
-    final int scale = 3; //size of character = 16x3 - change later
+    final int scale = 4; //size of character = 16x3 - change later
     public final int tileSize = originalTileSize * scale;
     public final int maxScreenCol = 16; // rong 16
     public final int maxScreenRow = 12; // dai 12
@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerSpeed = 10;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(131,146,76));
         this.setDoubleBuffered(true); //all the drawing from component will be done in offscreen painting buffer
         this.addKeyListener(keyH);
         this.setFocusable(true);

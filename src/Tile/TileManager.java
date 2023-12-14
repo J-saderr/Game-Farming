@@ -12,7 +12,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[16];
+        tile = new Tile[24];
         Map = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Map/Map.txt");
@@ -35,7 +35,15 @@ public class TileManager {
              InputStream inputStreamroad2up = new FileInputStream("res/tile/road2up.png");
              InputStream inputStreamroad2down = new FileInputStream("res/tile/road2bot.png");
              InputStream inputStreamroad3up = new FileInputStream("res/tile/road3up.png");
-             InputStream inputStreamroad3down = new FileInputStream("res/tile/road3bot.png")) {
+             InputStream inputStreamroad3down = new FileInputStream("res/tile/road3bot.png");
+             InputStream inputStream1 = new FileInputStream("res/Decor/1.png");
+             InputStream inputStream2 = new FileInputStream("res/Decor/2.png");
+             InputStream inputStream3 = new FileInputStream("res/Decor/3.png");
+             InputStream inputStream4 = new FileInputStream("res/Decor/4.png");
+             InputStream inputStream5 = new FileInputStream("res/Decor/5.png");
+             InputStream inputStream6 = new FileInputStream("res/Decor/6.png");
+             InputStream inputStream8 = new FileInputStream("res/Decor/8.png");
+             InputStream inputStream9 = new FileInputStream("res/Decor/9.png")) {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(inputStream00);
@@ -84,6 +92,30 @@ public class TileManager {
 
             tile[15] = new Tile();
             tile[15].image = ImageIO.read(inputStreamroad3down);
+
+            tile[16] = new Tile();
+            tile[16].image = ImageIO.read(inputStream1);
+
+            tile[17] = new Tile();
+            tile[17].image = ImageIO.read(inputStream2);
+
+            tile[18] = new Tile();
+            tile[18].image = ImageIO.read(inputStream3);
+
+            tile[19] = new Tile();
+            tile[19].image = ImageIO.read(inputStream4);
+
+            tile[20] = new Tile();
+            tile[20].image = ImageIO.read(inputStream5);
+
+            tile[21] = new Tile();
+            tile[21].image = ImageIO.read(inputStream6);
+
+            tile[22] = new Tile();
+            tile[22].image = ImageIO.read(inputStream8);
+
+            tile[23] = new Tile();
+            tile[23].image = ImageIO.read(inputStream9);
 
         } catch (IOException e) {
             e.printStackTrace();

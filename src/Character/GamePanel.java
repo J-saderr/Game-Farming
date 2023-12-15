@@ -1,6 +1,7 @@
 package Character;
 
 import Tile.TileManager;
+import Main.Sound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 10;
+
+    // Sound
+    Sound sound = new Sound();
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -43,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+        playMusic(0);
     }
 
     @Override
@@ -84,5 +90,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
 
 
+    }
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
     }
 }

@@ -14,7 +14,6 @@ public class Game {
 //    private int day;
 //    private Season season;
     void update() {
-
     }
 
     public static void loadGame() {

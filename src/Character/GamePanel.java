@@ -1,5 +1,6 @@
 package Character;
 
+import Objects.SuperObjects;
 import Tile.TileManager;
 
 import javax.swing.*;
@@ -28,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     KeyHandler keyH = new KeyHandler();
     public PlayerMove player = new PlayerMove(this, keyH);
     Thread gameThread;
+    public SuperObjects obj[] = new SuperObjects[30];
+    public AssetSetter aSetter = new AssetSetter(this);
     //set default position - coordinates of player
     int playerX = 100;
     int playerY = 100;
@@ -38,6 +41,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         this.setDoubleBuffered(true); //all the drawing from component will be done in offscreen painting buffer
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setupGame() {
+        aSetter.setObject();
     }
 
     public void startGameThread() {
@@ -78,7 +85,15 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+        //Tile
         tile.draw(g2); //draw tile before player
+        //Object
+        for(int i = 0; i < obj.length; i++) {
+            if(obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+        //Player
         player.draw(g2);
         g2.setColor(Color.white);
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory

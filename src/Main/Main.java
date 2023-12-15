@@ -8,7 +8,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Better Farming");
+        window.setTitle("BetterFarming");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -18,5 +18,6 @@ public class Main {
         window.setVisible(true);
         gamePanel.setupGame();
         gamePanel.startGameThread();
+        gamePanel.setupGame();
     }
 }

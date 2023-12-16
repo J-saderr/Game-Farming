@@ -8,11 +8,12 @@ public class SuperObject {
 
     public BufferedImage image;
     public String name;
-    //public boolean collision;
+    public boolean collision;
     public int worldX, worldY;
-    //public Rectangle solidArea = new Rectangle(0, 0, 48,48);
-    //public int solidDefaultX = 0;
-    //public int getSolidDefaultY = 0;
+    public Rectangle solidArea = new Rectangle(0, 0, 16,16);
+    public int solidDefaultX = 0;
+    public int solidDefaultY = 0;
+
     //UtilityTool uTool = new UtilityTool();
 
     public void draw(Graphics2D g2, GamePanel gp) {

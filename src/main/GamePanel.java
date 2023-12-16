@@ -2,6 +2,8 @@ package main;
 import Entity.PlayerMove;
 import Entity.KeyHandler;
 import Entity.entity;
+import object.SuperObject;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -28,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     KeyHandler keyH = new KeyHandler(this);
     public entity npc[] = new entity[10];
     public PlayerMove player = new PlayerMove(this, keyH);
-    //public SuperObject obj[] = new SuperObject[10];
-
+    public SuperObject obj[] = new SuperObject[10]; //import 10 obj
+    public AssetSetter aSetter = new AssetSetter(this);
     //GAME STATE
     public int gameState;
     public final int playerState = 1;
@@ -82,7 +84,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void update() {
         if (gameState == playerState) {
+            //Player
             player.update();
+            for (int i = 0; i < npc.length; i++){
+                if(npc[i] != null) {
+                    npc[i].update();
+                }
+            }
         }
         if (gameState == pauseState) {
             //nothing
@@ -95,8 +103,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         Graphics2D g2 = (Graphics2D) g;
         //tile.draw(g2); //draw tile before player
         player.draw(g2);
-        g2.setColor(Color.white);
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
+        //draw Object
 
         //draw NPC
         for (int i = 0; i < npc.length; i++) {

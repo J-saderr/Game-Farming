@@ -17,7 +17,11 @@ public class entity {
     public int spriteNum = 1;
     //Solid rectangle for player for collision
     public Rectangle solidArea;
+    //Solid coordinates for checking collision between players and objects (including NPC)
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
     public boolean collisionOn = false;
+    public int actionLock = 0;
     public entity(GamePanel gp) {
         this.gp = gp;
     }

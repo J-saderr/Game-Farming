@@ -6,7 +6,8 @@ import Tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
+public class GamePanel extends JPanel implements Runnable{
+    public Object tileManager;  //subclass of JPanel
     //Screen settings
     //FPs 60
     int fps = 60;

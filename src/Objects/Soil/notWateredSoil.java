@@ -17,5 +17,6 @@ public class notWateredSoil extends SuperObjects { // Corrected class name
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

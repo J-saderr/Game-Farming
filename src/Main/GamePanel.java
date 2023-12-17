@@ -17,14 +17,15 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int maxScreenRow = 12; // dai 12
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-    public final int maxWorldCol = 30;
-    public final int maxWorldRow = 20;
+    public final int maxWorldCol = 60;
+    public final int maxWorldRow = 60;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
     //tile
-    TileManager tile = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
+    public Collision collision = new Collision(this);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;
@@ -103,12 +104,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        tile.draw(g2); //draw tile before player
+        tileManager.draw(g2); //draw tile before player
         player.draw(g2);
         ui.draw(g2);
         g2.setColor(Color.white);
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
-
-
     }
 }

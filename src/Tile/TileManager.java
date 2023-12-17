@@ -6,13 +6,13 @@ import javax.imageio.ImageIO;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tile;
+    public Tile[] tile;
 
-    int Map[][];
+    public int[][] Map;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[27];
+        tile = new Tile[26];
         Map = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Map/Map.txt");
@@ -49,81 +49,107 @@ public class TileManager {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(inputStream00);
+            tile[0].collision=false;
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(inputStream05);
+            tile[1].collision=true;
 
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(inputStreamup);
+            tile[2].collision=false;
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(inputStreamleftup);
+            tile[3].collision=false;
 
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(inputStreamleft);
+            tile[4].collision=false;
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(inputStreamleftbottom);
+            tile[5].collision=false;
 
             tile[6] = new Tile();
             tile[6].image = ImageIO.read(inputStreambottom);
+            tile[6].collision=false;
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(inputStreamrightbottom);
+            tile[7].collision=false;
 
             tile[8] = new Tile();
             tile[8].image = ImageIO.read(inputStreamright);
+            tile[8].collision=false;
 
             tile[9] = new Tile();
             tile[9].image = ImageIO.read(inputStreamrightup);
+            tile[9].collision=false;
 
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(inputStreamroad1up);
+            tile[10].collision=false;
 
             tile[11] = new Tile();
             tile[11].image = ImageIO.read(inputStreamroad1down);
+            tile[11].collision=false;
 
             tile[12] = new Tile();
             tile[12].image = ImageIO.read(inputStreamroad2up);
+            tile[12].collision=false;
 
             tile[13] = new Tile();
             tile[13].image = ImageIO.read(inputStreamroad2down);
+            tile[13].collision=false;
 
             tile[14] = new Tile();
             tile[14].image = ImageIO.read(inputStreamroad3up);
+            tile[14].collision=false;
 
             tile[15] = new Tile();
             tile[15].image = ImageIO.read(inputStreamroad3down);
+            tile[15].collision=false;
 
             tile[16] = new Tile();
             tile[16].image = ImageIO.read(inputStream1);
+            tile[16].collision=true;
 
             tile[17] = new Tile();
             tile[17].image = ImageIO.read(inputStream2);
+            tile[17].collision=true;
 
             tile[18] = new Tile();
             tile[18].image = ImageIO.read(inputStream3);
+            tile[18].collision=true;
 
             tile[19] = new Tile();
             tile[19].image = ImageIO.read(inputStream4);
+            tile[19].collision=false;
 
             tile[20] = new Tile();
             tile[20].image = ImageIO.read(inputStream5);
+            tile[20].collision=false;
 
             tile[21] = new Tile();
             tile[21].image = ImageIO.read(inputStream6);
+            tile[21].collision=false;
 
             tile[22] = new Tile();
             tile[22].image = ImageIO.read(inputStream8);
+            tile[22].collision=true;
 
             tile[23] = new Tile();
             tile[23].image = ImageIO.read(inputStream9);
+            tile[23].collision=false;
 
             tile[25] = new Tile();
             tile[25].image = ImageIO.read(inputStream10);
+            tile[25].collision=false;
 
             tile[24] = new Tile();
             tile[24].image = ImageIO.read(inputStream11);
+            tile[24].collision=false;
 
         } catch (IOException e) {
             e.printStackTrace();

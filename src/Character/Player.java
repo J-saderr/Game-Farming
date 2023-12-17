@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Player extends Entity {
-        GamePanel gp;
+        public GamePanel gp;
         KeyHandler keyH;
         private BufferedImage upload;
         public final int screenX;
@@ -27,6 +27,8 @@ public class Player extends Entity {
             screenX = gp.screenWidth/2 - (gp.tileSize/2);
             screenY = gp.screenHeight/2 - (gp.tileSize/2);
             solidArea = new Rectangle(2, 12, 14, 14);
+            solidAreaDefaultX = solidArea.x;
+            solidAreaDefaultY = solidArea.y;
             setDefault();
             getPlayerImage();
         }
@@ -69,20 +71,32 @@ public class Player extends Entity {
         }
         public void update() {
 
-            if (keyH.up == true || keyH.down == true || keyH.right == true || keyH.left == true) {
+            if (keyH.up || keyH.down || keyH.right || keyH.left) {
                 if (keyH.up) {
-                direction = "up";
-                worldY -= speed;
-            } else if (keyH.down) {
-                direction = "down";
-                worldY += speed;
-            } else if(keyH.left) {
-                direction = "left";
-                worldX -= speed;
-            } else if (keyH.right) {
-                direction = "right";
-                worldX += speed;
-            }
+                    direction = "up";
+                } else if (keyH.down) {
+                    direction = "down";
+                } else if(keyH.left) {
+                    direction = "left";
+                } else if (keyH.right) {
+                    direction = "right";
+                }
+
+                //Check Tile Collision
+                collisionOn = false;
+                super.gp.collision.checkTile(this);
+
+                //Check Object Collision
+                int objIndex = super.gp.collision.checkObject(this, true);
+                //If Collision is False, player can move
+                if (collisionOn == false) {
+                    switch(direction) {
+                        case "up": worldY -= speed; break;
+                        case "down": worldY += speed; break;
+                        case "left": worldX -= speed; break;
+                        case "right": worldX += speed; break;
+                    }
+                }
 
             spriteCounter++;
             if(spriteCounter > 12) {

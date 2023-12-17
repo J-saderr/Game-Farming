@@ -50,13 +50,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void setupGame() {
         AssetSetter aSetter = null;
         //aSetter.setObject();
-        gameState = playerState;
+        gameState = titleState;
 
     }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        playMusic(0);
     }
     public void playMusic(int i) {
         sound.setFile(i);
@@ -100,14 +99,19 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         }
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
-        tileManager.draw(g2); //draw tile before player
-        player.draw(g2);
-        ui.draw(g2);
-        g2.setColor(Color.white);
-        g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
+
+        if (gameState == titleState) {
+            ui.draw(g2);
+        } else {
+            tileManager.draw(g2); //draw tile before player
+            player.draw(g2);
+            ui.draw(g2);
+            g2.setColor(Color.white);
+            g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
+
+        }
     }
 }

@@ -2,16 +2,22 @@ package Main;
 
 //import ItemSystem.Entities.Tools.Axe;
 //import ItemSystem.Entities.Tools.*;
-import ItemSystem.InventorySlot;
-import Character.*;
+
+import Character.Player;
+import Character.Self;
 import Clock.Clock;
+import ItemSystem.InventorySlot;
+import Objects.Plants.Plant;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Scanner;
 
 public class Game {
     private static Clock clock;
     private static Player player;
-//    private int day;
+
+    //    private int day;
 //    private Season season;
     void update() {
 
@@ -43,17 +49,29 @@ public class Game {
         System.out.println();
 
         if (verb && args.length > 0) {
-            switch(args[0]) {
-                case "Inventory":   testInventory();    break;
-                case "MainMenu":    testMainMenu();     break;
-                case "Farming":     testFarming();      break;
-                case "Travel":      testTravelling();   break;
-                case "NPC":         testNpc();          break;
+            switch (args[0]) {
+                case "Inventory":
+                    testInventory();
+                    break;
+                case "MainMenu":
+                    testMainMenu();
+                    break;
+                case "Farming":
+                    testFarming();
+                    break;
+                case "Travel":
+                    testTravelling();
+                    break;
+                case "NPC":
+                    testNpc();
+                    break;
 
-                default: break;
+                default:
+                    break;
             }
         }
     }
+
     private static void testNpc() {
     }
 

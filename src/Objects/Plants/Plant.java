@@ -3,7 +3,7 @@ package Objects.Plants;
 import java.util.Scanner;
 
 enum VegetableType {
-    CARROT, POTATO, CABBAGE
+    CARROT, POTATO, SPINACH
 }
 public class Plant {
     VegetableType type;

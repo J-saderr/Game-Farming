@@ -36,18 +36,14 @@ public class UI {
         this.g2 = g2;
         g2.setFont(arial_40);
         g2.setColor(Color.white);
-        // title-state
         if (gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
-        // game-state
         if (gp.gameState == gp.playerState) {
         }
-        // pause-state
         if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
-        // character-state
         if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
             drawInventory();

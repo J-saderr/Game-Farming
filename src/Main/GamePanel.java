@@ -1,12 +1,9 @@
 package Main;
 
-import Environment.EnvironmentManager;
 import ItemSystem.UI;
 import Tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-
 import Character.*;
 
 
@@ -35,12 +32,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 10;
-    public Entity obj[] = new Entity[30];
+    public Entity obj[] = new Entity[10];
     public AssetSetter aSetter = new AssetSetter(this);
-    ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     Sound sound = new Sound();
-    EnvironmentManager eManager= new EnvironmentManager(this);
     public int gameState;
     public int titleState = 0;
     public final int playerState = 1;
@@ -54,20 +49,23 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         this.setFocusable(true);
     }
     public void setupGame() {
-        aSetter.setObject();
+        AssetSetter aSetter = null;
         gameState = titleState;
-        eManager.setUp();
+        gameState = playerState;
 
     }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        //playMusic(0);
+        playMusic(0);
     }
     public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
         sound.loop();
+    }
+    public void stopMusic() {
+        sound.stop();
     }
     @Override
     public void run() {
@@ -97,7 +95,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void update() {
         if (gameState == playerState) {
             player.update();
-            eManager.update();
         }
         if (gameState == pauseState) {
             //nothing
@@ -111,14 +108,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         } else {
             tileManager.draw(g2); //draw tile before player
             player.draw(g2);
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    obj[i].draw(g2, this);
-                }
-            }
-            // environment
-            eManager.draw(g2);
-            //ui
             ui.draw(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory

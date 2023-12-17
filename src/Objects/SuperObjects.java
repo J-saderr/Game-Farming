@@ -1,5 +1,5 @@
 package Objects;
-import Character.GamePanel;
+import Main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 public class SuperObjects {

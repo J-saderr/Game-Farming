@@ -111,7 +111,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             ui.draw(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
-
         }
     }
 }

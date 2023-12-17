@@ -56,7 +56,7 @@ public class UI {
     public void drawTitleScreen() {
         // title-name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
-        String text = "BetterFarming";
+        String text = "<BetterFarming>";
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;
         // shadow-color

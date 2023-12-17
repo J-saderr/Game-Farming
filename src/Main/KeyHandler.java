@@ -38,7 +38,7 @@ public class KeyHandler implements KeyListener {
                     gp.playMusic(0);
                 }
                 if (gp.ui.commandNum == 1) {
-                    // add later
+                    // add-later
                 }
                 if (gp.ui.commandNum == 3) {
                     System.exit(0);

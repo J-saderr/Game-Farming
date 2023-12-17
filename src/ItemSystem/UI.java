@@ -23,6 +23,7 @@ public class UI {
     DecimalFormat dFormat = new DecimalFormat("0.00");
     public int slotCol =0;
     public int slotRow =0;
+    public int commandNum = 0;
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -35,14 +36,66 @@ public class UI {
         this.g2 = g2;
         g2.setFont(arial_40);
         g2.setColor(Color.white);
+        // title-state
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
+        // game-state
         if (gp.gameState == gp.playerState) {
         }
+        // pause-state
         if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
+        // character-state
         if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
             drawInventory();
+        }
+    }
+    public void drawTitleScreen() {
+        // title-name
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        String text = "BetterFarming";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+        // shadow-color
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x+6, y+6);
+        // main-color
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+        // character-image
+        x = gp.screenHeight/2 - (gp.tileSize*2)/2;
+        y += gp.tileSize*2;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(gp.player.up2, x + 200, y, gp.tileSize*2, gp.tileSize*2, null);
+
+        // menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+
+        text = "NEW GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize*3.5;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        text = "LOAD GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        text = "QUIT GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x-gp.tileSize, y);
         }
     }
     public void drawSubWindow(int x, int y, int width, int height) {

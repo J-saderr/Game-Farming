@@ -2,10 +2,11 @@ package Main;
 
 import ItemSystem.UI;
 import Tile.TileManager;
-
 import javax.swing.*;
 import java.awt.*;
 import Character.*;
+
+
 public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     //Screen settings
     //FPs 60
@@ -17,8 +18,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int maxScreenRow = 12; // dai 12
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-    public final int maxWorldCol = 60;
-    public final int maxWorldRow = 60;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
     //tile
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void setupGame() {
         AssetSetter aSetter = null;
-        //aSetter.setObject();
+        gameState = titleState;
         gameState = playerState;
 
     }
@@ -99,15 +100,17 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             //nothing
         }
     }
-
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D) g;
-        tileManager.draw(g2); //draw tile before player
-        player.draw(g2);
-        ui.draw(g2);
-        g2.setColor(Color.white);
-        g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
+        if (gameState == titleState) {
+            ui.draw(g2);
+        } else {
+            tileManager.draw(g2); //draw tile before player
+            player.draw(g2);
+            ui.draw(g2);
+            g2.setColor(Color.white);
+            g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
+        }
     }
 }

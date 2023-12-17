@@ -5,8 +5,6 @@ public enum VegetableType {
     POTATO,
     CABBAGE
 }
-
-// Enum representing the growth stages of a vegetable.
 enum GrowthStage {
     SEED,
     SPROUT,
@@ -33,7 +31,6 @@ class Plant {
                 stage = GrowthStage.MATURE_PLANT;
                 break;
             case MATURE_PLANT:
-                // Plant is fully grown, nothing happens.
                 break;
         }
     }
@@ -48,13 +45,13 @@ class Plant {
     public String getStageUI() {
         switch (stage) {
             case SEED:
-                return "Seed Image"; // Replace these with actual path to your images or image objects.
+                return "/res/Plants/7.png"; // Replace these with actual path to your images or image objects.
             case SPROUT:
-                return "Sprout Image";
+                return "/res/Plants/10.png";
             case YOUNG_PLANT:
-                return "Young Plant Image";
+                return "/res/Plants/13.png";
             case MATURE_PLANT:
-                return "Mature Plant Image";
+                return "/res/Plants/14.png";
             default:
                 return null;
         }

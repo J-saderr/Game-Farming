@@ -128,10 +128,34 @@ public class UI {
         int cursorY = slotYstart + (gp.tileSize * slotRow);
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
+
     // DRAW CURSOR
         g2.setColor(Color.white);
         g2.setStroke (new BasicStroke(3));
         g2.drawRoundRect (cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+    //Description Frame
+        int dFrameX = frameX;
+        int dFrameY = frameY +frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.tileSize*3;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+    //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(28F));
+        
+        int itemIndex = getItemIndexOnSlot();
+        
+        if(itemIndex < gp.player.inventory.size()){
+            g2.drawString(gp.player.inventory.get(itemIndex).description, textX, textY);
+            textY += 32;
+        }
+    }
+    public int getItemIndexOnSlot(){
+        int itemIndex = slotCol + (slotRow*5);
+        return  itemIndex;
     }
     public void drawCharacterScreen(){
         int frameX = gp.tileSize * 9;

@@ -1,5 +1,7 @@
 package Character;
 
+import ItemSystem.Entities.Tools.Axe;
+import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
 
@@ -31,13 +33,20 @@ public class Player extends Entity {
             solidAreaDefaultY = solidArea.y;
             setDefault();
             getPlayerImage();
+            setItems();
         }
         public void setDefault() {
-            worldX = super.gp.tileSize * 10;
-            worldY = super.gp.tileSize * 10;
+            worldX = super.gp.tileSize * 5;
+            worldY = super.gp.tileSize * 5;
             speed = 4;
             direction = "down";
             currentTool = new WateringCan(gp);
+
+        }
+        public void setItems(){
+            inventory.add(new WateringCan(gp));
+            inventory.add(new Hoe(gp));
+            inventory.add(new Axe(gp));
         }
         public void getPlayerImage() {
             try

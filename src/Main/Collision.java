@@ -15,7 +15,7 @@ public class Collision {
         int entityRightCol = entityRightWorldX/gp.tileSize;
         int entityTopRow = entityTopWorldY/gp.tileSize;
         int entityBottomRow = entityBottomWorldY/gp.tileSize;
-        System.out.println("entityTopRow: " + entityTopRow +"entityBottomRow: " + entityBottomRow + ", entityLeftCol: " + entityLeftCol + ", entityRightCol: " + entityRightCol);
+        System.out.println("entityTopRow: " + entity.worldY +"entityBottomRow: " + entityBottomRow + ", entityLeftCol: " + entityLeftCol + ", entityRightCol: " + entityRightCol);
 
         int tileNum1, tileNum2;
 
@@ -30,7 +30,7 @@ public class Collision {
                 break;
 
             case "up":
-                entityTopRow = (entityTopWorldY + entity.speed)/gp.tileSize;
+                entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileManager.Map[entityRightCol][entityTopRow];
                 if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
@@ -39,9 +39,9 @@ public class Collision {
                 break;
 
             case "left":
-                entityLeftCol = (entityLeftWorldX + entity.speed)/gp.tileSize;
+                entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.Map[entityRightCol][entityBottomRow];
+                tileNum2 = gp.tileManager.Map[entityLeftCol][entityBottomRow];
                 if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
                 }

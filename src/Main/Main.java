@@ -9,7 +9,6 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Better Farming");
-
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
         window.pack(); //cause window to size to fit the preferred size of gamePanel

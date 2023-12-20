@@ -7,6 +7,6 @@ public class WateringCan extends Entity {
         super(gp);
         name = "Watercan";
         down1 = setup("res/Tool/WateringCan");
-        description = "Use to water tree";
+        description = "Watercan";
     }
 }

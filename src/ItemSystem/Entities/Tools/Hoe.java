@@ -7,6 +7,6 @@ public class Hoe extends Entity{
         super(gp);
         name = "Hoe";
         down1 = setup("res/Tool/Hoe");
-        description = "Use to tree";
+        description = "Hoe";
     }
 }

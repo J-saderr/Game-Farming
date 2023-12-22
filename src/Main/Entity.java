@@ -17,7 +17,7 @@ public class Entity {
         this.gp= gp;
     }
     public int worldX, worldY;
-    public int speed = 4;
+    public int speed ;
     public BufferedImage image;
     public Rectangle solidArea;
     public boolean collisionOn = false;

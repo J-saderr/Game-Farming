@@ -5,6 +5,7 @@ import Tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
 import Character.*;
+import Object.SuperObject;
 
 
 public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
@@ -32,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 10;
-    public Entity obj[] = new Entity[10];
+    public SuperObject[] obj = new SuperObject[30];
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     Sound sound = new Sound();

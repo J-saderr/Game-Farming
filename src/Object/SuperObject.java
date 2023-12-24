@@ -10,8 +10,8 @@ public class SuperObject {
     public Rectangle solidArea = new Rectangle( 0, 0, 48, 48);
     public int solidDefaultX = 0;
     public int solidDefaultY = 0;
-    public int solidAreaDefaultX;
-    public int solidAreaDefaultY;
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

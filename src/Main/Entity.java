@@ -25,8 +25,7 @@ public class Entity {
     public boolean collision;
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
-    public int solidDefaultX = 0;
-    public int solidDefaultY = 0;
+    public int solidDefaultX, solidDefaultAreaY;
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
     public String direction;
     public int spriteCounter = 0;

@@ -4,6 +4,7 @@ import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
+import Object.Soil.notWateredSoil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Player extends Entity {
         private BufferedImage upload;
         public final int screenX;
         public final int screenY;
+        int hasSoil = 0;
         public ArrayList<Entity> inventory = new ArrayList<>();
         public final int maxInventorySize = 20;
 
@@ -97,6 +99,7 @@ public class Player extends Entity {
 
                 //Check Object Collision
                 int objIndex = super.gp.collision.checkObject(this, true);
+                changeSoil(objIndex);
                 //If Collision is False, player can move
                 if (collisionOn == false) {
                     switch(direction) {
@@ -118,6 +121,18 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+    }
+    public void changeSoil(int i) {
+            if (i != 999) {
+                String objectName = super.gp.obj[i].name;
+
+                switch (objectName) {
+                    case "Soil":
+                        hasSoil++;
+                        super.gp.obj[i] = new notWateredSoil();
+                        break;
+                }
+            }
     }
         public void draw (Graphics2D g2) {
             //g2.setColor(Color.black);

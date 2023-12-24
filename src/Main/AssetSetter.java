@@ -1,6 +1,9 @@
 package Main;
 import Character.*;
+import Object.House.House1;
 import Object.Soil.Soil;
+import Object.Soil.notWateredSoil;
+
 public class AssetSetter {
     GamePanel gp;
 
@@ -103,5 +106,9 @@ public class AssetSetter {
         gp.obj[23] = new Soil();
         gp.obj[23].worldX = 15 * gp.tileSize;
         gp.obj[23].worldY = 13 * gp.tileSize;
+
+        gp.obj[24] = new House1();
+        gp.obj[24].worldX = 4 * gp.tileSize;
+        gp.obj[24].worldY = 3 * gp.tileSize;
     }
 }

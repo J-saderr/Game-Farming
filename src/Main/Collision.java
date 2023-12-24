@@ -24,7 +24,7 @@ public class Collision {
                 entityBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tileManager.Map[entityRightCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -33,7 +33,7 @@ public class Collision {
                 entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileManager.Map[entityRightCol][entityTopRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -42,7 +42,7 @@ public class Collision {
                 entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tileManager.Map[entityLeftCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -51,7 +51,7 @@ public class Collision {
                 entityRightCol = (entityRightWorldX + entity.speed)/gp.tileSize;
                 tileNum1 = gp.tileManager.Map[entityRightCol][entityTopRow];
                 tileNum2 = gp.tileManager.Map[entityRightCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
@@ -108,12 +108,10 @@ public class Collision {
                         }
                         break;
                 }
-                //reloop for loop
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidDefaultY;
-
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
 
         }

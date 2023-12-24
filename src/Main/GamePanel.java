@@ -50,9 +50,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         this.setFocusable(true);
     }
     public void setupGame() {
-        AssetSetter aSetter = null;
+        aSetter.setObject();
         gameState = titleState;
-
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -108,6 +107,11 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         } else {
             tileManager.draw(g2); //draw tile before player
             player.draw(g2);
+            for(int i = 0; i < obj.length; i++) {
+                if(obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
+            }
             ui.draw(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory

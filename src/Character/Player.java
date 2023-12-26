@@ -42,6 +42,10 @@ public class Player extends Entity {
             direction = "down";
             currentTool = new WateringCan(gp);
 
+            //player-status
+            maxLife = 5;
+            life = maxLife;
+
         }
         public void setItems(){
             inventory.add(new WateringCan(gp));

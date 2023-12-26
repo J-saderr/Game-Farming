@@ -35,6 +35,11 @@ public class Entity {
     public Entity currentTool;
     // Item attribute
     public String description = "";
+
+    //character-status
+    public int maxLife;
+    public int life;
+
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;

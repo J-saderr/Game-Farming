@@ -1,11 +1,14 @@
 package ItemSystem;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import Energy.EnergyBar;
 import Main.GamePanel;
+import Objects.SuperObjects;
 
 import static java.awt.Color.white;
 
@@ -15,6 +18,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font arial_40, arial_80B;
+    BufferedImage energy, energybar0;
     public String message = "";
     public boolean messageOn = false;
     int messageCount = 0;
@@ -31,6 +35,11 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
 
+        //create-hud-object
+        SuperObjects energybar = new EnergyBar(gp);
+        energy = energybar.enbar;
+        energybar0 = energybar.enbar0;
+
     }
     public void draw(Graphics2D g2) {
         this.g2 = g2;
@@ -40,13 +49,30 @@ public class UI {
             drawTitleScreen();
         }
         if (gp.gameState == gp.playerState) {
+            drawPlayerEnergy();
         }
         if (gp.gameState == gp.pauseState) {
+            drawPlayerEnergy();
             drawPauseScreen();
         }
         if (gp.gameState == gp.characterState) {
+            drawPlayerEnergy();
             drawCharacterScreen();
             drawInventory();
+        }
+    }
+    public void drawPlayerEnergy() {
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+
+        g2.drawImage(energybar0, x-7, y-45, null);
+
+        while (i < gp.player.maxLife) {
+            g2.drawImage(energy, x, y, null);
+            i++;
+            x += gp.tileSize/2.7;
         }
     }
     public void drawTitleScreen() {

@@ -101,7 +101,7 @@ public class Player extends Entity {
                 int objIndex = super.gp.collision.checkObject(this, true);
                 changeSoil(objIndex);
                 //If Collision is False, player can move
-                if (collisionOn == false) {
+                if (!collisionOn) {
                     switch(direction) {
                         case "up": worldY -= speed; break;
                         case "down": worldY += speed; break;

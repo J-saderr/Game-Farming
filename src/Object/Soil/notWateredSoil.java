@@ -8,12 +8,11 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 public class notWateredSoil extends SuperObject { // Corrected class name
     public notWateredSoil() {
-        name = "Soil"; // This assigns a string to name, this is correct.
-        collision = true; // You may want to set this as true or false depending on your game logic
+        name = "Soil";
+        collision = true;
         try {
-            // You want to read the image file and assign it to this object's image field.
             InputStream inputStream13 = new FileInputStream(new File("res/Soil/notwateredsoil.png"));
-            image = ImageIO.read(inputStream13); // Assign the read image to the image variable
+            image = ImageIO.read(inputStream13);
         } catch (IOException e) {
             e.printStackTrace();
         }

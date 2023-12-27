@@ -1,10 +1,13 @@
 package Character;
 
+import ItemSystem.Entities.Seed.Carrot;
+import ItemSystem.Entities.Seed.Potato;
+import ItemSystem.Entities.Seed.Spinach;
 import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
-
+import Object.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +23,7 @@ public class Player extends Entity {
         private BufferedImage upload;
         public final int screenX;
         public final int screenY;
+        int hasSoil = 0;
         public ArrayList<Entity> inventory = new ArrayList<>();
         public final int maxInventorySize = 20;
 
@@ -41,6 +45,9 @@ public class Player extends Entity {
             speed = 4;
             direction = "down";
             currentTool = new WateringCan(gp);
+            //player-status
+            maxLife = 5;
+            life = maxLife;
 
             //player-status
             maxLife = 5;
@@ -51,6 +58,9 @@ public class Player extends Entity {
             inventory.add(new WateringCan(gp));
             inventory.add(new Hoe(gp));
             inventory.add(new Axe(gp));
+            inventory.add(new Carrot(gp));
+            inventory.add(new Potato(gp));
+            inventory.add(new Spinach(gp));
         }
         public void getPlayerImage() {
             try
@@ -101,6 +111,7 @@ public class Player extends Entity {
 
                 //Check Object Collision
                 int objIndex = super.gp.collision.checkObject(this, true);
+                changeSoil(objIndex);
                 //If Collision is False, player can move
                 if (collisionOn == false) {
                     switch(direction) {
@@ -120,6 +131,18 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+    public void changeSoil(int i) {
+        if (i != 999) {
+            String objectName = super.gp.obj[i].name;
+
+            switch (objectName) {
+                case "Soil":
+                    hasSoil++;
+                    super.gp.obj[i] = new notWateredSoil(gp);
+                    break;
             }
         }
     }

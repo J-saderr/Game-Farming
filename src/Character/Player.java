@@ -112,6 +112,8 @@ public class Player extends Entity {
                 //Check Object Collision
                 int objIndex = super.gp.collision.checkObject(this, true);
                 changeSoil(objIndex);
+                int npcIndex = super.gp.collision.checkEntity(this, super.gp.npc);
+                interactNPC(npcIndex);
                 //If Collision is False, player can move
                 if (collisionOn == false) {
                     switch(direction) {
@@ -132,6 +134,11 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        }
+    }
+    public void interactNPC(int i){
+        if(i != 999) {
+            System.out.println("Hitting a NPC");
         }
     }
     public void changeSoil(int i) {

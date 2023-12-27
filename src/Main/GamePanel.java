@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerY = 100;
     int playerSpeed = 10;
     public Entity obj[] = new Entity[30];
+    public Entity npc[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
     ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void setupGame() {
         aSetter.setObject();
+        aSetter.setNPC();
         gameState = titleState;
 
     }
@@ -109,7 +111,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             player.draw(g2);
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
-                    obj[i].draw(g2, this);
+                    obj[i].draw(g2,this);
+                }
+            }
+            for (int i = 0; i < npc.length; i++) {
+                if(npc[i] != null) {
+                    npc[i].draw(g2,this);
                 }
             }
             ui.draw(g2);

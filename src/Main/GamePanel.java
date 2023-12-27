@@ -4,6 +4,8 @@ import ItemSystem.UI;
 import Tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import Character.*;
 
 
@@ -32,8 +34,9 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 10;
-    public Entity obj[] = new Entity[10];
+    public Entity obj[] = new Entity[30];
     public AssetSetter aSetter = new AssetSetter(this);
+    ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     Sound sound = new Sound();
     public int gameState;
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         this.setFocusable(true);
     }
     public void setupGame() {
-        AssetSetter aSetter = null;
+        aSetter.setObject();
         gameState = titleState;
 
     }
@@ -62,9 +65,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         sound.setFile(i);
         sound.play();
         sound.loop();
-    }
-    public void stopMusic() {
-        sound.stop();
     }
     @Override
     public void run() {
@@ -107,6 +107,11 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         } else {
             tileManager.draw(g2); //draw tile before player
             player.draw(g2);
+            for(int i = 0; i < obj.length; i++) {
+                if(obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
+            }
             ui.draw(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory

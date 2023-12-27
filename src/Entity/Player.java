@@ -75,7 +75,7 @@ public class Player extends Entity {
                     direction = "up";
                 } else if (keyH.down) {
                     direction = "down";
-                } else if(keyH.left) {
+                } else if (keyH.left) {
                     direction = "left";
                 } else if (keyH.right) {
                     direction = "right";
@@ -89,13 +89,25 @@ public class Player extends Entity {
                 int objIndex = super.gp.collision.checkObject(this, true);
                 //If Collision is False, player can move
                 if (!collisionOn) {
-                    switch(direction) {
-                        case "up": worldY -= speed; break;
-                        case "down": worldY += speed; break;
-                        case "left": worldX -= speed; break;
-                        case "right": worldX += speed; break;
+                    switch (direction) {
+                        case "up":
+                            worldY -= speed;
+                            break;
+                        case "down":
+                            worldY += speed;
+                            break;
+                        case "left":
+                            worldX -= speed;
+                            break;
+                        case "right":
+                            worldX += speed;
+                            break;
                     }
                 }
+            }
+                //Check NPC collision
+                int npcIndex = gp.collision.checkEntity(this, gp.npc);
+                interactNPC(npcIndex);
 
             spriteCounter++;
             if(spriteCounter > 12) {
@@ -108,7 +120,12 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-    }
+        public void interactNPC(int i){
+            if(i != 999) {
+                System.out.println("Hitting a NPC");
+            }
+        }
+
         public void draw (Graphics2D g2) {
             //g2.setColor(Color.black);
             //g2.dispose();
@@ -170,13 +187,13 @@ public class Player extends Entity {
             if (screenX > worldX) { x = worldX;}
             if (screenY > worldY) {y = worldY;}
 
-            int rightOffSet = gp.screenWidth - screenX;
-            if(rightOffSet > gp.worldWidth - worldX) {
-                x = gp.screenWidth - (gp.worldWidth - worldX);
+            int rightOffSet = super.gp.screenWidth - screenX;
+            if(rightOffSet > super.gp.worldWidth - worldX) {
+                x = super.gp.screenWidth - (super.gp.worldWidth - worldX);
             }
-            int bottomOffSet = gp.screenHeight - screenY;
-            if(bottomOffSet > gp.worldHeight - worldY) {
-                y = gp.screenHeight - (gp.worldHeight - worldY);
+            int bottomOffSet = super.gp.screenHeight - screenY;
+            if(bottomOffSet > super.gp.worldHeight - worldY) {
+                y = super.gp.screenHeight - (super.gp.worldHeight - worldY);
             }
             if (image != null) {
                 g2.drawImage(image, x, y, super.gp.tileSize, super.gp.tileSize, null);

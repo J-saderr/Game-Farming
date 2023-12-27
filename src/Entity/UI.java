@@ -30,7 +30,7 @@ public class UI {
         this.gp =gp;
         //Font chu trong game
         arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80)
+        arial_80B = new Font("Arial", Font.BOLD, 80);
     }
     public void draw(Graphics2D g2) {
         this.g2 = g2;
@@ -46,11 +46,11 @@ public class UI {
             //drawPlayerEnergy();
             drawPauseScreen();
         }
-        if (gp.gameState == gp.characterState) {
+        //if (gp.gameState == gp.characterState) {
             //drawPlayerEnergy();
-            drawCharacterScreen();
-            drawInventory();
-        }
+            //drawCharacterScreen();
+            //drawInventory();
+        //}
     }
     public void drawTitleScreen() {
         // title-name

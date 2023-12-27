@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Collision collision = new Collision(this);
     //entity and object
     KeyHandler keyH = new KeyHandler(this);
-    public Entity npc[] = new Entity[10];
+    public Entity npc[] = new Entity[1];
     public Entity obj[] = new Entity[30];
     public Player player = new Player(this, keyH);
     //public SuperObject obj[] = new SuperObject[10]; //import 10 obj

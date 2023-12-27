@@ -19,7 +19,7 @@ public class Entity {
     public int worldX, worldY;
     public int speed = 4;
     public BufferedImage image;
-    public Rectangle solidArea = new Rectangle(8, 16, 32, 32);
+    public Rectangle solidArea = new Rectangle(0, 0, 16, 16);
     public boolean collisionOn = false;
 
     public boolean collision;
@@ -74,8 +74,56 @@ public class Entity {
             }
         }
     }
-    public void draw(Graphics2D g2, GamePanel gp) {
+    public void draw(Graphics2D g2) {
         BufferedImage image = null;
+        if (direction != null) {
+            switch (direction) {
+                case "left":
+                    if(spriteNum == 1) {
+                        image = left1;
+                    }
+                    if(spriteNum == 2) {
+                        image = left2;
+                    }
+                    if(spriteNum == 3) {
+                        image = left3;
+                    }
+                    break;
+                case "right":
+                    if(spriteNum == 1) {
+                        image = right1;
+                    }
+                    if(spriteNum == 2) {
+                        image = right2;
+                    }
+                    if(spriteNum == 3) {
+                        image = right3;
+                    }
+                    break;
+                case "up":
+                    if(spriteNum == 1) {
+                        image = up1;
+                    }
+                    if(spriteNum == 2) {
+                        image = up2;
+                    }
+                    if(spriteNum == 3) {
+                        image = up3;
+                    }
+                    break;
+                case "down":
+                    if(spriteNum == 1) {
+                        image = down1;
+                    }
+                    if(spriteNum == 2) {
+                        image = down2;
+                    }
+                    if(spriteNum == 3) {
+                        image = down3;
+                    }
+                    break;
+            }
+        }
 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;

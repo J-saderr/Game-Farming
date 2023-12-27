@@ -1,5 +1,7 @@
 package main;
 
+import Entity.MerchantNPC;
+
 public class AssetSetter {
     GamePanel gp;
 
@@ -11,7 +13,7 @@ public class AssetSetter {
     }
     public void setNPC() {
         gp.npc[0] = new MerchantNPC(gp);
-        gp.npc[0].worldX = gp.tileSize * 16;
-        gp.npc[0].worldY = gp.tileSize * 16;
+        gp.npc[0].worldX = gp.tileSize * 15;
+        gp.npc[0].worldY = gp.tileSize * 10;
     }
 }

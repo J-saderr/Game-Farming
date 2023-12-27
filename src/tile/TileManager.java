@@ -5,10 +5,10 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 public class TileManager {
-    GamePanel gp;
-    public Tile[] tile;
+    static GamePanel gp;
+    public static Tile[] tile;
 
-    public int[][] Map;
+    public static int[][] Map;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -164,7 +164,7 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public void draw(Graphics2D g2) {
+    public static void draw(Graphics2D g2) {
 
         int worldCol = 0;
 

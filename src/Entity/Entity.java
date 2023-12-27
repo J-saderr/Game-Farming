@@ -22,6 +22,10 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(0, 0, 16, 16);
     public boolean collisionOn = false;
 
+    //DIALOGUE
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
+
     public boolean collision;
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
@@ -46,6 +50,27 @@ public class Entity {
         }
         return image;
     }
+    public void speak(){
+        if(dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
+        //MAKE NPC FACE TO PLAYER
+        switch (gp.player.direction){
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "right":
+                direction = "left";
+                break;
+            case "left":
+                direction = "right";
+                break;
+        }
     public void update(){
         collision = false;
         gp.collision.checkTile(this);

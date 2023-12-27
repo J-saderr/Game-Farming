@@ -1,7 +1,6 @@
 package main;
-import Entity.Player;
-import Entity.KeyHandler;
-import Entity.Entity;
+import Entity.*;
+
 import object.SuperObject;
 import tile.TileManager;
 
@@ -28,17 +27,19 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     //Checking Collision
     public Collision collision = new Collision(this);
     //entity and object
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public Entity npc[] = new Entity[1];
     public Entity obj[] = new Entity[30];
     public Player player = new Player(this, keyH);
     //public SuperObject obj[] = new SuperObject[10]; //import 10 obj
     public AssetSetter aSetter = new AssetSetter(this);
     public TileManager tileManager = new TileManager(this);
+    public UI ui = new UI(this);
     //GAME STATE
     public int gameState;
     public final int playerState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);

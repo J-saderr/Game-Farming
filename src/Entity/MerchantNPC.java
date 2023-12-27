@@ -9,6 +9,8 @@ public class MerchantNPC extends Entity{
         speed = 0;
         direction = "up";
         getNPCimage();
+        setDialogue();
+        speak();
     }
     public void getNPCimage(){
         up1 = setup("res/merchantNPC/npc");
@@ -23,5 +25,17 @@ public class MerchantNPC extends Entity{
         right1 = setup("res/merchantNPC/npc");
         right2 = setup("res/merchantNPC/npc");
         right3 = setup("res/merchantNPC/npc");
+    }
+    public void setDialogue() {
+        //DISPLAY TEXT IN MULTIPLE LINES -> \n
+        dialogues[0] = "sup bro?";
+        dialogues[1] = "muon j ?";
+        dialogues[2] = "mua hay ban ?";
+        dialogues[3] = "gudbai";
+
+    }
+    public void speak() {
+
+        super.speak();
     }
 }

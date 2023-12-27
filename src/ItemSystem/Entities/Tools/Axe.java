@@ -2,6 +2,8 @@ package ItemSystem.Entities.Tools;
 
 import Main.*;
 
+import java.awt.*;
+
 public class Axe extends Entity {
     public Axe(GamePanel gp){
         super(gp);

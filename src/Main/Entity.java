@@ -19,7 +19,7 @@ public class Entity {
     public int worldX, worldY;
     public int speed = 4;
     public BufferedImage image;
-    public Rectangle solidArea;
+    public Rectangle solidArea = new Rectangle(8, 16, 32, 32);
     public boolean collisionOn = false;
 
     public boolean collision;
@@ -35,6 +35,10 @@ public class Entity {
     public Entity currentTool;
     // Item attribute
     public String description = "";
+    //character-status
+    public int maxLife;
+    public int life;
+    public BufferedImage enbar, enbar0;
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -48,13 +52,13 @@ public class Entity {
     }
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
+
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (image != null) {
+                g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
         }
     }
 }

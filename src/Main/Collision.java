@@ -1,12 +1,12 @@
 package Main;
 import Tile.*;
 public class Collision {
-    GamePanel gp;
+    public GamePanel gp;
     public Collision(GamePanel gp) {
         this.gp = gp;
     }
     public void checkTile( Entity entity) {
-        int entityLeftWorldX = entity.worldX + entity.worldY + entity.solidArea.x;
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
@@ -108,12 +108,10 @@ public class Collision {
                         }
                         break;
                 }
-                //reloop for loop
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[i].solidArea.x = gp.obj[i].solidDefaultX;
-                gp.obj[i].solidArea.y = gp.obj[i].solidDefaultY;
-
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
 
         }

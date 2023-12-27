@@ -2,6 +2,8 @@ package ItemSystem.Entities.Tools;
 
 import Main.*;
 
+import java.awt.*;
+
 public class Hoe extends Entity{
     public Hoe(GamePanel gp){
         super(gp);

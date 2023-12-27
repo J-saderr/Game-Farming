@@ -1,10 +1,13 @@
 package ItemSystem;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import Energy.EnergyBar;
+import Main.Entity;
 import Main.GamePanel;
 
 import static java.awt.Color.white;
@@ -24,12 +27,16 @@ public class UI {
     public int slotCol =0;
     public int slotRow =0;
     public int commandNum = 0;
+    BufferedImage energy, energybar0;
 
     public UI(GamePanel gp) {
         this.gp =gp;
         //Font chu trong game
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
+        Entity energybar = new EnergyBar(gp);
+        energy = energybar.enbar;
+        energybar0 = energybar.enbar0;
 
     }
     public void draw(Graphics2D g2) {
@@ -40,13 +47,30 @@ public class UI {
             drawTitleScreen();
         }
         if (gp.gameState == gp.playerState) {
+            drawPlayerEnergy();
         }
         if (gp.gameState == gp.pauseState) {
+            drawPlayerEnergy();
             drawPauseScreen();
         }
         if (gp.gameState == gp.characterState) {
+            drawPlayerEnergy();
             drawCharacterScreen();
             drawInventory();
+        }
+    }
+    public void drawPlayerEnergy() {
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+
+        g2.drawImage(energybar0, x-7, y-45, null);
+
+        while (i < gp.player.maxLife) {
+            g2.drawImage(energy, x, y, null);
+            i++;
+            x += gp.tileSize/2.7;
         }
     }
     public void drawTitleScreen() {
@@ -95,10 +119,10 @@ public class UI {
         }
     }
     public void drawSubWindow(int x, int y, int width, int height) {
-        Color c = new Color(0,0,0,210);
+        Color c = new Color(164, 76, 69);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
-        c = new Color(255,255,255);
+        c = new Color(243, 229, 215);
         g2.setColor(c);
         g2.setStroke (new BasicStroke (5));
         g2.drawRoundRect (x+5, y+5, width-10, height-10, 25, 25);
@@ -130,7 +154,8 @@ public class UI {
         int cursorHeight = gp.tileSize;
 
     // DRAW CURSOR
-        g2.setColor(Color.white);
+        Color c = new Color(243, 229, 215);
+        g2.setColor(c);
         g2.setStroke (new BasicStroke(3));
         g2.drawRoundRect (cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 

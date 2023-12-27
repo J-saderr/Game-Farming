@@ -1,14 +1,13 @@
 package main;
-
-import Entity.entity;
-
+import Entity.Entity;
+import tile.TileManager;
 public class Collision {
     GamePanel gp;
     public Collision(GamePanel gp) {
         this.gp = gp;
     }
-    public void checkTile( entity entity) {
-        int entityLeftWorldX = entity.worldX + entity.worldY + entity.solidArea.x;
+    public void checkTile( Entity entity) {
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
@@ -23,46 +22,46 @@ public class Collision {
         switch(entity.direction) {
             case "up":
                 entityBottomRow = (entityBottomWorldY + entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
-                tileNum2 = gp.tileManager.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                tileNum1 = gp.tileManager.Map[entityLeftCol][entityBottomRow];
+                tileNum2 = gp.tileManager.Map[entityRightCol][entityBottomRow];
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
 
             case "down":
                 entityTopRow = (entityTopWorldY - entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileManager.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.mapTileNum[entityRightCol][entityTopRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
+                tileNum2 = gp.tileManager.Map[entityRightCol][entityTopRow];
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
 
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileManager.mapTileNum[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                tileNum1 = gp.tileManager.Map[entityLeftCol][entityTopRow];
+                tileNum2 = gp.tileManager.Map[entityLeftCol][entityBottomRow];
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
 
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed)/gp.tileSize;
-                tileNum1 = gp.tileManager.mapTileNum[entityRightCol][entityTopRow];
-                tileNum2 = gp.tileManager.mapTileNum[entityRightCol][entityBottomRow];
-                if(gp.tileManager.tile[tileNum1].collision == true || gp.tileManager.tile[tileNum2].collision == true) {
+                tileNum1 = gp.tileManager.Map[entityRightCol][entityTopRow];
+                tileNum2 = gp.tileManager.Map[entityRightCol][entityBottomRow];
+                if(gp.tileManager.tile[tileNum1].collision || gp.tileManager.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
                 break;
             //Check Collision of NPC
-            public int checkEntity(entity entity, entity[] target) {
+            //public int checkEntity(Entity entity, entity[] target) {
 
-            }
+            //}
         }
     }
-    public int checkObject(entity entity, boolean player){
+    public int checkObject(Entity entity, boolean player){
         //check player hits any object -> yes, return index of object
         int index = 999;
         for(int i = 0; i < gp.obj.length; i++) {

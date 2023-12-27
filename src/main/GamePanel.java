@@ -1,8 +1,9 @@
 package main;
-import Entity.PlayerMove;
+import Entity.Player;
 import Entity.KeyHandler;
-import Entity.entity;
+import Entity.Entity;
 import object.SuperObject;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,20 +19,22 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int maxScreenRow = 12; // dai 12
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-
+    public final int maxWorldCol = 30;
+    public final int maxWorldRow = 20;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
     Thread gameThread;
-    //set default position - coordinates of player
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 10;
+
     //Checking Collision
-    public Collision collide = new Collision(this);
+    public Collision collision = new Collision(this);
     //entity and object
     KeyHandler keyH = new KeyHandler(this);
-    public entity npc[] = new entity[10];
-    public PlayerMove player = new PlayerMove(this, keyH);
-    public SuperObject obj[] = new SuperObject[10]; //import 10 obj
+    public Entity npc[] = new Entity[10];
+    public Entity obj[] = new Entity[30];
+    public Player player = new Player(this, keyH);
+    //public SuperObject obj[] = new SuperObject[10]; //import 10 obj
     public AssetSetter aSetter = new AssetSetter(this);
+    public TileManager tileManager = new TileManager(this);
     //GAME STATE
     public int gameState;
     public final int playerState = 1;
@@ -101,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        //tile.draw(g2); //draw tile before player
+        TileManager.draw(g2); //draw tile before player
         player.draw(g2);
         g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
         //draw Object

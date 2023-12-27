@@ -18,10 +18,7 @@ public class Main {
         window.setVisible(true);
 
         gamePanel.startGameThread();
-    }
-    public static void mainMenu() {
+        gamePanel.setupGame();
     }
 
-    public static void playerSetup(PlayerMove player) {
-    }
 }

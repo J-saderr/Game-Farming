@@ -28,9 +28,26 @@ public class Lighting {
             // create-a-buffered-image
             darknessFilter = new BufferedImage(gp.screenWidth, gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
+
+            //create a screen-sized rectangle area
+            Area screenArea = new Area(new Rectangle2D.Double(0, 0, gp.screenWidth, gp.screenHeight));
+
             // get-the-center-x-and-y-of-the-light
             int centerX = gp.player.screenX + (gp.tileSize) / 2;
             int centerY = gp.player.screenY + (gp.tileSize) / 2;
+
+            // top left x and y of light circle
+            double x = centerX - 175;
+            double y = centerY - 175;
+
+            // create light circle shape
+            Shape circleShape = new Ellipse2D.Double(x,y, 350,350);
+
+            // create light circle area
+            Area lightArea = new Area(circleShape);
+
+            // Subtract light circle from screen rectangle
+            screenArea.subtract(lightArea);
 
             // create-gradation-effect
             Color color[] = new Color[6];
@@ -51,17 +68,29 @@ public class Lighting {
             fraction[5] = 1f;
 
             // create-gradation-paint-settings
-            RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, (350/2), fraction, color);
+            RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, 175, fraction, color);
 
             // set-gradient-daya-on-g2
             g2.setPaint(gPaint);
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            g2.fill(lightArea);
+
+//            // set color
+//            g2.setColor(new Color(0,0,0.1f,0.80f));
+
+            g2.fill(screenArea);
+
+
+            // set-gradient-daya-on-g2
+            g2.setPaint(gPaint);
+            //g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
             g2.dispose();
     }
 
     public void update() {
-        setLightSource();
+
+        // setLightSource();
 
         // check-the-state-of-the-day
         if (dayState == day) {
@@ -108,7 +137,7 @@ public class Lighting {
             case dawn: situation = "Dawn"; break;
         }
         g2.setColor(Color.WHITE);
-        g2.setFont(g2.getFont().deriveFont(30F));
+        g2.setFont(g2.getFont().deriveFont(25F));
         g2.drawString(situation, 900,700);
 
 

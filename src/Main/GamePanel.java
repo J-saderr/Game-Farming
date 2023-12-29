@@ -1,5 +1,6 @@
 package Main;
 
+import Environment.EnvironmentManager;
 import ItemSystem.UI;
 import Tile.TileManager;
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
+    EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     Sound sound = new Sound();
@@ -57,12 +59,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         aSetter.setObject();
         aSetter.setNPC();
         gameState = titleState;
+        eManager.setUp();
 
     }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        playMusic(0);
+        //playMusic(0);
     }
     public void playMusic(int i) {
         sound.setFile(i);
@@ -97,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void update() {
         if (gameState == playerState) {
             player.update();
+            eManager.update();
         }
         if (gameState == pauseState) {
             //nothing
@@ -120,6 +124,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                     npc[i].draw(g2,this);
                 }
             }
+            eManager.draw(g2);
             ui.draw(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory

@@ -8,10 +8,10 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 public class wateredSoil extends SuperObject { // Corrected class name
     public wateredSoil() {
-        name = "Soil";
-        collision = true;
+        name = "wateredSoil";
+        collision = false;
         try {
-            InputStream inputStream14 = new FileInputStream(new File("res/Soil/wateredoil.png"));
+            InputStream inputStream14 = new FileInputStream(new File("res/Soil/wateredsoil.png"));
             image = ImageIO.read(inputStream14);
         } catch (IOException e) {
             e.printStackTrace();

@@ -6,7 +6,7 @@ public class Collision {
         this.gp = gp;
     }
     public void checkTile( Entity entity) {
-        int entityLeftWorldX = entity.worldX + entity.worldY + entity.solidArea.x;
+        int entityLeftWorldX = entity.worldX  + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
@@ -15,7 +15,10 @@ public class Collision {
         int entityRightCol = entityRightWorldX/gp.tileSize;
         int entityTopRow = entityTopWorldY/gp.tileSize;
         int entityBottomRow = entityBottomWorldY/gp.tileSize;
-        System.out.println("entityTopRow: " + entity.worldY +"entityBottomRow: " + entityBottomRow + ", entityLeftCol: " + entityLeftCol + ", entityRightCol: " + entityRightCol);
+//        int entityBlock = map[][];
+
+        System.out.println("entityTopRow: " + entity.worldY +", entityBottomRow: " + entityBottomRow + ", entityLeftCol: " + entityLeftCol + ", entityRightCol: " + entityRightCol);
+
 
         int tileNum1, tileNum2;
 

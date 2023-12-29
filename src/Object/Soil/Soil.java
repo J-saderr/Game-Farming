@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Soil extends SuperObject {
     public Soil() {
         name = "Soil";
-        collision = true;
+        collision = false;
         try {
             InputStream inputStream12 = new FileInputStream(new File("res/Soil/Soil.png"));
             image = ImageIO.read(inputStream12);

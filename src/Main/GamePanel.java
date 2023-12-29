@@ -94,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void update() {
         if (gameState == playerState) {
             player.update();
+            tileManager.update();
         }
         if (gameState == pauseState) {
             //nothing

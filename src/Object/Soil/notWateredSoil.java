@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 public class notWateredSoil extends SuperObject { // Corrected class name
     public notWateredSoil() {
-        name = "Soil";
+        name = "notWateredSoil";
         collision = true;
         try {
             InputStream inputStream13 = new FileInputStream(new File("res/Soil/notwateredsoil.png"));

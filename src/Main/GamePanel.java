@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerSpeed = 10;
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
+    public Entity house[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
     EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -58,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setHouse();
         gameState = titleState;
         eManager.setUp();
 
@@ -113,7 +115,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             ui.draw(g2);
         } else {
             tileManager.draw(g2); //draw tile before player
-            player.draw(g2);
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
                     obj[i].draw(g2,this);
@@ -124,6 +125,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                     npc[i].draw(g2,this);
                 }
             }
+            for (int i = 0; i < house.length; i++) {
+                if(house[i] != null) {
+                    house[i].drawHouse(g2,this);
+                }
+            }
+            player.draw(g2);
             eManager.draw(g2);
             ui.draw(g2);
             g2.setColor(Color.white);

@@ -1,5 +1,6 @@
 package Main;
 import Character.*;
+import HouseLevel.House;
 import Object.Soil;
 import Object.notWateredSoil;
 
@@ -111,5 +112,11 @@ public class AssetSetter {
         gp.npc[0] = new MerchantNPC(gp);
         gp.npc[0].worldX = gp.tileSize * 15;
         gp.npc[0].worldY = gp.tileSize * 15;
+    }
+
+    public void setHouse() {
+        gp.house[0] = new House(gp);
+        gp.house[0].worldX = gp.tileSize+10;
+        gp.house[0].worldY = -20;
     }
 }

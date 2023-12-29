@@ -110,6 +110,8 @@ public class Player extends Entity {
                 changeSoil(objIndex);
                 int npcIndex = super.gp.collision.checkEntity(this, super.gp.npc);
                 interactNPC(npcIndex);
+                int houseIndex = super.gp.collision.checkHouse(this, super.gp.house);
+                interactHouse(houseIndex);
                 //If Collision is False, player can move
                 if (collisionOn == false) {
                     switch(direction) {
@@ -141,6 +143,13 @@ public class Player extends Entity {
         }
         super.gp.keyH.enter = false;
     }
+
+    public void interactHouse(int i) {
+            if (i != 999) {
+                System.out.println("Hitting House");
+            }
+    }
+
     public void changeSoil(int i) {
         if (i != 999) {
             String objectName = super.gp.obj[i].name;

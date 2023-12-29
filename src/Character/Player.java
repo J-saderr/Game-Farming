@@ -134,8 +134,12 @@ public class Player extends Entity {
     }
     public void interactNPC(int i){
         if(i != 999) {
-            System.out.println("Hitting a NPC");
+            if(super.gp.keyH.enter) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        super.gp.keyH.enter = false;
     }
     public void changeSoil(int i) {
         if (i != 999) {

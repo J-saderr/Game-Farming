@@ -30,6 +30,14 @@ public class KeyHandler implements KeyListener {
         if(gp.gameState == gp.titleState) {
             titleState(code);
         }
+        if(gp.gameState == gp.dialogueState){
+            dialogueState(code);
+        }
+    }
+    public void dialogueState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            enter = true;
+        }
     }
     public void playerState(int code) {
         if(code == KeyEvent.VK_W) {
@@ -52,9 +60,6 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
-        }
-        if (code == KeyEvent.VK_ENTER) {
-            enter = true;
         }
     }
     public void pauseState(int code){

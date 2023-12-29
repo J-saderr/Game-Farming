@@ -25,5 +25,17 @@ public class MerchantNPC extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setDialogue();
+    }
+    public void setDialogue() {
+        //DISPLAY TEXT IN MULTIPLE LINES -> \n
+        dialogues[0] = "sup bro?";
+        dialogues[1] = "muon j ?";
+        dialogues[2] = "mua hay ban ?";
+        dialogues[3] = "gudbai";
+    }
+    public void speak() {
+
+        super.speak();
     }
 }

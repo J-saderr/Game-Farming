@@ -28,6 +28,7 @@ public class UI {
     public int slotRow =0;
     public int commandNum = 0;
     BufferedImage energy, energybar0;
+    public String currentDialogue = "";
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -53,10 +54,30 @@ public class UI {
             drawPlayerEnergy();
             drawPauseScreen();
         }
+        if(gp.gameState == gp.dialogueState){
+            drawDialogueScreen();
+        }
         if (gp.gameState == gp.characterState) {
             drawPlayerEnergy();
             drawCharacterScreen();
             drawInventory();
+        }
+    }
+    public void drawDialogueScreen()  {
+        //WINDOW
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize/2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
+        int height = gp.tileSize * 5;
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        //DISPLAY MULTIPLES LINES
+        for(String line: currentDialogue.split("\n")) {
+            g2.drawString(line,x,y);
+            y += 40;
         }
     }
     public void drawPlayerEnergy() {
@@ -65,17 +86,17 @@ public class UI {
         int i = 0;
 
 
-        g2.drawImage(energybar0, x-7, y-45, null);
+        g2.drawImage(energybar0, x-10, y-45, null);
 
         while (i < gp.player.maxLife) {
             g2.drawImage(energy, x, y, null);
             i++;
-            x += gp.tileSize/2.7;
+            x += gp.tileSize/2.1;
         }
     }
     public void drawTitleScreen() {
         // title-name
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
         String text = "<BetterFarming>";
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;

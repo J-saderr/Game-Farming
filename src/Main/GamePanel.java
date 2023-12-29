@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int worldHeight = tileSize * maxWorldRow;
     //tile
     public TileManager tileManager = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
     Thread gameThread;
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public int titleState = 0;
     public final int playerState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
     public final int characterState =4;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

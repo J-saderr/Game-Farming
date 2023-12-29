@@ -15,7 +15,6 @@ public class Collision {
         int entityRightCol = entityRightWorldX/gp.tileSize;
         int entityTopRow = entityTopWorldY/gp.tileSize;
         int entityBottomRow = entityBottomWorldY/gp.tileSize;
-        System.out.println("entityTopRow: " + entity.worldY +"entityBottomRow: " + entityBottomRow + ", entityLeftCol: " + entityLeftCol + ", entityRightCol: " + entityRightCol);
 
         int tileNum1, tileNum2;
 

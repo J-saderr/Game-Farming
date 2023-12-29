@@ -39,6 +39,8 @@ public class Entity {
     public int maxLife;
     public int life;
     public BufferedImage enbar, enbar0;
+    public String[] dialogues = new String[20];
+    int dialogueIndex = 0;
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -49,6 +51,28 @@ public class Entity {
             e.printStackTrace();
         }
         return image;
+    }
+    public void speak(){
+        if(dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
+        //MAKE NPC FACE TO PLAYER
+        switch (gp.player.direction){
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "right":
+                direction = "left";
+                break;
+            case "left":
+                direction = "right";
+                break;
+        }
     }
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

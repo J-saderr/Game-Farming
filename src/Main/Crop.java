@@ -1,5 +1,9 @@
 package Main;
 import Character.MerchantNPC;
+import Clock.Clock;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Crop implements MerchantPrice {
     private String cropName;
@@ -7,11 +11,17 @@ public class Crop implements MerchantPrice {
     private double sellPrice;
     private int daysToGrow;
     private int daysGrown;
+    private int currentDay;
+    public int worldX, worldY;
+
+    public BufferedImage image;
+    public GamePanel gp;
+
     public Crop(String name, double initPurchasePrice, double initSellPrice, int initDaysToGrow) {
         cropName = name;
         purchasePrice = initPurchasePrice;
         sellPrice = initSellPrice;
-        daysGrown = initDaysToGrow;
+        daysToGrow = initDaysToGrow;
     }
     public Crop(Crop crop) {
         cropName = crop.getName();
@@ -37,6 +47,16 @@ public class Crop implements MerchantPrice {
             daysGrown = daysToGrow;
         }
     }
+
+    public void setCurrentGrown() {
+        this.currentDay = Clock.getDay();
+    }
+    public void setDaysGrown() {
+        this.daysGrown = Clock.getDay();
+    }
+    public int getDaysPass() {
+        return currentDay - daysGrown;
+    }
     public double getPurchasePrice() {
         return purchasePrice;
     }
@@ -52,4 +72,24 @@ public class Crop implements MerchantPrice {
     public int getDaysLeftToGrow() {
         return daysToGrow - daysGrown;
     }
+
+    public int getDaysGrown(){
+        return daysGrown;
+    }
+
+    public void update(){
+    }
+
+    public void draw(Graphics2D g2,GamePanel gp){
+        int screenX = worldX - gp.player.worldX + gp.player.screenX + gp.tileSize/4; //15 is to move to center
+
+        int screenY = worldY - gp.player.worldY + gp.player.screenY + gp.tileSize/4;
+
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (image != null) {
+                g2.drawImage(image, screenX, screenY, gp.tileSize/2, gp.tileSize/2, null);
+            }
+        }
+    }
+
 }

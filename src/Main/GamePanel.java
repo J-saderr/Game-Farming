@@ -1,6 +1,10 @@
 package Main;
 
+import Clock.Clock;
 import ItemSystem.UI;
+import Object.Crop.Carrot;
+import Object.Crop.Potato;
+import Object.Crop.Spinach;
 import Tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
@@ -34,9 +38,14 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerY = 100;
     int playerSpeed = 10;
     public SuperObject[] obj = new SuperObject[30];
+    public Crop[] crops = new Crop[30];
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public Carrot carrot = new Carrot(this);
+    public Potato potato = new Potato(this);
+    public Spinach spinach = new Spinach(this);
     Sound sound = new Sound();
+    Clock clock = new Clock(this);
     public int gameState;
     public int titleState = 0;
     public final int playerState = 1;
@@ -51,6 +60,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void setupGame() {
         aSetter.setObject();
+        carrot.setCarrotImage();
+        potato.setPotatoImage();
+        spinach.setSpinachImage();
+
         gameState = titleState;
     }
     public void startGameThread() {
@@ -70,31 +83,44 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void run() {
 
         double drawInterval = (float) 1000000000 /fps;
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        long drawCount = 0;
+
 
         while (gameThread != null) { //update in4: char position and draw the screen with updated in4
-            update();
-            repaint();
 
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime)/drawInterval;
+            timer += currentTime - lastTime;
+            lastTime = currentTime;
+            if (delta >=1 ){
+                update();
+                if (timer >= 1000000000){
+                    //clock.increaseTime();
+                    drawCount =0;
+                    timer =0;
                 }
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
+                repaint();
+                delta--;
+                drawCount++;
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+
+
+
         }
     }
     public void update() {
         if (gameState == playerState) {
             player.update();
             tileManager.update();
+            carrot.update();
+            potato.update();
+            spinach.update();
+            clock.increaseTime();
         }
         if (gameState == pauseState) {
             //nothing
@@ -107,6 +133,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             ui.draw(g2);
         } else {
             tileManager.draw(g2); //draw tile before player
+            //draw crops:
+            for(int i = 0; i < crops.length; i++) {
+                if(crops[i] != null ) {
+                    crops[i].draw(g2, this);
+                }
+            }
             player.draw(g2);
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
@@ -114,6 +146,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                 }
             }
             ui.draw(g2);
+            clock.drawTime(g2);
             g2.setColor(Color.white);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
         }

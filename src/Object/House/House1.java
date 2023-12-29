@@ -1,6 +1,8 @@
 package Object.House;
+import Main.GamePanel;
 import Object.SuperObject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,4 +20,6 @@ public class House1 extends SuperObject { // Corrected class name
             e.printStackTrace();
         }
     }
+
+
 }

@@ -52,6 +52,7 @@ public class Farm {
         for(Crop crop: crops)
         {
             crop.grow();
+            //crop.setDaysGrown();
         }
     }
     public void tendSpecificCrops(String cropName, double daysToIncrease)

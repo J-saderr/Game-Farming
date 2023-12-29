@@ -90,7 +90,7 @@ public class Lighting {
 
     public void update() {
 
-        // setLightSource();
+        //setLightSource();
 
         // check-the-state-of-the-day
         if (dayState == day) {
@@ -138,8 +138,7 @@ public class Lighting {
         }
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(25F));
-        g2.drawString(situation, 900,700);
-
+        g2.drawString(situation, 650,550);
 
     }
 

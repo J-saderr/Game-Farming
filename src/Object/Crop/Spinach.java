@@ -42,28 +42,28 @@ public class Spinach extends Crop {
     }
     public void setSpinachImage() {
 
-        gp.crops[0] = new Spinach(gp);
-        gp.crops[0].worldX = 12 * gp.tileSize;
-        gp.crops[0].worldY = 10 * gp.tileSize;
+        gp.crops[2] = new Spinach(gp);
+        gp.crops[2].worldX = 12 * gp.tileSize;
+        gp.crops[2].worldY = 10 * gp.tileSize;
     }
 
     @Override
     public void update(){
         setCurrentGrown();
         if (super.getDaysPass() == 0){
-            gp.crops[0].image = Spinach_seed;
+            gp.crops[2].image = Spinach_seed;
         }
         if (super.getDaysPass() == 1)
         {
-            gp.crops[0].image = Spinach_sprout;
+            gp.crops[2].image = Spinach_sprout;
         }
         if (super.getDaysPass() == 2)
         {
-            gp.crops[0].image = Spinach_sapling;
+            gp.crops[2].image = Spinach_sapling;
         }
         if (super.getDaysPass() == 3)
         {
-            gp.crops[0].image = Spinach_mature;
+            gp.crops[2].image = Spinach_mature;
         }
     }
 }

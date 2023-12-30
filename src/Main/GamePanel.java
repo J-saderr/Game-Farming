@@ -99,7 +99,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             if (delta >=1 ){
                 update();
                 if (timer >= 1000000000){
-                    //clock.increaseTime();
+                    //noticed
+                    clock.increaseTime();
                     drawCount =0;
                     timer =0;
                 }
@@ -120,7 +121,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             carrot.update();
             potato.update();
             spinach.update();
-            clock.increaseTime();
+            // noticed
+            //clock.increaseTime();
         }
         if (gameState == pauseState) {
             //nothing

@@ -42,28 +42,28 @@ public class Potato extends Crop {
     }
     public void setPotatoImage() {
 
-        gp.crops[0] = new Potato(gp);
-        gp.crops[0].worldX = 11 * gp.tileSize;
-        gp.crops[0].worldY = 10 * gp.tileSize;
+        gp.crops[1] = new Potato(gp);
+        gp.crops[1].worldX = 11 * gp.tileSize;
+        gp.crops[1].worldY = 10 * gp.tileSize;
     }
 
     @Override
     public void update(){
         setCurrentGrown();
         if (super.getDaysPass() == 0){
-            gp.crops[0].image = Potato_seed;
+            gp.crops[1].image = Potato_seed;
         }
         if (super.getDaysPass() == 1)
         {
-            gp.crops[0].image = Potato_sprout;
+            gp.crops[1].image = Potato_sprout;
         }
         if (super.getDaysPass() == 2)
         {
-            gp.crops[0].image = Potato_sapling;
+            gp.crops[1].image = Potato_sapling;
         }
         if (super.getDaysPass() == 3)
         {
-            gp.crops[0].image = Potato_mature;
+            gp.crops[1].image = Potato_mature;
         }
     }
 }

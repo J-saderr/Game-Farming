@@ -29,6 +29,7 @@ public class UI {
     public int commandNum = 0;
     BufferedImage energy, energybar0;
     public String currentDialogue = "";
+    int counter = 0;
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -62,7 +63,35 @@ public class UI {
             drawCharacterScreen();
             drawInventory();
         }
+        if (gp.gameState == gp.sleepState) {
+            drawSleepScreen();
+            drawPlayerEnergy();
+        }
+        if (gp.gameState == gp.houseState) {
+            drawPlayerEnergy();
+            drawGoToSleep();
+        }
     }
+
+    private void drawSleepScreen() {
+        counter++;
+        if (counter < 120) {
+            gp.eManager.lighting.filterAlpha += 0.01f;
+            if (gp.eManager.lighting.filterAlpha > 1f) {
+                gp.eManager.lighting.filterAlpha = 1f;
+            }
+        }
+        if (counter >= 120) {
+            gp.eManager.lighting.filterAlpha -= 0.1f;
+            if (gp.eManager.lighting.filterAlpha <= 0f) {
+                gp.eManager.lighting.filterAlpha = 0f;
+                counter = 0;
+                gp.eManager.lighting.dayState = gp.eManager.lighting.day;
+                gp.gameState = gp.playerState;
+            }
+        }
+    }
+
     public void drawDialogueScreen()  {
         //WINDOW
         int x = gp.tileSize * 2;
@@ -88,11 +117,26 @@ public class UI {
 
         g2.drawImage(energybar0, x-10, y-45, null);
 
-        while (i < gp.player.maxLife) {
+        while (i < gp.player.life) {
             g2.drawImage(energy, x, y, null);
             i++;
             x += gp.tileSize/2.1;
         }
+    }
+    public void drawGoToSleep() {
+
+        //Description Frame
+        int dFrameX = gp.tileSize - 30 ;
+        int dFrameY = gp.tileSize + 20;
+        int dFrameWidth = gp.tileSize *6;
+        int dFrameHeight = gp.tileSize*3;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+        //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + 40;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.drawString("m mun t di ngu hok?", textX, textY);
     }
     public void drawTitleScreen() {
         // title-name

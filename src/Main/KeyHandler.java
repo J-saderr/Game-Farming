@@ -8,6 +8,7 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
 
     public boolean up, down, left, right, enter;
+    public boolean isSleeping = false;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
@@ -33,7 +34,26 @@ public class KeyHandler implements KeyListener {
         if(gp.gameState == gp.dialogueState){
             dialogueState(code);
         }
+        if (gp.gameState == gp.houseState){
+            houseState(code);
+        }
+        if (gp.gameState == gp.sleepState){
+            sleepState(code);
+        }
     }
+    public void houseState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            System.out.println("t di ngu");
+            gp.gameState = gp.sleepState;
+        }
+    }
+    public void sleepState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            System.out.println("t dang ngu");
+            gp.player.life = gp.player.maxLife;
+        }
+    }
+
     public void dialogueState(int code){
         if(code == KeyEvent.VK_ENTER) {
             enter = true;

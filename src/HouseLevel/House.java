@@ -12,11 +12,19 @@ import java.io.InputStream;
 public class House extends Entity {
     public House(GamePanel gp) {
         super(gp);
-        name = "House Level 1";
+        name = "House";
         collision = false;
         try {
             InputStream inputStream001 = new FileInputStream(new File("res/house/h1.png"));
-            image = ImageIO.read(inputStream001);
+            InputStream inputStream002 = new FileInputStream(new File("res/house/h2.png"));
+            InputStream inputStream003 = new FileInputStream(new File("res/house/h3.png"));
+            InputStream inputStream004 = new FileInputStream(new File("res/house/h4.png"));
+            InputStream inputStream005 = new FileInputStream(new File("res/house/h5.png"));
+            house1 = ImageIO.read(inputStream001);
+            house2 = ImageIO.read(inputStream002);
+            house3 = ImageIO.read(inputStream003);
+            house4 = ImageIO.read(inputStream004);
+            house5 = ImageIO.read(inputStream005);
         } catch (IOException e) {
             e.printStackTrace();
         }

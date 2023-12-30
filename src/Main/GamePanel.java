@@ -3,6 +3,7 @@ package Main;
 import Environment.EnvironmentManager;
 import ItemSystem.UI;
 import Tile.TileManager;
+import HouseLevel.Sleeping;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
+    public Sleeping sleeping = new Sleeping(this);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Entity npc[] = new Entity[1];
     public Entity house[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
-    EnvironmentManager eManager= new EnvironmentManager(this);
+    public EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     Sound sound = new Sound();
@@ -49,6 +51,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState =4;
+    public final int sleepState = 5;
+    public final int houseState = 6;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -125,11 +129,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                     npc[i].draw(g2,this);
                 }
             }
-            for (int i = 0; i < house.length; i++) {
-                if(house[i] != null) {
-                    house[i].drawHouse(g2,this);
-                }
-            }
+            house[0].drawHouse(g2, this);
+//            for (int i = 0; i < house.length; i++) {
+//                if(house[i] != null) {
+//                    house[i].drawHouse(g2,this);
+//                }
+//            }
             player.draw(g2);
             eManager.draw(g2);
             ui.draw(g2);

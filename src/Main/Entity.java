@@ -29,6 +29,7 @@ public class Entity {
     public int solidDefaultX = 0;
     public int solidDefaultY = 0;
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
+    public BufferedImage house1, house2, house3, house4, house5;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -90,7 +91,7 @@ public class Entity {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        g2.drawImage(image, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        g2.drawImage(house1, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
 //        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
 //                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
 //                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&

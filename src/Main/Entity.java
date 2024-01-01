@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import HouseLevel.House;
 
 public class Entity {
     public GamePanel gp;
@@ -40,7 +41,8 @@ public class Entity {
     //character-status
     public int maxLife;
     public int life;
-    public BufferedImage enbar, enbar0;
+    public int houseLevel;
+    public BufferedImage enbar, enbar0, moneybar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public BufferedImage setup (String imagePath) {
@@ -91,12 +93,18 @@ public class Entity {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        g2.drawImage(house1, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
-//        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-//                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-//                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-//                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-//            g2.drawImage(image, screenX, screenY, gp.tileSize*5, gp.tileSize*5, null);
-//        }
+        if (gp.houselv.houseLevel == 1) {
+            g2.drawImage(house1, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 2) {
+            g2.drawImage(house2, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 3) {
+            g2.drawImage(house3, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 4) {
+            g2.drawImage(house4, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 5) {
+            g2.drawImage(house5, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else  {
+            g2.drawImage(house5, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        }
     }
 }

@@ -2,7 +2,7 @@ package HouseLevel;
 
 import Main.Entity;
 import Main.GamePanel;
-
+import Main.KeyHandler;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,10 +10,17 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class House extends Entity {
+    public GamePanel gp;
+    KeyHandler keyH;
     public House(GamePanel gp) {
         super(gp);
-        name = "House";
+        this.keyH = keyH;
         collision = false;
+        houseLevel = 1;
+        getHouseImage();
+    }
+
+    private void getHouseImage() {
         try {
             InputStream inputStream001 = new FileInputStream(new File("res/house/h1.png"));
             InputStream inputStream002 = new FileInputStream(new File("res/house/h2.png"));
@@ -29,5 +36,8 @@ public class House extends Entity {
             e.printStackTrace();
         }
     }
+//    public void update() {
+//        houseLevel = 5;
+//    }
 }
 

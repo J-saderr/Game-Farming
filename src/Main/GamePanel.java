@@ -1,13 +1,14 @@
 package Main;
 
 import Environment.EnvironmentManager;
+import HouseLevel.House;
 import ItemSystem.UI;
 import Tile.TileManager;
 import HouseLevel.Sleeping;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
+import Money.*;
 import Character.*;
 
 
@@ -32,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
     public Sleeping sleeping = new Sleeping(this);
+    public House houselv = new House(this);
+    public Money money = new Money(this);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;
@@ -53,6 +56,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int characterState =4;
     public final int sleepState = 5;
     public final int houseState = 6;
+    public final int cannotUpdateState = 7;
+    public final int houselvState = 8;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -66,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         aSetter.setHouse();
         gameState = titleState;
         eManager.setUp();
+        money.setAmount();
 
     }
     public void startGameThread() {
@@ -107,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         if (gameState == playerState) {
             player.update();
             eManager.update();
+            //houselv.update();
         }
         if (gameState == pauseState) {
             //nothing

@@ -31,8 +31,6 @@ public class Sleeping {
         return hit;
     }
     public void housePower() {
-        if (gp.eManager.lighting.dayState == gp.eManager.lighting.night) {
-            gp.gameState = gp.houseState;
-        }
+        gp.gameState = gp.houseState;
     }
 }

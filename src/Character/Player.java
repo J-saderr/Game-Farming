@@ -50,6 +50,7 @@ public class Player extends Entity {
             maxLife = 5;
             life = 3;
 
+
         }
         public void setItems(){
             inventory.add(new WateringCan(gp));
@@ -157,12 +158,6 @@ public class Player extends Entity {
     public void interactHouse(int i) {
             if (i != 999) {
                 System.out.println("Hitting House");
-                if (super.gp.gameState == super.gp.sleepState) {
-                    if(super.gp.keyH.isSleeping) {
-                        System.out.println("t met qua ne");
-                        life = maxLife;
-                    }
-                }
             }
     }
 

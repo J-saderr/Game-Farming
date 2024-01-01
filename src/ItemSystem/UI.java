@@ -31,6 +31,7 @@ public class UI {
     public String currentDialogue = "";
     int counter = 0;
 
+
     public UI(GamePanel gp) {
         this.gp =gp;
         //Font chu trong game
@@ -69,75 +70,26 @@ public class UI {
         }
         if (gp.gameState == gp.houseState) {
             drawPlayerEnergy();
-            drawGoToSleep();
+            drawSleepOrUpdate();
+            if (!gp.keyH.canSleep) {drawCannotSleep();}
+        }
+        if (gp.gameState == gp.houselvState) {
+            drawPlayerEnergy();
+            drawYourHouseLevel();
+        }
+        if (gp.gameState == gp.cannotUpdateState) {
+            drawPlayerEnergy();
+            drawYourHouseLevel();
+            drawCannotUpdate();
         }
     }
-
-    private void drawSleepScreen() {
-        counter++;
-        if (counter < 120) {
-            gp.eManager.lighting.filterAlpha += 0.01f;
-            if (gp.eManager.lighting.filterAlpha > 1f) {
-                gp.eManager.lighting.filterAlpha = 1f;
-            }
-        }
-        if (counter >= 120) {
-            gp.eManager.lighting.filterAlpha -= 0.1f;
-            if (gp.eManager.lighting.filterAlpha <= 0f) {
-                gp.eManager.lighting.filterAlpha = 0f;
-                counter = 0;
-                gp.eManager.lighting.dayState = gp.eManager.lighting.day;
-                gp.gameState = gp.playerState;
-            }
-        }
+    public int getXforCenteredText ( String text) {
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth/2 - length/2;
+        return x;
     }
 
-    public void drawDialogueScreen()  {
-        //WINDOW
-        int x = gp.tileSize * 2;
-        int y = gp.tileSize/2;
-        int width = gp.screenWidth - (gp.tileSize * 4);
-        int height = gp.tileSize * 5;
-        drawSubWindow(x, y, width, height);
-
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32F));
-        x += gp.tileSize;
-        y += gp.tileSize;
-        //DISPLAY MULTIPLES LINES
-        for(String line: currentDialogue.split("\n")) {
-            g2.drawString(line,x,y);
-            y += 40;
-        }
-    }
-    public void drawPlayerEnergy() {
-        int x = gp.tileSize/2;
-        int y = gp.tileSize/2;
-        int i = 0;
-
-
-        g2.drawImage(energybar0, x-10, y-45, null);
-
-        while (i < gp.player.life) {
-            g2.drawImage(energy, x, y, null);
-            i++;
-            x += gp.tileSize/2.1;
-        }
-    }
-    public void drawGoToSleep() {
-
-        //Description Frame
-        int dFrameX = gp.tileSize - 30 ;
-        int dFrameY = gp.tileSize + 20;
-        int dFrameWidth = gp.tileSize *6;
-        int dFrameHeight = gp.tileSize*3;
-        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
-
-        //Draw description text
-        int textX = dFrameX + 20;
-        int textY = dFrameY + 40;
-        g2.setFont(g2.getFont().deriveFont(20F));
-        g2.drawString("m mun t di ngu hok?", textX, textY);
-    }
+    //title-screen
     public void drawTitleScreen() {
         // title-name
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
@@ -183,6 +135,145 @@ public class UI {
             g2.drawString(">", x-gp.tileSize, y);
         }
     }
+    // paused-screen
+    public void drawPauseScreen() {
+        String text = "GAME PAUSE";
+        int x = getXforCenteredText(text);
+        int y = gp.screenHeight/2;
+        g2.drawString(text,x,y);
+    }
+
+    // house-and-sleep
+    public void drawSleepOrUpdate() {
+
+        //Description Frame
+        int dFrameX = gp.tileSize - 30 ;
+        int dFrameY = gp.tileSize + 20;
+        int dFrameWidth = gp.tileSize *6;
+        int dFrameHeight = gp.tileSize*3;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+        //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + 40;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.drawString("Choose an action:", textX, textY);
+        g2.drawString("1. Sleep (press Enter)", textX, textY+25);
+        g2.drawString("2. Update House (press U)", textX, textY+50);
+    }
+    private void drawSleepScreen() {
+        counter++;
+        if (counter < 120) {
+            gp.eManager.lighting.filterAlpha += 0.01f;
+            if (gp.eManager.lighting.filterAlpha > 1f) {
+                gp.eManager.lighting.filterAlpha = 1f;
+            }
+        }
+        if (counter >= 120) {
+            gp.eManager.lighting.filterAlpha -= 0.1f;
+            if (gp.eManager.lighting.filterAlpha <= 0f) {
+                gp.eManager.lighting.filterAlpha = 0f;
+                counter = 0;
+                gp.eManager.lighting.dayState = gp.eManager.lighting.day;
+                gp.gameState = gp.playerState;
+            }
+        }
+    }
+    public void drawCannotSleep() {
+
+        //Description Frame
+        int dFrameX = gp.tileSize - 30 ;
+        int dFrameY = gp.tileSize + 180;
+        int dFrameWidth = gp.tileSize *6;
+        int dFrameHeight = gp.tileSize*2;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+        //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + 40;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.drawString("Cannot sleep at day!", textX, textY);
+        g2.drawString("Press O to Exit", textX, textY+ 25);
+    }
+
+    public void drawCannotUpdate() {
+
+        //Description Frame
+        int dFrameX = gp.tileSize - 30 ;
+        int dFrameY = gp.tileSize + 200;
+        int dFrameWidth = gp.tileSize *6;
+        int dFrameHeight = gp.tileSize*2;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+        //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + 40;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.drawString("Not enough money", textX, textY);
+        g2.drawString("Press O to Exit", textX, textY+ 25);
+
+    }
+
+    public void drawYourHouseLevel() {
+        //Description Frame
+        int dFrameX = gp.tileSize - 30 ;
+        int dFrameY = gp.tileSize + 30;
+        int dFrameWidth = gp.tileSize *6 + 60;
+        int dFrameHeight = gp.tileSize*3 + 20;
+        drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
+
+        //Draw description text
+        int textX = dFrameX + 20;
+        int textY = dFrameY + 40;
+        g2.setFont(g2.getFont().deriveFont(20F));
+        if (gp.houselv.houseLevel < 6) {
+            g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
+            g2.drawString("Your money is " + gp.money.amount, textX, textY + 25);
+            g2.drawString("Press Enter to update House Level.", textX, textY + 50);
+            g2.drawString("Press O to Exit", textX, textY + 75);
+        } else {
+            g2.drawString("Your House Level is 5" , textX, textY);
+            g2.drawString("You've reached max level!", textX, textY + 25);
+            g2.drawString("Press O to Exit", textX, textY + 50);
+        }
+    }
+
+    // energy bar
+    public void drawPlayerEnergy() {
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+
+        g2.drawImage(energybar0, x-10, y-45, null);
+
+        while (i < gp.player.life) {
+            g2.drawImage(energy, x, y, null);
+            i++;
+            x += gp.tileSize/2.1;
+        }
+    }
+
+    // dialogues
+    public void drawDialogueScreen()  {
+        //WINDOW
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize/2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
+        int height = gp.tileSize * 5;
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32F));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        //DISPLAY MULTIPLES LINES
+        for(String line: currentDialogue.split("\n")) {
+            g2.drawString(line,x,y);
+            y += 40;
+        }
+    }
+
+    // inventory
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(164, 76, 69);
         g2.setColor(c);
@@ -259,18 +350,6 @@ public class UI {
         message = text;
         messageOn = true;
     }
-    //Display game paused
-    public void drawPauseScreen() {
-        String text = "GAME PAUSE";
-        int x = getXforCenteredText(text);
-        int y = gp.screenHeight/2;
-        g2.drawString(text,x,y);
-    }
 
-    public int getXforCenteredText ( String text) {
-        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth/2 - length/2;
-        return x;
-    }
 }
 

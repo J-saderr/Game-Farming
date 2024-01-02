@@ -8,7 +8,7 @@ public class Carrot extends Entity{
     public Carrot(GamePanel gp){
         super(gp);
         name = "Carrot";
-        //down1 = setup("res/Seed/Carrotseed");
+        down1 = setup("res/Seed/Carrotseed");
         description = "Carrot Seed";
     }
 }

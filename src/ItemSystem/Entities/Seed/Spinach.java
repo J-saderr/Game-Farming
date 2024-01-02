@@ -8,7 +8,7 @@ public class Spinach extends Entity{
     public Spinach(GamePanel gp){
         super(gp);
         name = "Spinach";
-        //down1 = setup("res/Seed/Spinachseed");
+        down1 = setup("res/Seed/Spinachseed");
         description = "Spinach Seed";
     }
 }

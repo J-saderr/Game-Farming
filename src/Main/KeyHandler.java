@@ -2,7 +2,8 @@ package Main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import Character.*;
+
+import ItemSystem.*;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
@@ -33,10 +34,14 @@ public class KeyHandler implements KeyListener {
         if(gp.gameState == gp.dialogueState){
             dialogueState(code);
         }
+        if (gp.gameState == gp.tradeState) {
+            tradeState(code);
+        }
+
     }
     public void dialogueState(int code){
         if(code == KeyEvent.VK_ENTER) {
-            enter = true;
+            gp.gameState = gp.playerState;
         }
     }
     public void playerState(int code) {
@@ -61,6 +66,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
         }
+        if (code == KeyEvent.VK_ENTER){
+            enter = true;
+        }
     }
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
@@ -71,26 +79,7 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_C){
             gp.gameState = gp.characterState;
         }
-        if (code == KeyEvent.VK_W) {
-            if(gp.ui.slotRow != 0){
-                gp.ui.slotRow--;
-            }
-        }
-        if (code == KeyEvent.VK_A) {
-            if(gp.ui.slotCol != 0){
-                gp.ui.slotCol--;
-            }
-        }
-        if (code == KeyEvent.VK_S) {
-            if(gp.ui.slotRow != 3){
-                gp.ui.slotRow++;
-            }
-        }
-        if (code == KeyEvent.VK_D) {
-            if(gp.ui.slotCol != 4){
-                gp.ui.slotCol++;
-            }
-        }
+        playerInventory(code);
     }
     public void titleState(int code){
         if (gp.gameState == gp.titleState) {
@@ -119,6 +108,82 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+    public void tradeState(int code){
+        if (code == KeyEvent.VK_ENTER){
+            enter = true;
+        }
+        if(gp.ui.subState == 0) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+        }
+        if(gp.ui.subState == 1) {
+            npcInventory(code);
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.ui.subState = 0;
+            }
+        }
+        if(gp.ui.subState == 2){
+                playerInventory(code);
+                if(code == KeyEvent.VK_ESCAPE) {
+                    gp.ui.subState = 0;
+                }
+        }
+    }
+    public void playerInventory(int code){
+        if (code == KeyEvent.VK_W) {
+            if(gp.ui.playerSlotRow != 0){
+                gp.ui.playerSlotRow--;
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if(gp.ui.playerSlotCol != 0){
+                gp.ui.playerSlotCol--;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            if(gp.ui.playerSlotRow != 3){
+                gp.ui.playerSlotRow++;
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gp.ui.playerSlotCol != 4) {
+                gp.ui.playerSlotCol++;
+            }
+        }
+    }
+    public void npcInventory(int code){
+        if (code == KeyEvent.VK_W) {
+            if(gp.ui.npcSlotRow != 0){
+                gp.ui.npcSlotRow--;
+            }
+        }
+        if (code == KeyEvent.VK_A) {
+            if(gp.ui.npcSlotCol != 0){
+                gp.ui.npcSlotCol--;
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            if(gp.ui.npcSlotRow != 3){
+                gp.ui.npcSlotRow++;
+            }
+        }
+        if (code == KeyEvent.VK_D) {
+            if (gp.ui.npcSlotCol != 4) {
+                gp.ui.npcSlotCol++;
+            }
+        }
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();

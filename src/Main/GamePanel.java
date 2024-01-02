@@ -21,20 +21,19 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
+    public final int maxWorldCol = 30;
+    public final int maxWorldRow = 20;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
-    //tile
+    //GAME SYSTEM
     public TileManager tileManager = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
+    public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
     //set default position - coordinates of player
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 10;
+
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
@@ -48,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState =4;
+    public final int tradeState = 5;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -125,8 +125,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                 }
             }
             eManager.draw(g2);
-            ui.draw(g2);
             g2.setColor(Color.white);
+            ui.draw(g2);
             g2.dispose(); // dispose of this graphics context and release any system resources that it is using -> to save memory
         }
     }

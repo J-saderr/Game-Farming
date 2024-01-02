@@ -7,11 +7,21 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Entity {
     public GamePanel gp;
     final int originalTileSize = 16; //16x16 tile
     final int scale = 4; //size of character = 16x3 - change later
+    //TYPE
+    public int type; //player = 0; npc = 1; plants = 2; tools = ...
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_plants = 2;
+    //attributes
+    public int money;
+    public int price;
+
     public final int tileSize = originalTileSize * scale;
     public Entity(GamePanel gp){
         this.gp= gp;
@@ -35,6 +45,8 @@ public class Entity {
     public Entity currentTool;
     // Item attribute
     public String description = "";
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     //character-status
     public int maxLife;
     public int life;

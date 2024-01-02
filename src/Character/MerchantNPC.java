@@ -1,5 +1,8 @@
 package Character;
 
+import ItemSystem.Entities.Seed.Carrot;
+import ItemSystem.Entities.Seed.Potato;
+import ItemSystem.Entities.Seed.Spinach;
 import Main.*;
 
 import javax.imageio.ImageIO;
@@ -11,12 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MerchantNPC extends Entity {
-    private BufferedImage npc1;
-    public BufferedImage npc2;
 
     public MerchantNPC(GamePanel gp) {
         super(gp);
         speed = 0;
+        type = type_npc;
         direction = "down";
         collision= false;
         try {
@@ -26,16 +28,20 @@ public class MerchantNPC extends Entity {
             e.printStackTrace();
         }
         setDialogue();
+        setItems();
     }
     public void setDialogue() {
         //DISPLAY TEXT IN MULTIPLE LINES -> \n
         dialogues[0] = "sup bro?";
-        dialogues[1] = "muon j ?";
-        dialogues[2] = "mua hay ban ?";
-        dialogues[3] = "gudbai";
     }
     public void speak() {
-
         super.speak();
+        gp.gameState = gp.tradeState;
+        gp.ui.npc = this;
+    }
+    public void setItems(){
+        inventory.add(new Carrot(gp));
+        inventory.add(new Potato(gp));
+        inventory.add(new Spinach(gp));
     }
 }

@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class Player extends Entity {
         public GamePanel gp;
         KeyHandler keyH;
-        private BufferedImage upload;
         public final int screenX;
         public final int screenY;
         int hasSoil = 0;
@@ -38,6 +37,7 @@ public class Player extends Entity {
             setDefault();
             getPlayerImage();
             setItems();
+            //selectItem();
         }
         public void setDefault() {
             worldX = super.gp.tileSize * 5;
@@ -48,6 +48,7 @@ public class Player extends Entity {
             //player-status
             maxLife = 5;
             life = maxLife;
+            money = 500;
 
         }
         public void setItems(){
@@ -108,10 +109,14 @@ public class Player extends Entity {
                 //Check Object Collision
                 int objIndex = super.gp.collision.checkObject(this, true);
                 changeSoil(objIndex);
+                //Check NPC Collision
                 int npcIndex = super.gp.collision.checkEntity(this, super.gp.npc);
                 interactNPC(npcIndex);
+                //Check Event
+                super.gp.eHandler.checkEvent();
+                super.gp.keyH.enter = false;
                 //If Collision is False, player can move
-                if (collisionOn == false) {
+                if (!collisionOn) {
                     switch(direction) {
                         case "up": worldY -= speed; break;
                         case "down": worldY += speed; break;
@@ -139,8 +144,8 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
-        super.gp.keyH.enter = false;
     }
+
     public void changeSoil(int i) {
         if (i != 999) {
             String objectName = super.gp.obj[i].name;

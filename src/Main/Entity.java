@@ -31,6 +31,7 @@ public class Entity {
     public int solidDefaultY = 0;
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
     public BufferedImage house1, house2, house3, house4, house5;
+    public BufferedImage doUp1, doUp2, doRight1, doRight2, doDown1, doDown2, doLeft1, doLeft2;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -45,12 +46,30 @@ public class Entity {
     public BufferedImage enbar, enbar0, moneybar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
+    public int type;
+    public final int type_player =0;
+    public final int type_watercan =1;
+    public final int type_axe=2;
+    public final int type_hoe=3;
+    public boolean doing = false;
+
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(imagePath + ".png"));
             image = uTool.scaleImage(image, tileSize, tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+    public BufferedImage setuptool (String imagePath,int width, int height) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(imagePath + ".png"));
+            image = uTool.scaleImage(image, width,height);
         } catch (IOException e) {
             e.printStackTrace();
         }

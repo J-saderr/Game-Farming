@@ -296,6 +296,10 @@ public class UI {
         int slotY = slotYstart;
     // DRAW PLAYER'S ITEMS
         for(int i=0; i < gp.player.inventory.size(); i++) {
+            if(gp.player.inventory.get(i) == gp.player.currentTool){
+                g2.setColor(new Color(240,190,90));
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX += gp.tileSize;
             if (i ==4 || i == 9 || i == 14) {
@@ -303,6 +307,7 @@ public class UI {
                 slotY += gp.tileSize;
             }
         }
+
     // CURSOR
         int cursorX = slotXstart + (gp.tileSize * slotCol);
         int cursorY = slotYstart + (gp.tileSize * slotRow);

@@ -24,25 +24,25 @@ public class KeyHandler implements KeyListener {
         if(gp.gameState == gp.playerState) {
             playerState(code);
         }
-        if(gp.gameState == gp.pauseState) {
+        else if(gp.gameState == gp.pauseState) {
             pauseState(code);
         }
-        if(gp.gameState == gp.characterState) {
+        else if(gp.gameState == gp.characterState) {
             characterState(code);
         }
-        if(gp.gameState == gp.titleState) {
+        else if(gp.gameState == gp.titleState) {
             titleState(code);
         }
-        if(gp.gameState == gp.dialogueState){
+        else if(gp.gameState == gp.dialogueState){
             dialogueState(code);
         }
-        if (gp.gameState == gp.houseState){
+        else if (gp.gameState == gp.houseState){
             houseState(code);
         }
-        if (gp.gameState == gp.sleepState){
+        else if (gp.gameState == gp.sleepState){
             sleepState(code);
         }
-        if (gp.gameState == gp.houselvState){
+        else if (gp.gameState == gp.houselvState){
             houselvState(code);
         }
     }
@@ -87,7 +87,7 @@ public class KeyHandler implements KeyListener {
 
     public void dialogueState(int code){
         if(code == KeyEvent.VK_ENTER) {
-            enter = true;
+            gp.gameState = gp.playerState;
         }
     }
     public void playerState(int code) {
@@ -111,6 +111,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
+        }
+        if (code == KeyEvent.VK_ENTER){
+            enter = true;
         }
     }
     public void pauseState(int code){
@@ -141,6 +144,12 @@ public class KeyHandler implements KeyListener {
             if(gp.ui.slotCol != 4){
                 gp.ui.slotCol++;
             }
+        }
+        if (code == KeyEvent.VK_P) {
+            gp.gameState = gp.pauseState;
+        }
+        if(code == KeyEvent.VK_ENTER) {
+            gp.player.selectItem();
         }
     }
     public void titleState(int code){

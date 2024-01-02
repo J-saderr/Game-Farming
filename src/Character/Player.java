@@ -39,6 +39,7 @@ public class Player extends Entity {
             setDefault();
             getPlayerImage();
             setItems();
+            doingWorkImage();
         }
         public void setDefault() {
             worldX = super.gp.tileSize * 5;
@@ -49,8 +50,6 @@ public class Player extends Entity {
             //player-status
             maxLife = 5;
             life = 3;
-
-
         }
         public void setItems(){
             inventory.add(new WateringCan(gp));
@@ -91,8 +90,10 @@ public class Player extends Entity {
             }
         }
         public void update() {
-
-            if (keyH.up || keyH.down || keyH.right || keyH.left) {
+            if(doing == true){
+                doing();
+            }
+            else if (keyH.up || keyH.down || keyH.right || keyH.left || keyH.enter) {
                 if (keyH.up) {
                     direction = "up";
                 } else if (keyH.down) {
@@ -124,7 +125,7 @@ public class Player extends Entity {
 //                    life = maxLife;
 //                }
                 //If Collision is False, player can move
-                if (collisionOn == false) {
+                if (collisionOn == false && keyH.enter == false) {
                     switch(direction) {
                         case "up": worldY -= speed; break;
                         case "down": worldY += speed; break;
@@ -132,6 +133,7 @@ public class Player extends Entity {
                         case "right": worldX += speed; break;
                     }
                 }
+                super.gp.keyH.enter = false;
 
             spriteCounter++;
             if(spriteCounter > 12) {
@@ -145,14 +147,55 @@ public class Player extends Entity {
             }
         }
     }
-    public void interactNPC(int i){
-        if(i != 999) {
-            if(super.gp.keyH.enter) {
-                gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();
+    public void doingWorkImage(){
+        if(currentTool.type== type_watercan){
+            doRight1 = setuptool("res/Action/Watercan/water1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Watercan/water2",super.gp.tileSize,super.gp.tileSize);
+        }
+        if(currentTool.type== type_hoe){
+            doRight1 = setuptool("res/Action/Hoe/hoe1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Hoe/hoe2",super.gp.tileSize,super.gp.tileSize);
+        }
+        if(currentTool.type== type_axe){
+            doRight1 = setuptool("res/Action/Axe/axe1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Axe/axe2",super.gp.tileSize,super.gp.tileSize);
+        }
+    }
+    public void doing () {
+
+        spriteCounter++;
+        if (spriteCounter <= 5) {
+            spriteNum=1;
+        }
+        if(spriteCounter > 5 && spriteCounter <= 25) {
+            spriteNum = 2;
+        }
+        if (spriteCounter > 25) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            doing = false;
+        }
+    }
+    public void selectItem(){
+        int itemIndex = super.gp.ui.getItemIndexOnSlot();
+        if(itemIndex<inventory.size()){
+            Entity selectedItem = inventory.get(itemIndex);
+            if(selectedItem.type == type_watercan ||selectedItem.type == type_axe || selectedItem.type == type_hoe){
+                currentTool = selectedItem;
+                doingWorkImage();
             }
         }
-        super.gp.keyH.enter = false;
+    }
+    public void interactNPC(int i){
+        if(super.gp.keyH.enter == true){
+            if(i != 999) {
+                super.gp.gameState = super.gp.dialogueState;
+                super.gp.npc[i].speak();
+            }
+            else {
+                doing = true;
+            }
+        }
     }
 
     public void interactHouse(int i) {
@@ -181,48 +224,76 @@ public class Player extends Entity {
             if (direction != null) {
                 switch (direction) {
                     case "left":
-                        if(spriteNum == 1) {
-                            image = left1;
-                        }
-                        if(spriteNum == 2) {
-                            image = left2;
-                        }
-                        if(spriteNum == 3) {
-                            image = left3;
-                        }
+//                        if(doing == false){
+                            if(spriteNum == 1) {
+                                image = left1;
+                            }
+                            if(spriteNum == 2) {
+                                image = left2;
+                            }
+//                        }
+//                        if(doing == true){
+//                            if(spriteNum == 1) {
+//                                image = doLeft1;
+//                            }
+//                            if(spriteNum == 2) {
+//                                image = doLeft2;
+//                            }
+//                        }
                         break;
                     case "right":
-                        if(spriteNum == 1) {
-                            image = right1;
+                        if(doing == false){
+                            if(spriteNum == 1) {
+                                image = right1;
+                            }
+                            if(spriteNum == 2) {
+                                image = right2;
+                            }
                         }
-                        if(spriteNum == 2) {
-                            image = right2;
-                        }
-                        if(spriteNum == 3) {
-                            image = right3;
+                        if(doing == true){
+                            if(spriteNum == 1) {
+                                image = doRight1;
+                            }
+                            if(spriteNum == 2) {
+                                image = doRight2;
+                            }
                         }
                         break;
                     case "up":
-                        if(spriteNum == 1) {
-                            image = up1;
-                        }
-                        if(spriteNum == 2) {
-                            image = up2;
-                        }
-                        if(spriteNum == 3) {
-                            image = up3;
-                        }
+//                        if(doing == false){
+                            if(spriteNum == 1) {
+                                image = up1;
+                            }
+                            if(spriteNum == 2) {
+                                image = up2;
+                            }
+//                        }
+//                        if(doing == true){
+//                            if(spriteNum == 1) {
+//                                image = doUp1;
+//                            }
+//                            if(spriteNum == 2) {
+//                                image = doUp2;
+//                            }
+//                        }
                         break;
                     case "down":
-                        if(spriteNum == 1) {
-                            image = down1;
-                        }
-                        if(spriteNum == 2) {
-                            image = down2;
-                        }
-                        if(spriteNum == 3) {
-                            image = down3;
-                        }
+//                        if(doing == false){
+                            if(spriteNum == 1) {
+                                image = down1;
+                            }
+                            if(spriteNum == 2) {
+                                image = down2;
+                            }
+//                        }
+//                        if(doing == true){
+//                            if(spriteNum == 1) {
+//                                image = doDown1;
+//                            }
+//                            if(spriteNum == 2) {
+//                                image = doDown2;
+//                            }
+//                        }
                         break;
                 }
             }

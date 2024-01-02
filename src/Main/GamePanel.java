@@ -1,12 +1,14 @@
 package Main;
 
 import Environment.EnvironmentManager;
+import HouseLevel.House;
 import ItemSystem.UI;
 import Tile.TileManager;
+import HouseLevel.Sleeping;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
+import Money.*;
 import Character.*;
 
 
@@ -30,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
+    public Sleeping sleeping = new Sleeping(this);
+    public House houselv = new House(this);
+    public Money money = new Money(this);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;
@@ -37,8 +42,9 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerSpeed = 10;
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
+    public Entity house[] = new Entity[1];
     public AssetSetter aSetter = new AssetSetter(this);
-    EnvironmentManager eManager= new EnvironmentManager(this);
+    public EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     Sound sound = new Sound();
@@ -48,6 +54,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState =4;
+    public final int sleepState = 5;
+    public final int houseState = 6;
+    public final int cannotUpdateState = 7;
+    public final int houselvState = 8;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -58,8 +68,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setHouse();
         gameState = titleState;
         eManager.setUp();
+        money.setAmount();
 
     }
     public void startGameThread() {
@@ -101,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         if (gameState == playerState) {
             player.update();
             eManager.update();
+            //houselv.update();
         }
         if (gameState == pauseState) {
             //nothing
@@ -113,7 +126,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             ui.draw(g2);
         } else {
             tileManager.draw(g2); //draw tile before player
-            player.draw(g2);
             for(int i = 0; i < obj.length; i++) {
                 if(obj[i] != null) {
                     obj[i].draw(g2,this);
@@ -124,6 +136,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                     npc[i].draw(g2,this);
                 }
             }
+            house[0].drawHouse(g2, this);
+//            for (int i = 0; i < house.length; i++) {
+//                if(house[i] != null) {
+//                    house[i].drawHouse(g2,this);
+//                }
+//            }
+            player.draw(g2);
             eManager.draw(g2);
             ui.draw(g2);
             g2.setColor(Color.white);

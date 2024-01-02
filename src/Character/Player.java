@@ -8,6 +8,7 @@ import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
 import Object.*;
+import HouseLevel.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -47,7 +48,8 @@ public class Player extends Entity {
             currentTool = new WateringCan(gp);
             //player-status
             maxLife = 5;
-            life = maxLife;
+            life = 3;
+
 
         }
         public void setItems(){
@@ -110,6 +112,17 @@ public class Player extends Entity {
                 changeSoil(objIndex);
                 int npcIndex = super.gp.collision.checkEntity(this, super.gp.npc);
                 interactNPC(npcIndex);
+                int houseIndex = super.gp.collision.checkHouse(this, super.gp.house);
+                interactHouse(houseIndex);
+
+                //Check Sleep
+                super.gp.sleeping.checkSleep();
+
+//                // check-energy-recover
+//                if(super.gp.keyH.isSleeping) {
+//                    System.out.println("t met qua ne");
+//                    life = maxLife;
+//                }
                 //If Collision is False, player can move
                 if (collisionOn == false) {
                     switch(direction) {
@@ -141,6 +154,13 @@ public class Player extends Entity {
         }
         super.gp.keyH.enter = false;
     }
+
+    public void interactHouse(int i) {
+            if (i != 999) {
+                System.out.println("Hitting House");
+            }
+    }
+
     public void changeSoil(int i) {
         if (i != 999) {
             String objectName = super.gp.obj[i].name;

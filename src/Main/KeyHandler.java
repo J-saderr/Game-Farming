@@ -8,6 +8,9 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
 
     public boolean up, down, left, right, enter;
+    public boolean canSleep = true;
+    int counter;
+    int levelUpMoney = 0;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
@@ -33,7 +36,55 @@ public class KeyHandler implements KeyListener {
         if(gp.gameState == gp.dialogueState){
             dialogueState(code);
         }
+        if (gp.gameState == gp.houseState){
+            houseState(code);
+        }
+        if (gp.gameState == gp.sleepState){
+            sleepState(code);
+        }
+        if (gp.gameState == gp.houselvState){
+            houselvState(code);
+        }
     }
+
+    public void houselvState(int code) {
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.money.amount >= levelUpMoney) {
+                counter += 1;
+                levelUpMoney += 150;
+                System.out.println("tien de nang cap la " + levelUpMoney);
+                gp.houselv.houseLevel = gp.houselv.houseLevel +1;
+                System.out.println("level hien tai: " + gp.houselv.houseLevel);
+                if (counter < 5) {
+                    gp.money.amount = gp.money.amount - levelUpMoney;
+                } else {System.out.println("max level");}
+                System.out.println("con lai " + gp.money.amount);
+                System.out.println();
+            } else {
+                gp.gameState = gp.cannotUpdateState;
+            }
+        }
+    }
+
+    public void houseState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            if (gp.eManager.lighting.dayState == gp.eManager.lighting.night) {
+                //canSleep = true;
+                gp.gameState = gp.sleepState;
+            } else {
+                canSleep = false;
+            }
+        }
+        if(code == KeyEvent.VK_U) {
+            gp.gameState = gp.houselvState;
+        }
+    }
+    public void sleepState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            gp.player.life = gp.player.maxLife;
+        }
+    }
+
     public void dialogueState(int code){
         if(code == KeyEvent.VK_ENTER) {
             enter = true;

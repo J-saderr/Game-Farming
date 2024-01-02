@@ -168,4 +168,57 @@ public class Collision {
         }
         return index;
     }
+
+    public int checkHouse(Entity entity, Entity[] target){
+        int index = 999;
+        for(int i = 0; i < target.length; i++) {
+            if(target[i] != null) {
+                //get entity's solid area position
+                entity.solidAreaHouse.x = entity.worldX + entity.solidAreaDefaultX;
+                entity.solidAreaHouse.y = entity.worldY + entity.solidAreaDefaultY;
+                //get object's solid area position
+                target[i].solidAreaHouse.x = target[i].worldX + target[i].solidDefaultX;
+                target[i].solidAreaHouse.y = target[i].worldY + target[i].solidDefaultY;
+
+                switch (entity.direction) {
+
+                    case "up":
+                        entity.solidAreaHouse.y -= entity.speed;
+                        if (entity.solidAreaHouse.intersects(target[i].solidAreaHouse)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidAreaHouse.y += entity.speed;
+                        if (entity.solidAreaHouse.intersects(target[i].solidAreaHouse)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidAreaHouse.x -= entity.speed;
+                        if (entity.solidAreaHouse.intersects(target[i].solidAreaHouse)){
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidAreaHouse.x += entity.speed;
+                        if (entity.solidAreaHouse.intersects(target[i].solidAreaHouse)){
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+                //reloop for loop
+                entity.solidAreaHouse.x = entity.solidAreaDefaultX;
+                entity.solidAreaHouse.y = entity.solidAreaDefaultY;
+                target[i].solidAreaHouse.x = target[i].solidDefaultX;
+                target[i].solidAreaHouse.y = target[i].solidDefaultY;
+
+            }
+        }
+        return index;
+    }
 }

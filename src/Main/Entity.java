@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import HouseLevel.House;
 
 public class Entity {
     public GamePanel gp;
@@ -20,6 +21,7 @@ public class Entity {
     public int speed = 4;
     public BufferedImage image;
     public Rectangle solidArea = new Rectangle(8, 16, 32, 32);
+    public Rectangle solidAreaHouse = new Rectangle(250, 250, 250, 250);
     public boolean collisionOn = false;
 
     public boolean collision;
@@ -28,6 +30,7 @@ public class Entity {
     public int solidDefaultX = 0;
     public int solidDefaultY = 0;
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
+    public BufferedImage house1, house2, house3, house4, house5;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -38,7 +41,8 @@ public class Entity {
     //character-status
     public int maxLife;
     public int life;
-    public BufferedImage enbar, enbar0;
+    public int houseLevel;
+    public BufferedImage enbar, enbar0, moneybar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public BufferedImage setup (String imagePath) {
@@ -83,6 +87,24 @@ public class Entity {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        }
+    }
+    public void drawHouse(Graphics2D g2, GamePanel gp) {
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+        if (gp.houselv.houseLevel == 1) {
+            g2.drawImage(house1, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 2) {
+            g2.drawImage(house2, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 3) {
+            g2.drawImage(house3, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 4) {
+            g2.drawImage(house4, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else if (gp.houselv.houseLevel == 5) {
+            g2.drawImage(house5, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
+        } else  {
+            g2.drawImage(house5, screenX, screenY, gp.tileSize*6, gp.tileSize*6, null);
         }
     }
 }

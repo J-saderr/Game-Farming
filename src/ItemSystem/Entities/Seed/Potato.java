@@ -14,12 +14,7 @@ public class Potato extends Entity{
         super(gp);
         name = "Potato";
         price = 75;
-        try {
-            InputStream inputStream31 = new FileInputStream(new File("res/Seed/Potatoseed.png"));
-            image = ImageIO.read(inputStream31);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        down1 = setup("res/Seed/Potatoseed");
         description = "Potato Seed";
     }
 }

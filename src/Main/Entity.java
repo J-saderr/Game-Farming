@@ -21,6 +21,9 @@ public class Entity {
     //attributes
     public int money;
     public int price;
+    public Entity WateringCan;
+    public Entity Hoe;
+    public Entity Axe;
 
     public final int tileSize = originalTileSize * scale;
     public Entity(GamePanel gp){
@@ -43,11 +46,12 @@ public class Entity {
     public int spriteNum = 1;
     public String name;
     public Entity currentTool;
-    // Item attribute
+    //ITEM ATTRIBUTES
     public String description = "";
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
-    //character-status
+
+    //CHARACTER STATUS
     public int maxLife;
     public int life;
     public BufferedImage enbar, enbar0;

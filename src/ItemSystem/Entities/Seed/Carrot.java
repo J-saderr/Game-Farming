@@ -14,12 +14,7 @@ public class Carrot extends Entity{
         super(gp);
         name = "Carrot";
         price = 50;
-        try {
-            InputStream inputStream32 = new FileInputStream(new File("res/Seed/Carrotseed.png"));
-            image = ImageIO.read(inputStream32);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         description = "Carrot Seed";
+        down1 = setup("res/Seed/Carrotseed");
     }
 }

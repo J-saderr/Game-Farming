@@ -126,6 +126,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
+
         if(gp.ui.subState == 1) {
             npcInventory(code);
             if (code == KeyEvent.VK_ESCAPE) {
@@ -133,10 +134,10 @@ public class KeyHandler implements KeyListener {
             }
         }
         if(gp.ui.subState == 2){
-                playerInventory(code);
-                if(code == KeyEvent.VK_ESCAPE) {
-                    gp.ui.subState = 0;
-                }
+            playerInventory(code);
+            if(code == KeyEvent.VK_ESCAPE) {
+                gp.ui.subState = 0;
+            }
         }
     }
     public void playerInventory(int code){

@@ -4,7 +4,9 @@ import Clock.Clock;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import Character.Player;
 public class Crop implements MerchantPrice {
     private String cropName;
     private double purchasePrice;
@@ -12,6 +14,9 @@ public class Crop implements MerchantPrice {
     private int daysToGrow;
     private int daysGrown;
     private int currentDay;
+
+    public int[] waterDay = new int[30];
+    public int count = 0;
     public int worldX, worldY;
 
     public BufferedImage image;
@@ -30,6 +35,7 @@ public class Crop implements MerchantPrice {
         daysToGrow = crop.getDaysToGrow();
         daysGrown = 0;
     }
+
     public boolean canHarvest() {
         if (daysGrown >= daysToGrow) {
             return true;
@@ -53,8 +59,10 @@ public class Crop implements MerchantPrice {
     }
     public void setDaysGrown() {
         this.daysGrown = Clock.getDay();
+
     }
     public int getDaysPass() {
+
         return currentDay - daysGrown;
     }
     public double getPurchasePrice() {
@@ -77,7 +85,10 @@ public class Crop implements MerchantPrice {
         return daysGrown;
     }
 
-    public void update(){
+
+
+    public void update() {
+
     }
 
     public void draw(Graphics2D g2,GamePanel gp){

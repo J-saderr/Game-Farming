@@ -23,9 +23,9 @@ public class Clock {
     }
 
     public void increaseTime() {
-        if (hour == 23) {
+        if (hour == 23 & minute == 00) {
             day += 1;
-            hour = 0;
+            hour = 6;
         }
         else if (minute == 50) {
             hour += 1;

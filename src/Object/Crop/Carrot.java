@@ -47,23 +47,32 @@ public class Carrot extends Crop {
         gp.crops[0].worldY = 10 * gp.tileSize;
     }
 
-   @Override
-    public void update(){
-        setCurrentGrown();
-       if (super.getDaysPass() == 0){
-           gp.crops[0].image = Carrot_seed;
-       }
-       if (super.getDaysPass() == 1)
-       {
-           gp.crops[0].image = Carrot_sprout;
-       }
-       if (super.getDaysPass() == 2)
-       {
-           gp.crops[0].image = Carrot_sapling;
-       }
-       if (super.getDaysPass() == 3)
-       {
-           gp.crops[0].image = Carrot_mature;
-       }
+    public void checkWatering() {
+        for(int i = 0; i<=23; i++){
+            if(gp.obj[i].name == "wateredSoil"){
+                count += 1;
+                if (count == 1){
+                waterDay[i] += 1;}
+
+            }
+            count =0;
+        }
     }
+   @Override
+    public void update() {
+       setCurrentGrown();
+           if (waterDay[0] == 0) {
+               gp.crops[0].image = Carrot_seed;
+           }
+           if (waterDay[0] == 1  & gp.crops[0].image == Carrot_seed) {
+               gp.crops[0].image = Carrot_sprout;
+           }
+           if (waterDay[0] == 2 & gp.crops[0].image == Carrot_sprout) {
+               gp.crops[0].image = Carrot_sapling;
+           }
+           if (waterDay[0] == 3 & gp.crops[0].image == Carrot_sapling) {
+               gp.crops[0].image = Carrot_mature;
+           }
+
+   }
 }

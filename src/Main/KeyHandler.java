@@ -7,7 +7,7 @@ import Character.*;
 public class KeyHandler implements KeyListener {
     GamePanel gp;
 
-    public boolean up, down, left, right, enter;
+    public boolean up, down, left, right, enter, watering;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
@@ -56,6 +56,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             enter = true;
         }
+        if (code == KeyEvent.VK_E) {
+            watering = true;
+        }
+
     }
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
@@ -86,6 +90,12 @@ public class KeyHandler implements KeyListener {
                 gp.ui.slotCol++;
             }
         }
+        if (code == KeyEvent.VK_P) {
+            gp.gameState = gp.pauseState;
+        }
+        if(code == KeyEvent.VK_ENTER) {
+            gp.player.selectItem();
+        }
     }
     public void titleState(int code){
         if (gp.gameState == gp.titleState) {
@@ -114,6 +124,8 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+
+
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -132,6 +144,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
+        }
+        if (code == KeyEvent.VK_E){
+            watering = false;
         }
     }
 }

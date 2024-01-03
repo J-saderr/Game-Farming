@@ -4,8 +4,11 @@ import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
+import Object.Crop.Carrot;
 import Object.Soil.notWateredSoil;
-
+import Object.Soil.wateredSoil;
+import ItemSystem.Entities.Seed.*;
+import ItemSystem.Entities.Seed.Spinach;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import java.util.StringTokenizer;
+
 public class Player extends Entity {
     KeyHandler keyH;
     private BufferedImage upload;
@@ -23,9 +28,16 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public ArrayList<Entity> inventory = new ArrayList<>();
+    public ArrayList<Crop> inventoryForCrop = new ArrayList<>(64);
     public final int maxInventorySize = 20;
 
     private int playerPosition;
+    public Entity currentTool;
+    public Entity wateringCan;
+    public boolean isWater = false;
+    public boolean soilWater = false;
+    wateredSoil wateredsoil = new wateredSoil();
+    notWateredSoil notWateredSoil = new notWateredSoil();
 
     public int[][] map = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -62,7 +74,8 @@ public class Player extends Entity {
         setDefault();
         getPlayerImage();
         setItems();
-
+        doingWorkImage();
+        //selectItem();
         playerName = name;
     }
 
@@ -75,7 +88,8 @@ public class Player extends Entity {
         worldY = super.gp.tileSize * 5;
         speed = 4;
         direction = "down";
-        currentTool = new WateringCan(gp);
+        wateringCan = new WateringCan(gp);
+        currentTool = wateringCan;
 
     }
 
@@ -83,6 +97,14 @@ public class Player extends Entity {
         inventory.add(new WateringCan(gp));
         inventory.add(new Hoe(gp));
         inventory.add(new Axe(gp));
+        //inventory.add(new Carrot(gp));
+        inventory.add(new Potato(gp));
+        inventory.add(new Spinach(gp));
+    }
+
+    public void getItems(){
+        // Button
+        // check inventory
     }
 
     public void getPlayerImage() {
@@ -116,15 +138,22 @@ public class Player extends Entity {
         }
     }
 
-    public int getPlayerPosition() {
-        return playerPosition;
+    public int getPlayerXPosition() {
+
+        return screenX;
+    }
+    public int getPlayerYPosition(){
+        return screenY;
     }
 
     ;
 
     public void update() {
+        if (doing) {
+            doing();
+        }
 
-        if (keyH.up || keyH.down || keyH.right || keyH.left) {
+        if (keyH.up || keyH.down || keyH.right || keyH.left || keyH.enter) {
             if (keyH.up) {
                 direction = "up";
             } else if (keyH.down) {
@@ -135,13 +164,15 @@ public class Player extends Entity {
                 direction = "right";
             }
 
+
             //Check Tile Collision
             collisionOn = false;
             super.gp.collision.checkTile(this);
 
             //Check Object Collision
             int objIndex = super.gp.collision.checkObject(this, true);
-                changeSoil(objIndex);
+            changeSoil(objIndex);
+            WateringSoil(objIndex);
             //If Collision is False, player can move
             if (!collisionOn) {
                 switch (direction) {
@@ -170,6 +201,47 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        isWater = false;
+        Watering();
+    }
+    public void doingWorkImage(){
+        if(currentTool.type== type_watercan){
+            doRight1 = setuptool("res/Action/Watercan/water1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Watercan/water2",super.gp.tileSize,super.gp.tileSize);
+        }
+        if(currentTool.type== type_hoe){
+            doRight1 = setuptool("res/Action/Hoe/hoe1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Hoe/hoe2",super.gp.tileSize,super.gp.tileSize);
+        }
+        if(currentTool.type== type_axe){
+            doRight1 = setuptool("res/Action/Axe/axe1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Axe/axe2",super.gp.tileSize,super.gp.tileSize);
+        }
+    }
+    public void doing () {
+
+        spriteCounter++;
+        if (spriteCounter <= 5) {
+            spriteNum=1;
+        }
+        if(spriteCounter > 5 && spriteCounter <= 25) {
+            spriteNum = 2;
+        }
+        if (spriteCounter > 25) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            doing = false;
+        }
+    }
+    public void selectItem(){
+        int itemIndex = super.gp.ui.getItemIndexOnSlot();
+        if(itemIndex<inventory.size()){
+            Entity selectedItem = inventory.get(itemIndex);
+            if(selectedItem.type == type_watercan ||selectedItem.type == type_axe || selectedItem.type == type_hoe){
+                currentTool = selectedItem;
+                doingWorkImage();
+            }
+        }
     }
 
         public void changeSoil(int i) {
@@ -178,13 +250,48 @@ public class Player extends Entity {
 
                 switch (objectName) {
                     case "Soil":
-                        gp.obj[i] = null;
+                        gp.obj[i].image = notWateredSoil.image;
                         break;
                     default:
                         System.out.println("exception");
                         break;
                 }
             }
+    }
+
+    public void Watering(){
+        // check button and tool
+        if (keyH.watering
+            & currentTool == wateringCan){
+        isWater = true;
+        }
+    }
+
+    public void WateringSoil(int i) {
+        //check if isWater = true and player stand on the soil that need to water
+        //THIS JUST EXAMPLE FOR THE COORDINATE OF THE SOIL
+        // getPlayerXPosition() == gp.obj[].worldX
+        if (isWater) {
+            if (i != 999) {
+                String objectName = gp.obj[i].name;
+
+                switch (objectName) {
+                    case "Soil":
+                        gp.obj[i].image = wateredsoil.image;
+                        gp.obj[i].name = "wateredSoil";
+                        break;
+                    default:
+                        System.out.println("exception");
+                        break;
+                }
+
+            }
+        }
+    }
+
+    public void plantCrop(Crop crop){
+        // if (crop == )
+
     }
     public void draw(Graphics2D g2) {
         //g2.setColor(Color.black);

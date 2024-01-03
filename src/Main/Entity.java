@@ -31,15 +31,31 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public String name;
-    public Entity currentTool;
     // Item attribute
     public String description = "";
+    public int type;
+    public final int type_watercan =1;
+    public final int type_axe=2;
+    public final int type_hoe=3;
+    public boolean doing = false;
+    public BufferedImage doUp1, doUp2, doRight1, doRight2, doDown1, doDown2, doLeft1, doLeft2;
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(imagePath + ".png"));
             image = uTool.scaleImage(image, tileSize, tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+    public BufferedImage setuptool (String imagePath,int width, int height) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(imagePath + ".png"));
+            image = uTool.scaleImage(image, width,height);
         } catch (IOException e) {
             e.printStackTrace();
         }

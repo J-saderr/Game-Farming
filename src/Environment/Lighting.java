@@ -5,6 +5,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
+import ItemSystem.UI;
 import Main.GamePanel;
 
 public class Lighting {
@@ -18,9 +22,21 @@ public class Lighting {
     public final int night = 2;
     public final int dawn = 3;
     public int dayState = day;
+    Font upheaval, minecraftia;
 
     public Lighting(GamePanel gp) {
         this.gp = gp;
+        //Font chu trong game
+        try {
+            InputStream is = getClass().getResourceAsStream("/font/Minecraftia-Regular.ttf");
+            minecraftia = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("/font/upheavtt.ttf");
+            upheaval = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         setLightSource();
     }
 
@@ -136,9 +152,14 @@ public class Lighting {
             case night: situation = "Night"; break;
             case dawn: situation = "Dawn"; break;
         }
-        g2.setColor(Color.WHITE);
-        g2.setFont(g2.getFont().deriveFont(25F));
-        g2.drawString(situation, 650,550);
+        Color c = new Color(164, 76, 69);
+        g2.setColor(c);
+        g2.setFont(upheaval);
+        g2.setFont(g2.getFont().deriveFont(20F));
+        g2.drawString(situation, 670,550);
+        c = new Color(243, 229, 215);
+        g2.setColor(c);
+        g2.drawString(situation, 671, 551);
 
     }
 

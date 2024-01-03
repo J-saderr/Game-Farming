@@ -71,6 +71,7 @@ public class KeyHandler implements KeyListener {
             if (gp.eManager.lighting.dayState == gp.eManager.lighting.night) {
                 //canSleep = true;
                 gp.gameState = gp.sleepState;
+                gp.player.life = gp.player.maxLife;
             } else {
                 canSleep = false;
             }

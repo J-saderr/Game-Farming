@@ -21,12 +21,9 @@ import java.util.ArrayList;
 public class Player extends Entity {
         public GamePanel gp;
         KeyHandler keyH;
-        private BufferedImage upload;
         public final int screenX;
         public final int screenY;
         int hasSoil = 0;
-        public ArrayList<Entity> inventory = new ArrayList<>();
-        public final int maxInventorySize = 20;
 
         public Player(GamePanel gp, KeyHandler keyH) {
             super(gp);
@@ -40,6 +37,7 @@ public class Player extends Entity {
             getPlayerImage();
             setItems();
             doingWorkImage();
+            //selectItem();
         }
         public void setDefault() {
             worldX = super.gp.tileSize * 5;
@@ -50,6 +48,7 @@ public class Player extends Entity {
             //player-status
             maxLife = 5;
             life = 3;
+            money = 500;
         }
         public void setItems(){
             inventory.add(new WateringCan(gp));
@@ -90,7 +89,7 @@ public class Player extends Entity {
             }
         }
         public void update() {
-            if(doing == true){
+            if(doing){
                 doing();
             }
             else if (keyH.up || keyH.down || keyH.right || keyH.left || keyH.enter) {
@@ -118,12 +117,9 @@ public class Player extends Entity {
 
                 //Check Sleep
                 super.gp.sleeping.checkSleep();
+                //Check Event
+                super.gp.eHandler.checkEvent();
 
-//                // check-energy-recover
-//                if(super.gp.keyH.isSleeping) {
-//                    System.out.println("t met qua ne");
-//                    life = maxLife;
-//                }
                 //If Collision is False, player can move
                 if (collisionOn == false && keyH.enter == false) {
                     switch(direction) {
@@ -177,7 +173,7 @@ public class Player extends Entity {
         }
     }
     public void selectItem(){
-        int itemIndex = super.gp.ui.getItemIndexOnSlot();
+        int itemIndex = super.gp.ui.getItemIndexOnSlot(super.gp.ui.playerSlotCol, super.gp.ui.playerSlotRow);
         if(itemIndex<inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
             if(selectedItem.type == type_watercan ||selectedItem.type == type_axe || selectedItem.type == type_hoe){
@@ -187,7 +183,7 @@ public class Player extends Entity {
         }
     }
     public void interactNPC(int i){
-        if(super.gp.keyH.enter == true){
+        if(super.gp.keyH.enter){
             if(i != 999) {
                 super.gp.gameState = super.gp.dialogueState;
                 super.gp.npc[i].speak();

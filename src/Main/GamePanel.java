@@ -30,11 +30,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     //tile
     public TileManager tileManager = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
+    public EventHandler eHandler = new EventHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
     public Sleeping sleeping = new Sleeping(this);
     public House houselv = new House(this);
-    public Money money = new Money(this);
+    public Money money = new Money();
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;
@@ -58,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int houseState = 6;
     public final int cannotUpdateState = 7;
     public final int houselvState = 8;
+    public final int tradeState = 9;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -71,8 +73,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         aSetter.setHouse();
         gameState = titleState;
         eManager.setUp();
-        money.setAmount();
-
     }
     public void startGameThread() {
         gameThread = new Thread(this);

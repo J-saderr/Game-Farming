@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import HouseLevel.House;
 
 public class Entity {
@@ -39,7 +41,10 @@ public class Entity {
     public Entity currentTool;
     // Item attribute
     public String description = "";
-    //character-status
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
+
+    //CHARACTER STATUS
     public int maxLife;
     public int life;
     public int houseLevel;
@@ -48,10 +53,14 @@ public class Entity {
     int dialogueIndex = 0;
     public int type;
     public final int type_player =0;
-    public final int type_watercan =1;
-    public final int type_axe=2;
-    public final int type_hoe=3;
+    public final int type_npc = 1;
+    public final int type_watercan =2;
+    public final int type_axe=3;
+    public final int type_hoe=4;
+    public final int type_plants = 5;
     public boolean doing = false;
+    public int price;
+    public int money;
 
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();

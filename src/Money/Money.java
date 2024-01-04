@@ -18,6 +18,7 @@ public class Money extends Entity {
         super(gp);
         getImage();
         setAmount(500);
+        System.out.println("hi");
     }
 
     public int getAmount() { return amount; }

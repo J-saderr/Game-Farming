@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import Energy.EnergyBar;
+import Money.Money;
 import Main.Entity;
 import Main.GamePanel;
 
@@ -17,21 +18,21 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial_40, arial_80B;
+    Font upheaval, minecraftia;
     public String message = "";
     public boolean messageOn = false;
     int messageCount = 0;
     public boolean gameFinished = false;
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("0.00");
+    public int slotCol =0;
+    public int slotRow =0;
     public int commandNum = 0;
-    BufferedImage energy, energybar0;
+    BufferedImage energy, energybar0, moneybar0;
     public String currentDialogue = "";
     int counter = 0;
     public int playerSlotCol =0;
     public int playerSlotRow =0;
-    public int slotCol =0;
-    public int slotRow =0;
     public int npcSlotCol =0;
     public int npcSlotRow =0;
     public int subState = 0;
@@ -40,50 +41,69 @@ public class UI {
     public UI(GamePanel gp) {
         this.gp =gp;
         //Font chu trong game
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
+        try {
+            InputStream is = getClass().getResourceAsStream("/font/Minecraftia-Regular.ttf");
+            minecraftia = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("/font/upheavtt.ttf");
+            upheaval = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Entity moneybar = new Money(gp);
         Entity energybar = new EnergyBar(gp);
         energy = energybar.enbar;
         energybar0 = energybar.enbar0;
+        moneybar0 = moneybar.monbar;
 
     }
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(arial_40);
+        g2.setFont(minecraftia);
         g2.setColor(Color.white);
         if (gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
         if (gp.gameState == gp.playerState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
         }
         if (gp.gameState == gp.pauseState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
             drawPauseScreen();
+
         }
         if(gp.gameState == gp.dialogueState){
             drawDialogueScreen();
         }
         if (gp.gameState == gp.characterState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
             drawCharacterScreen();
             drawInventory(gp.player,true);
         }
         if (gp.gameState == gp.sleepState) {
             drawSleepScreen();
             drawPlayerEnergy();
+            drawPlayerMoney();
         }
         if (gp.gameState == gp.houseState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
             drawSleepOrUpdate();
             if (!gp.keyH.canSleep) {drawCannotSleep();}
         }
         if (gp.gameState == gp.houselvState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
             drawYourHouseLevel();
         }
         if (gp.gameState == gp.cannotUpdateState) {
             drawPlayerEnergy();
+            drawPlayerMoney();
             drawYourHouseLevel();
             drawCannotUpdate();
         }
@@ -258,29 +278,63 @@ public class UI {
 
     //title-screen
     public void drawTitleScreen() {
+        int nup = 0;
+        int nleft = 0;
+        int nright = 0;
+        int ndown = 0;
+        while (nup < 15) {
+            g2.drawImage(gp.tileManager.tile[2].image, gp.tileSize * nup, -10, gp.tileSize * 3, gp.tileSize * 3, null);
+            nup = nup +3;
+        }
+        while (nleft < 15) {
+            g2.drawImage(gp.tileManager.tile[4].image, -10, gp.tileSize * nleft, gp.tileSize * 3, gp.tileSize * 3, null);
+            nleft = nleft +3;
+        }
+        while (nright < 15) {
+            g2.drawImage(gp.tileManager.tile[8].image, gp.tileSize * 12 + 50, gp.tileSize * nright, gp.tileSize * 3, gp.tileSize * 3, null);
+            nright = nright +3;
+        }
+        while (ndown < 15) {
+            g2.drawImage(gp.tileManager.tile[6].image, gp.tileSize * ndown, gp.tileSize * 9, gp.tileSize * 3, gp.tileSize * 3, null);
+            ndown = ndown +3;
+        }
+        g2.drawImage(gp.tileManager.tile[3].image, -10, 0, gp.tileSize * 3, gp.tileSize * 3, null);
+        g2.drawImage(gp.tileManager.tile[9].image, gp.tileSize * 12 + 50, 0, gp.tileSize * 3, gp.tileSize * 3, null);
+        g2.drawImage(gp.tileManager.tile[5].image, -10, gp.tileSize * 9, gp.tileSize * 3, gp.tileSize * 3, null);
+        g2.drawImage(gp.tileManager.tile[7].image, gp.tileSize * 12 + 50, gp.tileSize * 9, gp.tileSize * 3, gp.tileSize * 3, null);
         // title-name
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
-        String text = "<BetterFarming>";
+        g2.setFont(upheaval);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,65F));
+        String text = "BetterFarming";
         int x = getXforCenteredText(text);
-        int y = gp.tileSize * 3;
+        int y = gp.tileSize * 3 + 30;
         // shadow-color
-        g2.setColor(Color.BLACK);
-        g2.drawString(text, x+6, y+6);
+//        Color c = new Color(164, 76, 69);
+        Color d = new Color(55, 66, 44);
+        g2.setColor(d);
+        g2.drawString(text, x+4, y+4);
         // main-color
         g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
         // character-image
         x = gp.screenHeight/2 - (gp.tileSize*2)/2;
         y += gp.tileSize*2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
-        g2.drawImage(gp.player.up2, x + 200, y, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(gp.player.down1, x+45, y-70, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(gp.player.up2, x+130, y-70, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 12, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 10, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 11, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.tileManager.tile[19].image, x-120, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.houselv.house4, x-170, y-80, gp.tileSize*4, gp.tileSize*4, null);
+        //g2.drawImage(gp.houselv.house5, x+255, y+30, gp.tileSize*4, gp.tileSize*4, null);
+
 
         // menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
-
+        g2.setColor(Color.WHITE);
         text = "NEW GAME";
         x = getXforCenteredText(text);
-        y += gp.tileSize*3.5;
+        y += gp.tileSize*2;
         g2.drawString(text, x, y);
         if (commandNum == 0) {
             g2.drawString(">", x-gp.tileSize, y);
@@ -322,8 +376,8 @@ public class UI {
 
         //Draw description text
         int textX = dFrameX + 20;
-        int textY = dFrameY + 40;
-        g2.setFont(g2.getFont().deriveFont(20F));
+        int textY = dFrameY + 50;
+        g2.setFont(g2.getFont().deriveFont(15F));
         g2.drawString("Choose an action:", textX, textY);
         g2.drawString("1. Sleep (press Enter)", textX, textY+25);
         g2.drawString("2. Update House (press U)", textX, textY+50);
@@ -331,7 +385,7 @@ public class UI {
     private void drawSleepScreen() {
         counter++;
         if (counter < 120) {
-            gp.eManager.lighting.filterAlpha += 0.01f;
+            gp.eManager.lighting.filterAlpha += 0.1f;
             if (gp.eManager.lighting.filterAlpha > 1f) {
                 gp.eManager.lighting.filterAlpha = 1f;
             }
@@ -357,8 +411,8 @@ public class UI {
 
         //Draw description text
         int textX = dFrameX + 20;
-        int textY = dFrameY + 40;
-        g2.setFont(g2.getFont().deriveFont(20F));
+        int textY = dFrameY + 50;
+        g2.setFont(g2.getFont().deriveFont(15F));
         g2.drawString("Cannot sleep at day!", textX, textY);
         g2.drawString("Press O to Exit", textX, textY+ 25);
     }
@@ -374,8 +428,8 @@ public class UI {
 
         //Draw description text
         int textX = dFrameX + 20;
-        int textY = dFrameY + 40;
-        g2.setFont(g2.getFont().deriveFont(20F));
+        int textY = dFrameY + 50;
+        g2.setFont(g2.getFont().deriveFont(15F));
         g2.drawString("Not enough money", textX, textY);
         g2.drawString("Press O to Exit", textX, textY+ 25);
 
@@ -391,11 +445,11 @@ public class UI {
 
         //Draw description text
         int textX = dFrameX + 20;
-        int textY = dFrameY + 40;
-        g2.setFont(g2.getFont().deriveFont(20F));
+        int textY = dFrameY + 50;
+        g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Your money is " + gp.money.amount, textX, textY + 25);
+            g2.drawString("Your money is " + gp.player.money, textX, textY + 25);
             g2.drawString("Press Enter to update House Level.", textX, textY + 50);
             g2.drawString("Press O to Exit", textX, textY + 75);
         } else {
@@ -420,7 +474,20 @@ public class UI {
             x += gp.tileSize/2.1;
         }
     }
-
+    // money bar
+    public void drawPlayerMoney() {
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        g2.drawImage(moneybar0, x*26, y-45, null);
+        Color c = new Color(102, 55, 68);
+        g2.setColor(c);
+        g2.setFont(upheaval);
+        g2.setFont(g2.getFont().deriveFont(30F));
+        g2.drawString("" + gp.player.money, 668, 43);
+        Color d = new Color(164, 76, 69);
+        g2.setColor(d);
+        g2.drawString("" + gp.player.money, 670, 45);
+    }
     // dialogues
     public void drawDialogueScreen()  {
         //WINDOW
@@ -430,7 +497,7 @@ public class UI {
         int height = (int) (gp.tileSize * 1.5);
         drawSubWindow(x, y, width, height);
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,15F));
         x += gp.tileSize;
         y += gp.tileSize;
         //DISPLAY MULTIPLES LINES

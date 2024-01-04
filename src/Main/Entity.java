@@ -48,7 +48,7 @@ public class Entity {
     public int maxLife;
     public int life;
     public int houseLevel;
-    public BufferedImage enbar, enbar0, moneybar;
+    public BufferedImage enbar, enbar0, monbar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public int type;

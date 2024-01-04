@@ -126,16 +126,16 @@ public class KeyHandler implements KeyListener {
 
     public void houselvState(int code) {
         if (code == KeyEvent.VK_ENTER) {
-            if (gp.money.amount >= levelUpMoney) {
+            if (gp.player.money >= levelUpMoney) {
                 counter += 1;
                 levelUpMoney += 150;
                 System.out.println("tien de nang cap la " + levelUpMoney);
                 gp.houselv.houseLevel = gp.houselv.houseLevel +1;
                 System.out.println("level hien tai: " + gp.houselv.houseLevel);
                 if (counter < 5) {
-                    gp.money.amount = gp.money.amount - levelUpMoney;
+                    gp.player.money = gp.player.money - levelUpMoney;
                 } else {System.out.println("max level");}
-                System.out.println("con lai " + gp.money.amount);
+                System.out.println("con lai " + gp.player.money);
                 System.out.println();
             } else {
                 gp.gameState = gp.cannotUpdateState;

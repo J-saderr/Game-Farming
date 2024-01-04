@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Collision collision = new Collision(this);
     public Sleeping sleeping = new Sleeping(this);
     public House houselv = new House(this);
-    public Money money = new Money();
+    public Money money = new Money(this);
     Thread gameThread;
     //set default position - coordinates of player
     int playerX = 100;

@@ -162,13 +162,14 @@ public class UI {
         drawInventory(gp.player, false);
         //Draw npc inventory
         drawInventory(npc, true);
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Draw hint window
         int x = gp.tileSize * 5;
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 5;
         int height = gp.tileSize * 2;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-130,y-150);
 
         //Draw player money window
         x = gp.tileSize * 9;
@@ -176,7 +177,7 @@ public class UI {
         width = (int) (gp.tileSize * 5.5);
         height = gp.tileSize;
         drawSubWindow(x,y,width, height);
-        g2.drawString("Your money: " + gp.player.money, x+8, y+33);
+        g2.drawString("Your money: " + gp.player.money, x+20, y+39);
 
         //Draw price window
         int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
@@ -190,7 +191,7 @@ public class UI {
             int price = npc.inventory.get(itemIndex).price;
             String text = "" + price;
             x = getXforAlignToRightText(text, gp.tileSize * 8 - 28);
-            g2.drawString(text,x+10,y+35);
+            g2.drawString(text,x+5,y+40);
 
             //Buy an item
             if(gp.keyH.enter){
@@ -219,13 +220,14 @@ public class UI {
         drawInventory(gp.player, true);
         //Draw npc inventory
         drawInventory(npc, false);
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Draw hint window
         int x = gp.tileSize * 5;
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 5;
         int height = gp.tileSize * 2;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-130,y-150);
 
         //Draw player money window
         x = gp.tileSize * 9;
@@ -233,7 +235,7 @@ public class UI {
         width = (int) (gp.tileSize * 5.5);
         height = gp.tileSize;
         drawSubWindow(x,y,width, height);
-        g2.drawString("Your money: " + gp.player.money, x+8, y+33);
+        g2.drawString("Your money: " + gp.player.money, x+20, y+39);
 
         //Draw price window
         int itemIndex = getItemIndexOnSlot(playerSlotCol, playerSlotRow);
@@ -247,7 +249,7 @@ public class UI {
             int price = gp.player.inventory.get(itemIndex).price;
             String text = "" + price;
             x = getXforAlignToRightText(text, gp.tileSize * 8 - 28);
-            g2.drawString(text,x+10,y+35);
+            g2.drawString(text,x+5,y+40);
 
             //Sell an item
             if (gp.keyH.enter) {
@@ -366,7 +368,8 @@ public class UI {
 
     // house-and-sleep
     public void drawSleepOrUpdate() {
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
         int dFrameX = gp.tileSize - 30 ;
         int dFrameY = gp.tileSize + 20;
@@ -401,7 +404,8 @@ public class UI {
         }
     }
     public void drawCannotSleep() {
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
         int dFrameX = gp.tileSize - 30 ;
         int dFrameY = gp.tileSize + 180;
@@ -418,7 +422,8 @@ public class UI {
     }
 
     public void drawCannotUpdate() {
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
         int dFrameX = gp.tileSize - 30 ;
         int dFrameY = gp.tileSize + 200;
@@ -436,6 +441,8 @@ public class UI {
     }
 
     public void drawYourHouseLevel() {
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
         int dFrameX = gp.tileSize - 30 ;
         int dFrameY = gp.tileSize + 30;
@@ -449,8 +456,8 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Your money is " + gp.player.money, textX, textY + 25);
-            g2.drawString("Press Enter to update House Level.", textX, textY + 50);
+            g2.drawString("Press Enter to update your", textX, textY + 25);
+            g2.drawString("House Level.", textX, textY + 50);
             g2.drawString("Press O to Exit", textX, textY + 75);
         } else {
             g2.drawString("Your House Level is 5" , textX, textY);
@@ -574,9 +581,10 @@ public class UI {
         //drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
 
         //Draw description text
-            int textX = dFrameX + 20;
+            int textX = dFrameX + 30;
             int textY = dFrameY + gp.tileSize;
-            g2.setFont(g2.getFont().deriveFont(28F));
+            g2.setFont(minecraftia);
+            g2.setFont(g2.getFont().deriveFont(15F));
 
             int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
 

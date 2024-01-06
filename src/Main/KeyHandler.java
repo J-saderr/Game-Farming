@@ -2,36 +2,99 @@ package Main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import Character.*;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
 
-    public boolean up, down, left, right, enter, watering;
+    public boolean up, down, left, right, enter, doing,harvest;
+    public boolean canSleep = true;
+    int counter;
+    int levelUpMoney = 0;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode(); // return the int keyCode associated with the key in this event
         if(gp.gameState == gp.playerState) {
             playerState(code);
         }
-        if(gp.gameState == gp.pauseState) {
+        else if(gp.gameState == gp.pauseState) {
             pauseState(code);
         }
-        if(gp.gameState == gp.characterState) {
+        else if(gp.gameState == gp.characterState) {
             characterState(code);
         }
-        if(gp.gameState == gp.titleState) {
+        else if(gp.gameState == gp.titleState) {
             titleState(code);
         }
+        /*else if(gp.gameState == gp.dialogueState){
+            dialogueState(code);
+        }
+        else if (gp.gameState == gp.houseState){
+            houseState(code);
+        }
+        else if (gp.gameState == gp.sleepState){
+            sleepState(code);
+        }
+        else if (gp.gameState == gp.houselvState){
+            houselvState(code);
+        }*/
     }
+
+    /*public void houselvState(int code) {
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.money.amount >= levelUpMoney) {
+                counter += 1;
+                levelUpMoney += 150;
+                System.out.println("tien de nang cap la " + levelUpMoney);
+                gp.houselv.houseLevel = gp.houselv.houseLevel +1;
+                System.out.println("level hien tai: " + gp.houselv.houseLevel);
+                if (counter < 5) {
+                    gp.money.amount = gp.money.amount - levelUpMoney;
+                } else {System.out.println("max level");}
+                System.out.println("con lai " + gp.money.amount);
+                System.out.println();
+            } else {
+                gp.gameState = gp.cannotUpdateState;
+            }
+        }
+    }
+
+    public void houseState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            if (gp.eManager.lighting.dayState == gp.eManager.lighting.night) {
+                //canSleep = true;
+                gp.gameState = gp.sleepState;
+            } else {
+                canSleep = false;
+            }
+        }
+        if(code == KeyEvent.VK_U) {
+            gp.gameState = gp.houselvState;
+        }
+    }
+    public void sleepState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            gp.player.life = gp.player.maxLife;
+        }
+    }
+
+    public void dialogueState(int code){
+        if(code == KeyEvent.VK_ENTER) {
+            gp.gameState = gp.playerState;
+        }
+    } */
     public void playerState(int code) {
+        if (code == KeyEvent.VK_E){
+            doing = true;
+        }
+        if (code == KeyEvent.VK_F){
+            harvest = true;
+        }
         if(code == KeyEvent.VK_W) {
             up = true;
         }
@@ -53,13 +116,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
         }
-        if (code == KeyEvent.VK_ENTER) {
+        if (code == KeyEvent.VK_ENTER){
             enter = true;
         }
-        if (code == KeyEvent.VK_E) {
-            watering = true;
-        }
-
     }
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
@@ -114,7 +173,7 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
                     gp.gameState = gp.playerState;
-                    gp.playMusic(0);
+                    //gp.playMusic(0);
                 }
                 if (gp.ui.commandNum == 1) {
                 }
@@ -124,12 +183,16 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
+        if (code == KeyEvent.VK_E){
+            doing = false;
+        }
+        if (code == KeyEvent.VK_F){
+            harvest = false;
+        }
         if (code == KeyEvent.VK_W) {
             up = false;
         }
@@ -144,9 +207,6 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_O) {
             gp.gameState = gp.playerState;
-        }
-        if (code == KeyEvent.VK_E){
-            watering = false;
         }
     }
 }

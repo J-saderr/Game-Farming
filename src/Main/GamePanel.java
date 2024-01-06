@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int worldHeight = tileSize * maxWorldRow;
     //tile
     public TileManager tileManager = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public Player player = new Player(this, keyH);
     public Collision collision = new Collision(this);
     Thread gameThread;
@@ -39,13 +39,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerY = 100;
     int playerSpeed = 10;
     public SuperObject[] obj = new SuperObject[30];
-    public Crop[] crops = new Crop[30];
+    public Entity[] entities = new Entity[30];
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public Carrot carrot = new Carrot(this);
     public Potato potato = new Potato(this);
     public Spinach spinach = new Spinach(this);
-    Sound sound = new Sound();
+    //Sound sound = new Sound();
     Clock clock = new Clock(this);
     public int currentDay = 1;
     public int gameState;
@@ -63,37 +63,33 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void setupGame() {
         aSetter.setObject();
-        carrot.setCarrotImage();
-        potato.setPotatoImage();
-        spinach.setSpinachImage();
         currentDay = Clock.getDay();
-
         gameState = titleState;
     }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        playMusic(0);
+        //playMusic(0);
     }
     public void resetSoil(){
         if((Clock.getDay() - currentDay) == 1  ) {
             for(int i=0; i<=23 ; i++ ){
                 if(obj[i].name == "wateredSoil"){
                 obj[i].image = notWateredSoil.image;
-                obj[i].name = "Soil";
+                obj[i].name = "notWateredSoil";
                 }
             }
             currentDay = Clock.getDay();
         }
     }
-    public void playMusic(int i) {
+    /*public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
         sound.loop();
     }
     public void stopMusic() {
         sound.stop();
-    }
+    }*/
     @Override
     public void run() {
 
@@ -101,8 +97,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        long timer = 0;
         long drawCount = 0;
+        long timer = 0;
 
 
         while (gameThread != null) { //update in4: char position and draw the screen with updated in4
@@ -113,11 +109,22 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             lastTime = currentTime;
             if (delta >=1 ){
                 update();
-                if (timer >= 1000000000){
+                if (timer >= 100000000){
                     //noticed
                     clock.increaseTime();
-                    if (clock.getHour() == 23){
-                        carrot.checkWatering();
+                    if (clock.getHour() == 23 && clock.getMinute() == 40){
+                        for ( int i = 0 ; i<= 23; i++) {
+                            player.checkWatering(i);
+                            if(entities[i] != null) {
+                                if (entities[i].cropName == "Carrot") {
+                                    carrot.CarrotLogic(i);}
+                                if (entities[i].cropName == "Potato") {
+                                    potato.PotatoLogic(i);}
+                                if (entities[i].cropName == "Spinach") {
+                                    System.out.println("Spinach: " + i + entities[i].waterDay[i]);
+                                    spinach.SpinachLogic(i);}
+                            }
+                        }
                         }
                     drawCount =0;
                     timer =0;
@@ -136,22 +143,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         if (gameState == playerState) {
             player.update();
             tileManager.update();
-            for (int i = 0; i <= 23; i++) {
-                if (crops[i] != null)
-                {
-                String cropsName = crops[i].getName();
 
-                switch (cropsName) {
-                    case "Carrot":
-                        carrot.update();
-                    case "Potato":
-                        potato.update();
-                    case "Spinach":
-                        spinach.update();
-                }
-
-                }
-            }
 
             resetSoil();
             // noticed
@@ -174,9 +166,9 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                 }
             }
             //draw crops:
-            for(int i = 0; i < crops.length; i++) {
-                if(crops[i] != null ) {
-                    crops[i].draw(g2, this);
+            for(int i = 0; i < entities.length; i++) {
+                if(entities[i] != null ) {
+                    entities[i].draw(g2, this);
                 }
             }
             player.draw(g2);

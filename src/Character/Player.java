@@ -4,11 +4,8 @@ import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
-import Object.Crop.Carrot;
 import Object.Soil.notWateredSoil;
 import Object.Soil.wateredSoil;
-import ItemSystem.Entities.Seed.*;
-import ItemSystem.Entities.Seed.Spinach;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,18 +14,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
-import java.util.StringTokenizer;
+import Object.Crop.*;
+import Main.Entity;
 
 public class Player extends Entity {
     KeyHandler keyH;
     private BufferedImage upload;
+    private Carrot carrot = new Carrot(gp);
+    private CarrotMature carrotMature = new CarrotMature(gp);
+    private Potato potato = new Potato(gp);
+    private Spinach spinach = new Spinach(gp);
     private String playerName;
     private int playerDaysPassed;
-    public final int screenX;
-    public final int screenY;
+    public final int screenX ;
+    public final int screenY ;
     public ArrayList<Entity> inventory = new ArrayList<>();
-    public ArrayList<Crop> inventoryForCrop = new ArrayList<>(64);
     public final int maxInventorySize = 20;
 
     private int playerPosition;
@@ -38,31 +40,6 @@ public class Player extends Entity {
     public boolean soilWater = false;
     wateredSoil wateredsoil = new wateredSoil();
     notWateredSoil notWateredSoil = new notWateredSoil();
-
-    public int[][] map = {
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 1},
-            {1, 4, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 8, 1},
-            {1, 4, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 8, 1},
-            {1, 4, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 8, 1},
-            {1, 4, 0, 0, 10, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 14, 0, 0, 8, 1},
-            {1, 4, 0, 0, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 9, 24, 0, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 25, 24, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 19, 0, 0, 0, 0, 25, 24, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 22, 22, 22, 22, 22, 22, 0, 0, 0, 0, 20, 0, 0, 0, 25, 24, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 25, 25, 25, 25, 25, 25, 11, 13, 13, 13, 13, 13, 13, 13, 13, 15, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 25, 25, 25, 25, 25, 25, 10, 12, 12, 12, 12, 12, 12, 12, 7, 24, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 25, 25, 25, 25, 25, 25, 11, 13, 13, 13, 13, 13, 13, 13, 13, 15, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 23, 0, 0, 0, 25, 25, 25, 25, 25, 25, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 23, 0, 22, 22, 22, 22, 22, 22, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 18, 0, 8, 1},
-            {1, 4, 0, 17, 17, 0, 0, 0, 0, 0, 0, 20, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 8, 1},
-            {1, 4, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 18, 0, 8, 1},
-            {1, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    };
-
-
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
@@ -78,7 +55,6 @@ public class Player extends Entity {
         //selectItem();
         playerName = name;
     }
-
     public String getFarmerName() {
         return playerName;
     }
@@ -95,18 +71,12 @@ public class Player extends Entity {
 
     public void setItems() {
         inventory.add(new WateringCan(gp));
-        inventory.add(new Hoe(gp));
         inventory.add(new Axe(gp));
-        //inventory.add(new Carrot(gp));
+        inventory.add(new Hoe(gp));
+        inventory.add(new Carrot(gp));
         inventory.add(new Potato(gp));
         inventory.add(new Spinach(gp));
     }
-
-    public void getItems(){
-        // Button
-        // check inventory
-    }
-
     public void getPlayerImage() {
         try
                 (InputStream inputStream00 = new FileInputStream(new File("res/player/left1.png"));
@@ -153,7 +123,7 @@ public class Player extends Entity {
             doing();
         }
 
-        if (keyH.up || keyH.down || keyH.right || keyH.left || keyH.enter) {
+        else if (keyH.up || keyH.down || keyH.right || keyH.left || keyH.enter) {
             if (keyH.up) {
                 direction = "up";
             } else if (keyH.down) {
@@ -173,8 +143,10 @@ public class Player extends Entity {
             int objIndex = super.gp.collision.checkObject(this, true);
             changeSoil(objIndex);
             WateringSoil(objIndex);
+            interactNPC(objIndex);
+           // harvestCrop(objIndex);
             //If Collision is False, player can move
-            if (!collisionOn) {
+            if (!collisionOn && !keyH.enter) {
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -190,6 +162,7 @@ public class Player extends Entity {
                         break;
                 }
             }
+            super.gp.keyH.enter = false;
 
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -203,6 +176,8 @@ public class Player extends Entity {
         }
         isWater = false;
         Watering();
+        plantCrop();
+
     }
     public void doingWorkImage(){
         if(currentTool.type== type_watercan){
@@ -232,51 +207,58 @@ public class Player extends Entity {
             spriteCounter = 0;
             doing = false;
         }
+
     }
     public void selectItem(){
         int itemIndex = super.gp.ui.getItemIndexOnSlot();
         if(itemIndex<inventory.size()){
             Entity selectedItem = inventory.get(itemIndex);
-            if(selectedItem.type == type_watercan ||selectedItem.type == type_axe || selectedItem.type == type_hoe){
+            if(selectedItem.type == type_watercan ||selectedItem.type == type_axe || selectedItem.type == type_hoe || selectedItem.type == type_carrot || selectedItem.type == type_potato || selectedItem.type == type_spinach){
                 currentTool = selectedItem;
                 doingWorkImage();
             }
         }
     }
+    public void interactNPC(int i){
+        if(super.gp.keyH.doing){
+           /* if(i != 999) {
+                super.gp.gameState = super.gp.dialogueState;
+                super.gp.npc[i].speak();
+            }*/
+                doing = true;
+        }
+    }
 
-        public void changeSoil(int i) {
-            if (i != 999) {
-                String objectName = gp.obj[i].name;
+    public void changeSoil(int i) {
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
 
-                switch (objectName) {
-                    case "Soil":
+            switch (objectName) {
+                case "Soil":
+                    if (keyH.doing & currentTool.type == type_hoe){
+
                         gp.obj[i].image = notWateredSoil.image;
-                        break;
-                    default:
-                        System.out.println("exception");
-                        break;
-                }
+                        gp.obj[i].name = "notWateredSoil";
+                    }
+                    break;
             }
+        }
     }
 
     public void Watering(){
         // check button and tool
-        if (keyH.watering
-            & currentTool == wateringCan){
-        isWater = true;
+        if (keyH.doing & currentTool.type== type_watercan){
+            isWater = true;
         }
     }
 
     public void WateringSoil(int i) {
-        //check if isWater = true and player stand on the soil that need to water
-        //THIS JUST EXAMPLE FOR THE COORDINATE OF THE SOIL
-        // getPlayerXPosition() == gp.obj[].worldX
         if (isWater) {
             if (i != 999) {
                 String objectName = gp.obj[i].name;
 
                 switch (objectName) {
-                    case "Soil":
+                    case "notWateredSoil":
                         gp.obj[i].image = wateredsoil.image;
                         gp.obj[i].name = "wateredSoil";
                         break;
@@ -289,65 +271,182 @@ public class Player extends Entity {
         }
     }
 
-    public void plantCrop(Crop crop){
-        // if (crop == )
+    //check coordinate
+    public int getSoilX(int i) {
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "notWateredSoil","wateredSoil":
+                    return (gp.obj[i].worldX);
+                default:
+                    System.out.println("exception");
+                    break;
+            }
+
+        }
+        return 0;
+    }
+    public int getSoilY(int i) {
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "notWateredSoil", "wateredSoil":
+                    return (gp.obj[i].worldY);
+                default:
+                    System.out.println("exception");
+                    break;
+            }
+
+        }
+        return 0;
+    }
+
+    public void plantCrop() {
+
+        //Check Object Collision
+        int objIndex = super.gp.collision.checkObject(this, true);
+        //plant
+
+        if (currentTool.type == type_carrot & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
+            for (int i = 0; i <= 23; i++) {
+                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
+                    gp.entities[i] = new Carrot(gp);
+                    gp.entities[i].worldX = getSoilX(objIndex);
+                    gp.entities[i].worldY = getSoilY(objIndex);
+                    gp.entities[i].image = carrot.Carrot_seed;
+                    setCurrentGrown();
+
+                }
+        }
 
     }
-    public void draw(Graphics2D g2) {
-        //g2.setColor(Color.black);
-        //g2.dispose();
+        if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
+            for (int i = 0; i <= 23; i++) {
+                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)) {
+                    gp.entities[i] = new Potato(gp);
+                    gp.entities[i].worldX = getSoilX(objIndex);
+                    gp.entities[i].worldY = getSoilY(objIndex);
+                    gp.entities[i].image = potato.Potato_seed;
+                    setCurrentGrown();
 
-        BufferedImage image = null;
-        if (direction != null) {
-            switch (direction) {
-                case "left":
-                    if (spriteNum == 1) {
-                        image = left1;
+                }
+            }
+
+        }
+        if (currentTool.type == type_spinach & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
+            for (int i = 0; i <= 23; i++) {
+                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
+                    gp.entities[i] = new Spinach(gp);
+                    gp.entities[i].worldX = getSoilX(objIndex);
+                    gp.entities[i].worldY = getSoilY(objIndex);
+                    gp.entities[i].image = spinach.Spinach_seed;
+                    setCurrentGrown();
+
+                }
+            }
+
+        }
+
+}
+    public void checkWatering(int i) {
+            if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
+                count[i] += 1;
+                if (count[i] == 1){
+                   gp.entities[i].waterDay[i] += 1;}
+
+            }
+            count[i] = 0;
+    }
+    public void harvestCrop(int i) {
+        //Check Object Collision
+        if (i != 999 ){
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "notWateredSoil", "wateredSoil":
+                    if (gp.entities[i] != null) {
+                        if (gp.entities[i].image == carrot.Carrot_mature && keyH.harvest) {
+                            gp.obj[i].name = "notWateredSoil";
+                            gp.obj[i].image = notWateredSoil.image;
+                            gp.entities[i].waterDay[i] = 0;
+                            gp.entities[i].image = null;
+                            gp.entities[i] = null;
+                            carrotMature.quantities += 1;
+                            inventory.add(new CarrotMature(gp));
+                        }
                     }
-                    if (spriteNum == 2) {
-                        image = left2;
-                    }
-                    if (spriteNum == 3) {
-                        image = left3;
-                    }
-                    break;
-                case "right":
-                    if (spriteNum == 1) {
-                        image = right1;
-                    }
-                    if (spriteNum == 2) {
-                        image = right2;
-                    }
-                    if (spriteNum == 3) {
-                        image = right3;
-                    }
-                    break;
-                case "up":
-                    if (spriteNum == 1) {
-                        image = up1;
-                    }
-                    if (spriteNum == 2) {
-                        image = up2;
-                    }
-                    if (spriteNum == 3) {
-                        image = up3;
-                    }
-                    break;
-                case "down":
-                    if (spriteNum == 1) {
-                        image = down1;
-                    }
-                    if (spriteNum == 2) {
-                        image = down2;
-                    }
-                    if (spriteNum == 3) {
-                        image = down3;
-                    }
+
                     break;
             }
         }
-        if (image != null) {
-            g2.drawImage(image, screenX, screenY, super.gp.tileSize, super.gp.tileSize, null);
+
+
+    }
+public void draw(Graphics2D g2) {
+    //g2.setColor(Color.black);
+    //g2.dispose();
+
+    BufferedImage image = null;
+    if (direction != null) {
+        switch (direction) {
+            case "left":
+
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+                if (spriteNum == 3) {
+                    image = left3;
+                }
+                break;
+            case "right":
+                if(!doing){
+                    if(spriteNum == 1) {
+                        image = right1;
+                    }
+                    if(spriteNum == 2) {
+                        image = right2;
+                    }
+                }
+                if(doing){
+                    if(spriteNum == 1) {
+                        image = doRight1;
+                    }
+                    if(spriteNum == 2) {
+                        image = doRight2;
+                    }
+                }
+                break;
+            case "up":
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+                if (spriteNum == 3) {
+                    image = up3;
+                }
+                break;
+            case "down":
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+                if (spriteNum == 3) {
+                    image = down3;
+                }
+                break;
         }
     }
+    if (image != null) {
+        g2.drawImage(image, screenX, screenY, super.gp.tileSize, super.gp.tileSize, null);
+    }
+}
 }

@@ -1,6 +1,6 @@
 package Object.Crop;
 
-import Main.Crop;
+import Main.Entity;
 import Main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -9,18 +9,23 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import Character.Player;
+import Main.KeyHandler;
 
 
-public class Carrot extends Crop {
+public class Carrot extends Entity {
     private GamePanel gp;
 
-    private BufferedImage Carrot_seed, Carrot_sprout, Carrot_sapling , Carrot_mature;
+    public BufferedImage Carrot_seed, Carrot_sprout, Carrot_sapling , Carrot_mature;
     public Carrot(){
         super("Carrot", 10.0, 25.0, 4);
     }
     public Carrot(GamePanel gp) {
         super("Carrot", 10.0, 25.0, 4);
         this.gp = gp;
+        type = type_carrot;
+        down1 = setup("res/Seed/Carrotseed");
+        description = "Carrot Seed";
         getCarrotImage();
     }
 
@@ -40,39 +45,32 @@ public class Carrot extends Crop {
             e.printStackTrace();
         }
     }
-    public void setCarrotImage() {
-
-        gp.crops[0] = new Carrot(gp);
-        gp.crops[0].worldX = 10 * gp.tileSize;
-        gp.crops[0].worldY = 10 * gp.tileSize;
-    }
-
-    public void checkWatering() {
-        for(int i = 0; i<=23; i++){
-            if(gp.obj[i].name == "wateredSoil"){
-                count += 1;
-                if (count == 1){
-                waterDay[i] += 1;}
-
-            }
-            count =0;
+    public void CarrotLogic(int i){
+        if (gp.entities[i].waterDay[i] == 0) {
+            gp.entities[i].image = Carrot_seed;
+        }
+        if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Carrot_seed) {
+            gp.entities[i].image = Carrot_sprout;
+        }
+        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Carrot_seed){
+            gp.entities[i].waterDay[i] = 0;
+        }
+        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Carrot_sprout) {
+            gp.entities[i].image = Carrot_sapling;
+        }
+        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Carrot_sprout) {
+            gp.entities[i].waterDay[i] = 1;
+        }
+        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Carrot_sapling) {
+            gp.entities[i].image = Carrot_mature;
+        }
+        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Carrot_sapling){
+            gp.entities[i].waterDay[i] = 2;
         }
     }
    @Override
     public void update() {
-       setCurrentGrown();
-           if (waterDay[0] == 0) {
-               gp.crops[0].image = Carrot_seed;
-           }
-           if (waterDay[0] == 1  & gp.crops[0].image == Carrot_seed) {
-               gp.crops[0].image = Carrot_sprout;
-           }
-           if (waterDay[0] == 2 & gp.crops[0].image == Carrot_sprout) {
-               gp.crops[0].image = Carrot_sapling;
-           }
-           if (waterDay[0] == 3 & gp.crops[0].image == Carrot_sapling) {
-               gp.crops[0].image = Carrot_mature;
-           }
-
    }
+
+
 }

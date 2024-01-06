@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MerchantNPC extends Entity {
+/*public class MerchantNPC extends Entity {
     private BufferedImage npc1;
     public BufferedImage npc2;
     /**
      * The crops the store has for sale.
-     */
+
     private ArrayList<Crop> cropsForSale = new ArrayList<Crop>();
 
     public MerchantNPC(GamePanel gp) throws IOException {
@@ -36,7 +36,7 @@ public class MerchantNPC extends Entity {
      * Returns the cropsForSale ArrayList.
      * @return The cropsForSale.
      */
-    public ArrayList<Crop> getCropsForSale() {
+   /* public ArrayList<Crop> getCropsForSale() {
         return cropsForSale;
     }
     /**
@@ -44,7 +44,7 @@ public class MerchantNPC extends Entity {
      * @param index Index of crop to buy.
      * @return The Crop at specified <code>index</code>.
      */
-    public Crop buyCrops(int index) {
+   /* public Crop buyCrops(int index) {
         return cropsForSale.get(index);
     }
     public void getNPCImage() throws IOException {
@@ -64,4 +64,4 @@ public class MerchantNPC extends Entity {
             g2.drawImage(image, 150, 150, gp.tileSize, gp.tileSize, null);
         }
     }
-}
+} */

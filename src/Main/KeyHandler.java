@@ -48,6 +48,9 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+        else if (gp.gameState == gp.gameOverState) {
+            gameOverState(code);
+        }
     }
     public void tradeState(int code){
         if (code == KeyEvent.VK_ENTER){
@@ -204,6 +207,33 @@ public class KeyHandler implements KeyListener {
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
             gp.gameState = gp.pauseState;
+        }
+    }
+    public void gameOverState(int code){
+
+        if (gp.gameState == gp.gameOverState) {
+            if(code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 1;
+                }
+            }
+            if(code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    gp.gameState = gp.playerState;
+                    gp.reset();
+                    //gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 1) {
+                    System.exit(0);
+                }
+            }
         }
     }
     public void characterState(int code){

@@ -74,7 +74,6 @@ public class UI {
             drawPlayerEnergy();
             drawPlayerMoney();
             drawPauseScreen();
-
         }
         if(gp.gameState == gp.dialogueState){
             drawDialogueScreen();
@@ -109,9 +108,54 @@ public class UI {
         }
         if(gp.gameState == gp.tradeState){
             drawTradeScreen();
-
+        }
+        if(gp.gameState == gp.gameOverState){
+            drawGameOverScreen();
         }
     }
+
+    private void drawGameOverScreen() {
+        g2.setColor(new Color(0,0,1,50));
+        g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+        text = "Game Over";
+        //shadow
+        g2.setColor(Color.BLACK);
+        x = getXforCenteredText(text);
+        y = gp.tileSize*4;
+        g2.drawString(text, x, y);
+        //main
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x-4, y-4);
+
+        //retry
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+        text = "Retry";
+        x = getXforCenteredText(text);
+        y += gp.tileSize*4;
+        g2.drawString(text, x, y);
+
+        if (commandNum == 0) {
+            g2.drawString(">", x - 40, y);
+        }
+
+        //back to title screen
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+        text = "Quit";
+        x = getXforCenteredText(text);
+        y += 55;
+        g2.drawString(text, x, y);
+
+        if (commandNum == 1) {
+            g2.drawString(">", x - 40, y);
+        }
+
+    }
+
     //TRADE
     public void drawTradeScreen(){
         switch (subState){
@@ -456,8 +500,8 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Press Enter to update your", textX, textY + 25);
-            g2.drawString("House Level.", textX, textY + 50);
+            g2.drawString("Press Enter to update" + gp.player.money, textX, textY + 25);
+            g2.drawString("update House Level.", textX, textY + 50);
             g2.drawString("Press O to Exit", textX, textY + 75);
         } else {
             g2.drawString("Your House Level is 5" , textX, textY);

@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int cannotUpdateState = 7;
     public final int houselvState = 8;
     public final int tradeState = 9;
+    public final int gameOverState = 10;
     notWateredSoil notWateredSoil = new notWateredSoil();
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -83,8 +84,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         currentDay = Clock.getDay();
         aSetter.setNPC();
         aSetter.setHouse();
-        gameState = titleState;
         eManager.setUp();
+        gameState = titleState;
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -151,6 +152,15 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
 
             }
         }
+    }
+
+    public void reset() {
+        player.setDefault();
+        aSetter.setObject();
+        currentDay = Clock.getDay();
+        aSetter.setNPC();
+        aSetter.setHouse();
+        eManager.setUp();
     }
     public void update() {
         if (gameState == playerState) {

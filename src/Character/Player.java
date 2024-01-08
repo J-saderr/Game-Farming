@@ -163,6 +163,12 @@ public class Player extends Entity {
             WateringSoil();
             plantCrop();
 
+            if (life > maxLife) {
+                life = maxLife;
+            }
+            if (life == 0) {
+                gp.gameState = gp.gameOverState;
+            }
         }
     public void doingWorkImage(){
         if(currentTool.type== type_watercan){

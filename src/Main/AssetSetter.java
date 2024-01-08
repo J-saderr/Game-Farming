@@ -2,8 +2,7 @@ package Main;
 import Character.*;
 import HouseLevel.House;
 import Money.Money;
-import Object.Soil;
-import Object.notWateredSoil;
+import Object.Soil.*;
 
 public class AssetSetter {
     GamePanel gp;

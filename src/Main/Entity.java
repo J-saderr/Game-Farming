@@ -1,5 +1,6 @@
 package Main;
 
+import Clock.Clock;
 import ItemSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,7 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(8, 16, 32, 32);
     public Rectangle solidAreaHouse = new Rectangle(250, 250, 250, 250);
     public boolean collisionOn = false;
+    public int cropPeriod = 0;
 
     public boolean collision;
     public int solidAreaDefaultX = 0;
@@ -51,16 +53,91 @@ public class Entity {
     public BufferedImage enbar, enbar0, monbar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
+    public int quantities = 0;
     public int type;
     public final int type_player =0;
     public final int type_npc = 1;
     public final int type_watercan =2;
     public final int type_axe=3;
     public final int type_hoe=4;
-    public final int type_plants = 5;
     public boolean doing = false;
     public int price;
     public int money;
+    public String cropName;
+    private double purchasePrice;
+    private double sellPrice;
+    private int daysToGrow;
+    private int daysGrown;
+    private int currentDay;
+    public final int type_carrot = 5;
+    public final int type_carrot_mature = 45;
+    public final int type_potato = 6;
+    public final int type_potato_mature = 55;
+    public final int type_spinach = 7;
+    public final int type_spinach_mature = 65;
+    public int[] waterDay = new int[30];
+    public int[] count = new int[30];
+    public Entity(String name, double initPurchasePrice, double initSellPrice, int initDaysToGrow) {
+        cropName = name;
+        purchasePrice = initPurchasePrice;
+        sellPrice = initSellPrice;
+        daysToGrow = initDaysToGrow;
+    }
+    public Entity(Entity entity) {
+        cropName = entity.getName();
+        purchasePrice = entity.getPurchasePrice();
+        sellPrice = entity.getSellPrice();
+        daysToGrow = entity.getDaysToGrow();
+        daysGrown = 0;
+    }
+    public boolean canHarvest() {
+        if (daysGrown >= daysToGrow) {
+            return true;
+        }
+        return false;
+    }
+    public void grow() {
+        if (getDaysLeftToGrow() > 0) {
+            daysGrown++;
+        }
+    }
+    public void tend(double daysToIncrease) {
+        daysGrown += daysToIncrease;
+        if (getDaysLeftToGrow() < 0) {
+            daysGrown = daysToGrow;
+        }
+    }
+    public void setCurrentGrown() {
+        this.currentDay = Clock.getDay();
+    }
+    public void setDaysGrown() {
+        this.daysGrown = Clock.getDay();
+    }
+    public int getDaysPass() {
+
+        return currentDay - daysGrown;
+    }
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
+    public double getSellPrice() {
+        return sellPrice;
+    }
+    public String getName() {
+        return cropName;
+    }
+    public int getDaysToGrow() {
+        return daysToGrow;
+    }
+    public int getDaysLeftToGrow() {
+        return daysToGrow - daysGrown;
+    }
+    public int getDaysGrown(){
+        return daysGrown;
+    }
+    public void update() {
+
+    }
 
     public BufferedImage setup (String imagePath) {
         UtilityTool uTool = new UtilityTool();

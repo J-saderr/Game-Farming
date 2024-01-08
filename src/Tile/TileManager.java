@@ -45,7 +45,10 @@ public class TileManager {
              InputStream inputStream8 = new FileInputStream("res/Decor/8.png");
              InputStream inputStream9 = new FileInputStream("res/Decor/9.png");
              InputStream inputStream10 = new FileInputStream("res/Decor/10.png");
-             InputStream inputStream11 = new FileInputStream("res/Decor/11.png")) {
+             InputStream inputStream11 = new FileInputStream("res/Decor/11.png");
+             InputStream inputStream12 = new FileInputStream("res/Soil/notwateredsoil.png");
+
+        ) {
 
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(inputStream00);
@@ -130,6 +133,9 @@ public class TileManager {
             tile[24] = new Tile();
             tile[24].image = ImageIO.read(inputStream11);
 
+            tile[25] = new Tile();
+            tile[25].image = ImageIO.read(inputStream12);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,6 +170,33 @@ public class TileManager {
             e.printStackTrace();
         }
     }
+
+    public void update() {
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] != null) {
+                System.out.println(gp.obj[i].solidArea.x + " " + gp.obj[i].solidArea.y);
+                if (Map[gp.obj[i].solidArea.x][gp.obj[i].solidArea.y] == 25) {
+                    InputStream inputStream13 = null;
+                    try {
+                        inputStream13 = new FileInputStream("res/Soil/notwateredsoil.png");
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    try {
+                        tile[25].image = ImageIO.read(inputStream13);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+    }
+
+    public void changeSoil(){
+
+    }
+
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;
@@ -182,16 +215,16 @@ public class TileManager {
 
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            if(worldX + gp.tileSize> gp.player.worldX - gp.player.screenX &&
-                    worldX -gp.tileSize < gp.player.worldX + gp.player.screenX &&
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                    worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
+                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 if (tile[tileNum] != null && tile[tileNum].image != null) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
             }
             worldCol++;
-            if(worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }

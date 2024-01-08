@@ -1,17 +1,17 @@
-package Objects;
-import ItemSystem.UtilityTool;
+package Object;
 import Main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-public class SuperObjects {
-    public BufferedImage image, enbar, enbar0;
+public class SuperObject {
+    public BufferedImage image;
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
     public Rectangle solidArea = new Rectangle( 0, 0, 48, 48);
+    public int solidDefaultX = 0;
+    public int solidDefaultY = 0;
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
-    public UtilityTool uTool = new UtilityTool();
 
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -24,5 +24,4 @@ public class SuperObjects {
             }
         }
     }
-
 }

@@ -1,22 +1,21 @@
-package Object;
-
+package Object.Soil;
 import Main.Entity;
 import Main.GamePanel;
+import Object.SuperObject;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
+import javax.imageio.ImageIO;
 public class Soil extends Entity {
     public Soil(GamePanel gp) {
         super(gp);
         name = "Soil";
-        collision = true;
+        collision = false;
         try {
-            InputStream inputStream14 = new FileInputStream(new File("res/Soil/Water.png"));
-            image = ImageIO.read(inputStream14);
+            InputStream inputStream12 = new FileInputStream(new File("res/Soil/Soil.png"));
+            image = ImageIO.read(inputStream12);
         } catch (IOException e) {
             e.printStackTrace();
         }

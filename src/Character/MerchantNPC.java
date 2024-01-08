@@ -1,23 +1,27 @@
 package Character;
 
-import ItemSystem.Entities.Seed.Carrot;
-import ItemSystem.Entities.Seed.Potato;
-import ItemSystem.Entities.Seed.Spinach;
 import Main.*;
+import ItemSystem.Entities.Crop.Carrot;
+import ItemSystem.Entities.Crop.Potato;
+import ItemSystem.Entities.Crop.Spinach;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MerchantNPC extends Entity {
     private BufferedImage npc1;
     public BufferedImage npc2;
+    /**
+     * The crops the store has for sale.
+     */
+    private ArrayList<Crop> cropsForSale = new ArrayList<Crop>();
 
-    public MerchantNPC(GamePanel gp) {
+    public MerchantNPC(GamePanel gp){
         super(gp);
         speed = 0;
         type = type_npc;

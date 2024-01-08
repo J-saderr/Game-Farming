@@ -6,7 +6,8 @@ import Character.*;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
-    public boolean up, down, left, right, enter;
+
+    public boolean up, down, left, right, enter, doing,harvest;
     public boolean canSleep = true;
     int counter;
     int levelUpMoney = 0;
@@ -169,6 +170,12 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void playerState(int code) {
+        if (code == KeyEvent.VK_E){
+            doing = true;
+        }
+        if (code == KeyEvent.VK_G){
+            harvest = true;
+        }
         if(code == KeyEvent.VK_W) {
             up = true;
         }
@@ -238,7 +245,12 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-
+        if (code == KeyEvent.VK_E){
+            doing = true;
+        }
+        if (code == KeyEvent.VK_G){
+            harvest = true;
+        }
         if (code == KeyEvent.VK_W) {
             up = false;
         }

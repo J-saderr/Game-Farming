@@ -1,8 +1,12 @@
 package Main;
-
+import Clock.Clock;
 import Environment.EnvironmentManager;
 import HouseLevel.House;
 import ItemSystem.UI;
+import ItemSystem.Entities.Crop.Carrot;
+import ItemSystem.Entities.Crop.Potato;
+import ItemSystem.Entities.Crop.Spinach;
+import Object.Soil.notWateredSoil;
 import Tile.TileManager;
 import HouseLevel.Sleeping;
 import javax.swing.*;
@@ -41,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 10;
+    public Entity[] entities = new Entity[30];
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
     public Entity house[] = new Entity[1];
@@ -48,7 +53,12 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
+    public Carrot carrot = new Carrot(this);
+    public Potato potato = new Potato(this);
+    public Spinach spinach = new Spinach(this);
     Sound sound = new Sound();
+    Clock clock = new Clock(this);
+    public int currentDay = 1;
     public int gameState;
     public int titleState = 0;
     public final int playerState = 1;
@@ -60,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int cannotUpdateState = 7;
     public final int houselvState = 8;
     public final int tradeState = 9;
+    notWateredSoil notWateredSoil = new notWateredSoil();
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));
@@ -69,6 +80,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     }
     public void setupGame() {
         aSetter.setObject();
+        currentDay = Clock.getDay();
         aSetter.setNPC();
         aSetter.setHouse();
         gameState = titleState;
@@ -79,6 +91,17 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         gameThread.start();
         //playMusic(0);
     }
+    public void resetSoil(){
+        if((Clock.getDay() - currentDay) == 1  ) {
+            for(int i=0; i<=23 ; i++ ){
+                if(obj[i].name == "wateredSoil"){
+                obj[i].image = notWateredSoil.image;
+                obj[i].name = "notWateredSoil";
+                }
+            }
+            currentDay = Clock.getDay();
+        }
+    }
     public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
@@ -88,24 +111,44 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void run() {
 
         double drawInterval = (float) 1000000000 /fps;
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long drawCount = 0;
+        long timer = 0;
+
 
         while (gameThread != null) { //update in4: char position and draw the screen with updated in4
-            update();
-            repaint();
 
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime)/drawInterval;
+            timer += currentTime - lastTime;
+            lastTime = currentTime;
+            if (delta >=1 ){
+                update();
+                if (timer >= 100000000){
+                    //noticed
+                    clock.increaseTime();
+                    if (clock.getHour() == 23 && clock.getMinute() == 40){
+                        for ( int i = 0 ; i<= 23; i++) {
+                            player.checkWatering(i);
+                            if(entities[i] != null) {
+                                if (entities[i].cropName == "Carrot") {
+                                    carrot.CarrotLogic(i);}
+                                if (entities[i].cropName == "Potato") {
+                                    potato.PotatoLogic(i);}
+                                if (entities[i].cropName == "Spinach") {
+                                    spinach.SpinachLogic(i);}
+                            }
+                        }
+                        }
+                    drawCount =0;
+                    timer =0;
                 }
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
+                repaint();
+                delta--;
+                drawCount++;
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -113,7 +156,10 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         if (gameState == playerState) {
             player.update();
             eManager.update();
-            //houselv.update();
+            tileManager.update();
+            resetSoil();
+            // noticed
+            //clock.increaseTime();
         }
         if (gameState == pauseState) {
             //nothing
@@ -136,12 +182,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                     npc[i].draw(g2,this);
                 }
             }
+            //draw crops:
+            for(int i = 0; i < entities.length; i++) {
+                if(entities[i] != null ) {
+                    entities[i].draw(g2, this);
+                }
+            }
             house[0].drawHouse(g2, this);
-//            for (int i = 0; i < house.length; i++) {
-//                if(house[i] != null) {
-//                    house[i].drawHouse(g2,this);
-//                }
-//            }
             player.draw(g2);
             eManager.draw(g2);
             ui.draw(g2);

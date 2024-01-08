@@ -12,7 +12,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[26];
+        tile = new Tile[27];
         Map = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Map/Map.txt");
@@ -127,8 +127,8 @@ public class TileManager {
             tile[23] = new Tile();
             tile[23].image = ImageIO.read(inputStream9);
 
-            tile[25] = new Tile();
-            tile[25].image = ImageIO.read(inputStream10);
+            tile[26] = new Tile();
+            tile[26].image = ImageIO.read(inputStream10);
 
             tile[24] = new Tile();
             tile[24].image = ImageIO.read(inputStream11);

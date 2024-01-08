@@ -21,6 +21,7 @@ public class Entity implements MerchantPrice {
     public int speed ;
 
     public BufferedImage image;
+
     public Rectangle solidArea;
     public boolean collisionOn = false;
 
@@ -37,6 +38,7 @@ public class Entity implements MerchantPrice {
     public String name;
     // Item attribute
     public String description = "";
+    public int quantities = 0;
     public int type;
     public final int type_watercan = 1;
     public final int type_axe = 2;

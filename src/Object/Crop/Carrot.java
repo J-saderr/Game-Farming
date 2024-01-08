@@ -25,7 +25,7 @@ public class Carrot extends Entity {
         this.gp = gp;
         type = type_carrot;
         down1 = setup("res/Seed/Carrotseed");
-        description = "Carrot Seed";
+        description = "Carrot Seed x " + quantities;
         getCarrotImage();
     }
 
@@ -51,18 +51,21 @@ public class Carrot extends Entity {
         }
         if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Carrot_seed) {
             gp.entities[i].image = Carrot_sprout;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Carrot_seed){
             gp.entities[i].waterDay[i] = 0;
         }
         if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Carrot_sprout) {
             gp.entities[i].image = Carrot_sapling;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Carrot_sprout) {
             gp.entities[i].waterDay[i] = 1;
         }
         if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Carrot_sapling) {
             gp.entities[i].image = Carrot_mature;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Carrot_sapling){
             gp.entities[i].waterDay[i] = 2;
@@ -71,6 +74,7 @@ public class Carrot extends Entity {
    @Override
     public void update() {
    }
+
 
 
 }

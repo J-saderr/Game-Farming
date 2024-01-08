@@ -121,7 +121,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                                 if (entities[i].cropName == "Potato") {
                                     potato.PotatoLogic(i);}
                                 if (entities[i].cropName == "Spinach") {
-                                    System.out.println("Spinach: " + i + entities[i].waterDay[i]);
                                     spinach.SpinachLogic(i);}
                             }
                         }
@@ -143,8 +142,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         if (gameState == playerState) {
             player.update();
             tileManager.update();
-
-
             resetSoil();
             // noticed
             //clock.increaseTime();

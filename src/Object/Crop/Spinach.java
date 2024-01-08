@@ -50,18 +50,21 @@ public class Spinach extends Entity {
         }
         if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Spinach_seed) {
             gp.entities[i].image = Spinach_sprout;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Spinach_seed){
             gp.entities[i].waterDay[i] = 0;
         }
         if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Spinach_sprout) {
             gp.entities[i].image = Spinach_sapling;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Spinach_sprout) {
             gp.entities[i].waterDay[i] = 1;
         }
         if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Spinach_sapling) {
             gp.entities[i].image = Spinach_mature;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Spinach_sapling){
             gp.entities[i].waterDay[i] = 2;

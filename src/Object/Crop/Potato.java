@@ -48,20 +48,23 @@ public class Potato extends Entity {
         if (gp.entities[i].waterDay[i] == 0) {
         gp.entities[i].image = Potato_seed;
     }
-        if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Potato_seed) {
+        if (gp.entities[i].waterDay[i] == 1 & gp.entities[i].image == Potato_seed) {
             gp.entities[i].image = Potato_sprout;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Potato_seed){
             gp.entities[i].waterDay[i] = 0;
         }
         if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Potato_sprout) {
             gp.entities[i].image = Potato_sapling;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Potato_sprout) {
             gp.entities[i].waterDay[i] = 1;
         }
         if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Potato_sapling) {
             gp.entities[i].image = Potato_mature;
+            gp.entities[i].cropPeriod += 1;
         }
         if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Potato_sapling){
             gp.entities[i].waterDay[i] = 2;

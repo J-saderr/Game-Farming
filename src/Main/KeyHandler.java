@@ -92,7 +92,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E){
             doing = true;
         }
-        if (code == KeyEvent.VK_F){
+        if (code == KeyEvent.VK_G){
             harvest = true;
         }
         if(code == KeyEvent.VK_W) {
@@ -190,7 +190,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E){
             doing = false;
         }
-        if (code == KeyEvent.VK_F){
+        if (code == KeyEvent.VK_G){
             harvest = false;
         }
         if (code == KeyEvent.VK_W) {

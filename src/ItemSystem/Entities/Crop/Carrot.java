@@ -20,7 +20,7 @@ public class Carrot extends Entity {
         price = 50;
         type = type_carrot;
         down1 = setup("res/Seed/Carrotseed");
-        description = "Carrot Seed x " + quantities;
+        description = "Carrot Seed ";
         getCarrotImage();
     }
 

@@ -48,7 +48,7 @@ public class Player extends Entity {
             setItems();
             doingWorkImage();
             //selectItem();
-            setSeedQuantities(10);
+            setSeedQuantities(1);
         }
         public void setDefault() {
             worldX = super.gp.tileSize * 5;

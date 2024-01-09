@@ -124,7 +124,7 @@ public class Player extends Entity {
                 int objIndex = super.gp.collision.checkObject(this, true);
                 changeSoil(objIndex);
                 int npcIndex = super.gp.collision.checkEntity(this, super.gp.npc);
-                interactNPC(npcIndex);
+                interactSoil(npcIndex);
                 int houseIndex = super.gp.collision.checkHouse(this, super.gp.house);
                 interactHouse(houseIndex);
                 harvestCrop(objIndex);
@@ -184,8 +184,8 @@ public class Player extends Entity {
         }
 
     }
-
-    public void doing () {
+  
+    public void doing() {
 
         spriteCounter++;
         if (spriteCounter <= 5) {
@@ -210,18 +210,9 @@ public class Player extends Entity {
             }
         }
     }
-    public void interactNPC(int i){
+    public void interactSoil(int i){
         if(super.gp.keyH.doing){
-//            if(i != 999) {
-//                super.gp.gameState = super.gp.dialogueState;
-//                super.gp.npc[i].speak();
-//            }
-//            if(super.gp.keyH.doing){
-//                doing = true;
-//            }
-//            else {
                 doing = true;
-//            }
         }
     }
 

@@ -22,7 +22,6 @@ public class EnergyBar extends Entity {
             enbar = ImageIO.read(input);
             enbar0 = ImageIO.read(input0);
 
-            //uTool.scaleImage(image, 50, 50);
         } catch (IOException e) {
             e.printStackTrace();
         }

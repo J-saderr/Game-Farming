@@ -10,6 +10,8 @@ public class CarrotMature extends Carrot {
         price = 70;
         type = type_carrot_mature;
         down1 = setup("res/Plants/4");
-        description = "Carrot x " + super.quantities;
+        description = "Carrot";
+        stackable = true;
+
     }
 }

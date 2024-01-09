@@ -14,17 +14,17 @@ public class Spinach extends Entity {
     private GamePanel gp;
 
     public BufferedImage Spinach_seed, Spinach_sprout, Spinach_sapling , Spinach_mature;
-    public Spinach(){
-        super("Spinach", 15.0, 35.0, 4);
-    }
+
     public Spinach(GamePanel gp) {
-        super("Spinach", 15.0, 35.0, 4);
-        this.gp = gp;
+        super(gp);
+        name = "Spinach";
         type = type_spinach;
         price = 100;
+        daysToGrow = 4;
         down1 = setup("res/Seed/Spinachseed");
         description = "Spinach Seed";
         getSpinachImage();
+        stackable = true;
     }
 
 

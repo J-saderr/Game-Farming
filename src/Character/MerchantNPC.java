@@ -15,8 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MerchantNPC extends Entity {
-    private BufferedImage npc1;
-    public BufferedImage npc2;
     /**
      * The crops the store has for sale.
      */
@@ -39,7 +37,7 @@ public class MerchantNPC extends Entity {
     }
     public void setDialogue() {
         //DISPLAY TEXT IN MULTIPLE LINES -> \n
-        dialogues[0] = "sup bro?";
+        dialogues[0] = "Welcome to BetterFarming \nI'm Ms.Doxep. How can I help you ?";
     }
     public void speak() {
         super.speak();

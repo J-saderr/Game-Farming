@@ -14,6 +14,15 @@ public class Entity {
     public GamePanel gp;
     final int originalTileSize = 16; //16x16 tile
     final int scale = 4; //size of character = 16x3 - change later
+    //TYPE
+    public int type; //player = 0; npc = 1; plants = 2; tools = ...
+//    public final int type_player = 0;
+    public final int type_npc = 1;
+//    public final int type_plants = 2;
+    //attributes
+    public int money;
+    public int price;
+
     public final int tileSize = originalTileSize * scale;
     public Entity(GamePanel gp){
         this.gp= gp;
@@ -34,39 +43,32 @@ public class Entity {
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
     public BufferedImage house1, house2, house3, house4, house5;
     public BufferedImage doUp1, doUp2, doRight1, doRight2, doDown1, doDown2, doLeft1, doLeft2;
+    public BufferedImage enbar, enbar0, monbar, monicon;
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public String name;
-    public Entity currentTool;
     // Item attribute
     public String description = "";
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
+    public int quantities = 1;
+    public boolean stackable = false;
 
     //CHARACTER STATUS
     public int maxLife;
     public int life;
     public int houseLevel;
-    public BufferedImage enbar, enbar0, monbar;
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
-    public int quantities = 0;
-    public int type;
-    public final int type_player =0;
-    public final int type_npc = 1;
-    public final int type_watercan =2;
-    public final int type_axe=3;
-    public final int type_hoe=4;
     public boolean doing = false;
-    public int price;
-    public int money;
     public String cropName;
-    private double purchasePrice;
-    private double sellPrice;
-    private int daysToGrow;
+    public int daysToGrow;
     private int daysGrown;
     private int currentDay;
+    public final int type_axe=3;
+    public final int type_hoe=4;
+    public final int type_watercan = 2;
     public final int type_carrot = 5;
     public final int type_carrot_mature = 45;
     public final int type_potato = 6;
@@ -75,19 +77,20 @@ public class Entity {
     public final int type_spinach_mature = 65;
     public int[] waterDay = new int[30];
     public int[] count = new int[30];
-    public Entity(String name, double initPurchasePrice, double initSellPrice, int initDaysToGrow) {
-        cropName = name;
-        purchasePrice = initPurchasePrice;
-        sellPrice = initSellPrice;
-        daysToGrow = initDaysToGrow;
-    }
-    public Entity(Entity entity) {
-        cropName = entity.getName();
-        purchasePrice = entity.getPurchasePrice();
-        sellPrice = entity.getSellPrice();
-        daysToGrow = entity.getDaysToGrow();
-        daysGrown = 0;
-    }
+
+//    public Entity(int initDaysToGrow) {
+////        cropName = name;
+////        purchasePrice = initPurchasePrice;
+////        sellPrice = initSellPrice;
+//        daysToGrow = initDaysToGrow;
+//    }
+//    public Entity(Entity entity) {
+////        cropName = entity.getName();
+////        purchasePrice = entity.getPurchasePrice();
+////       sellPrice = entity.getSellPrice();
+//        daysToGrow = entity.getDaysToGrow();
+//        daysGrown = 0;
+//    }
     public boolean canHarvest() {
         if (daysGrown >= daysToGrow) {
             return true;
@@ -114,12 +117,6 @@ public class Entity {
     public int getDaysPass() {
 
         return currentDay - daysGrown;
-    }
-    public double getPurchasePrice() {
-        return purchasePrice;
-    }
-    public double getSellPrice() {
-        return sellPrice;
     }
     public String getName() {
         return cropName;

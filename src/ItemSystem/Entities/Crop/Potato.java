@@ -14,13 +14,15 @@ public class Potato extends Entity {
 
     public BufferedImage Potato_seed, Potato_sprout, Potato_sapling , Potato_mature;
     public Potato(GamePanel gp) {
-        super("Potato", 5.0, 20.0, 4);
-        this.gp = gp;
+        super(gp);
+        name = "Potato";
         type = type_potato;
-        price= 75;
+        price = 75;
+        daysToGrow = 5;
         down1 = setup("res/Seed/Potatoseed");
         description = "Potato Seed";
         getPotatoImage();
+        stackable = true;
     }
 
 

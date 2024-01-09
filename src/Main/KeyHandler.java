@@ -133,9 +133,10 @@ public class KeyHandler implements KeyListener {
             if (gp.player.money >= levelUpMoney) {
                 counter += 1;
                 levelUpMoney += 150;
-                gp.houselv.houseLevel = gp.houselv.houseLevel +1;
-                if (counter < 5) {
+
+                if (counter < 5 && gp.player.money >= levelUpMoney) {
                     gp.player.money = gp.player.money - levelUpMoney;
+                    gp.houselv.houseLevel = gp.houselv.houseLevel + 1;
                 }
             } else {
                 gp.gameState = gp.cannotUpdateState;

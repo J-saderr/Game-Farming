@@ -48,7 +48,7 @@ public class Player extends Entity {
             setItems();
             doingWorkImage();
             //selectItem();
-            setSeedQuantities(10);
+            setSeedQuantities(1);
         }
         public void setDefault() {
             worldX = super.gp.tileSize * 5;
@@ -309,19 +309,19 @@ public class Player extends Entity {
         for (Entity e : inventory) {
             if (e.type == type_carrot) {
                 e.quantities = i;
-                e.description = "Carrot seed x " + e.quantities;
+                e.description = "Carrot seed";
             }
         }
         for (Entity e : inventory) {
             if (e.type == type_potato) {
                 e.quantities = i;
-                e.description = "Potato seed x " + e.quantities;
+                e.description = "Potato seed";
             }
         }
         for (Entity e : inventory) {
             if (e.type == type_spinach) {
                 e.quantities = i;
-                e.description = "Spinach seed x " + e.quantities;
+                e.description = "Spinach seed";
             }
         }
     }

@@ -50,6 +50,8 @@ public class Entity {
     public String description = "";
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
+    public boolean stackable = false;
+    public int amount = 1;
 
     //CHARACTER STATUS
     public int maxLife;

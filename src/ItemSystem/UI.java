@@ -77,7 +77,7 @@ public class UI {
         int x = gp.tileSize * 2;
         int y = gp.tileSize/2;
         int width = gp.screenWidth - (gp.tileSize * 4);
-        int height = (int) (gp.tileSize * 1.5);
+        int height = (int) (gp.tileSize * 2.5);
         drawSubWindow(x, y, width, height);
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32F));
@@ -102,9 +102,9 @@ public class UI {
         drawDialogueScreen();
         //DRAW WINDOW
 
-        int x = gp.tileSize * 10;
-        int y = gp.tileSize * 2;
-        int width =  (int) (gp.tileSize * 4.5);
+        int x = gp.tileSize * 8;
+        int y = gp.tileSize * 3;
+        int width =  (int) (gp.tileSize * 6);
         int height = (int) (gp.tileSize * 3.5);
         drawSubWindow(x,y,width,height);
 
@@ -124,13 +124,13 @@ public class UI {
             if(gp.keyH.enter){subState = 2;}
         }
         y += gp.tileSize;
-        g2.drawString("Fuck off", x, y);
+        g2.drawString("Goodbye player!", x, y);
         if (commandNum == 2) {
             g2.drawString(">", x-24, y);
             if(gp.keyH.enter) {
                 commandNum = 0;
                 gp.gameState = gp.dialogueState;
-                currentDialogue = "Fuck diu, gud pai!";
+                currentDialogue = "Whenever you need, \n I'm always here for you!";
             }
         }
     }
@@ -174,18 +174,16 @@ public class UI {
                 if(npc.inventory.get(itemIndex).price > gp.player.money){
                     subState = 0;
                     gp.gameState = gp.dialogueState;
-                    currentDialogue = "Hok du tien hai oi!";
+                    currentDialogue = "You don't have enough money!";
                     drawDialogueScreen();
-                }
-                else if (gp.player.inventory.size() == gp.player.maxInventorySize){
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "Co cho nao nua ma bo nua hai!";
-                    //drawDialogueScreen();
-                }
-                else {
-                    gp.player.money -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                } else {
+                    if (gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
+                        gp.player.money -= npc.inventory.get(itemIndex).price;
+                    } else {
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        currentDialogue = "You can't carry anymore!";
+                    }
                 }
             }
         }
@@ -231,11 +229,16 @@ public class UI {
                   commandNum = 0;
                   subState = 0;
                   gp.gameState = gp.dialogueState;
-                  currentDialogue = "Ban roi lay j lam ma";
+                  currentDialogue = "You can't sell tool!";
                } else {
-                gp.player.inventory.remove(itemIndex);
-                gp.player.money += price;
+                   if (gp.player.inventory.get(itemIndex).amount > 1) {
+                       gp.player.inventory.get(itemIndex).amount--;
+                   }
 
+                   else {
+                       gp.player.inventory.remove(itemIndex);
+                   }
+                   gp.player.money += price;
                 }
             }
         }
@@ -275,12 +278,32 @@ public class UI {
         // DRAW PLAYER'S ITEMS
         for (int i = 0; i < entity.inventory.size(); i++) {
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+            //DISPLAY AMOUNT
+            if ( entity.inventory.get(i).amount > 1){
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+
+                String s = "" + entity.inventory.get(i).amount;
+                amountX = getXforAlignToRightText(s, slotX + 44);
+                amountY = slotY + gp.tileSize;
+
+                //SHADOW
+                g2.setColor(new Color(60,60,60));
+                g2.drawString(s, amountX, amountY);
+
+                //NUMBER
+                g2.setColor(Color.WHITE);
+                g2.drawString(s, amountX-3, amountY-3);
+            }
             slotX += slotSize;
             if (i ==4 || i == 9 || i == 14) {
                 slotX = slotXstart;
                 slotY += slotSize;
             }
+
         }
+
         // CURSOR
         if (cursor){
             int cursorX = slotXstart + (slotSize * slotCol);

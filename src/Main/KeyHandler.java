@@ -133,14 +133,10 @@ public class KeyHandler implements KeyListener {
             if (gp.player.money >= levelUpMoney) {
                 counter += 1;
                 levelUpMoney += 150;
-                System.out.println("tien de nang cap la " + levelUpMoney);
                 gp.houselv.houseLevel = gp.houselv.houseLevel +1;
-                System.out.println("level hien tai: " + gp.houselv.houseLevel);
                 if (counter < 5) {
                     gp.player.money = gp.player.money - levelUpMoney;
-                } else {System.out.println("max level");}
-                System.out.println("con lai " + gp.player.money);
-                System.out.println();
+                }
             } else {
                 gp.gameState = gp.cannotUpdateState;
             }
@@ -150,7 +146,6 @@ public class KeyHandler implements KeyListener {
     public void houseState(int code){
         if(code == KeyEvent.VK_ENTER) {
             if (gp.eManager.lighting.dayState == gp.eManager.lighting.night) {
-                //canSleep = true;
                 gp.gameState = gp.sleepState;
                 gp.player.life = gp.player.maxLife;
             } else {

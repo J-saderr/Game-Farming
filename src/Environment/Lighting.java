@@ -90,16 +90,10 @@ public class Lighting {
 
             g2.fill(lightArea);
 
-//            // set color
-//            g2.setColor(new Color(0,0,0.1f,0.80f));
-
             g2.fill(screenArea);
 
 
-            // set-gradient-daya-on-g2
             g2.setPaint(gPaint);
-            //g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
             g2.dispose();
     }
 

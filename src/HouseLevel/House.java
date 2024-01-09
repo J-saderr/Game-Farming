@@ -36,8 +36,5 @@ public class House extends Entity {
             e.printStackTrace();
         }
     }
-//    public void update() {
-//        houseLevel = 5;
-//    }
 }
 

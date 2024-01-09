@@ -481,7 +481,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Press Enter to update" + gp.player.money, textX, textY + 25);
+            g2.drawString("Press Enter to update", textX, textY + 25);
             g2.drawString("update House Level.", textX, textY + 50);
             g2.drawString("Press O to Exit", textX, textY + 75);
         } else {

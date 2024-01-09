@@ -57,8 +57,8 @@ public class Player extends Entity {
             direction = "down";
             currentTool = new WateringCan(gp);
             //player-status
-            maxLife = 5;
-            life = 3;
+            maxLife = 11;
+            life = maxLife;
             money = 500;
         }
         public void setItems(){

@@ -9,7 +9,7 @@ public class PotatoMature extends Potato{
         price = 90;
         type = type_potato_mature;
         down1 = setup("res/Plants/5");
-        description = "Potato x "+ super.quantities;
+        description = "Potato";
     }
 }
 

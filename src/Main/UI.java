@@ -354,8 +354,8 @@ public class UI {
         // character-image
         x = gp.screenHeight/2 - (gp.tileSize*2)/2;
         y += gp.tileSize*2;
-        g2.drawImage(gp.player.down1, x+45, y-70, gp.tileSize*2, gp.tileSize*2, null);
-        g2.drawImage(gp.player.up2, x+130, y-70, gp.tileSize*2, gp.tileSize*2, null);
+        g2.drawImage(gp.player.down1, x+20, y-70, gp.tileSize*3, gp.tileSize*3, null);
+        g2.drawImage(gp.player.up2, x+130, y-70, gp.tileSize*3, gp.tileSize*3, null);
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 12, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 10, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 11, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
@@ -369,17 +369,9 @@ public class UI {
         g2.setColor(Color.WHITE);
         text = "NEW GAME";
         x = getXforCenteredText(text);
-        y += gp.tileSize*2;
+        y += gp.tileSize*3;
         g2.drawString(text, x, y);
         if (commandNum == 0) {
-            g2.drawString(">", x-gp.tileSize, y);
-        }
-
-        text = "LOAD GAME";
-        x = getXforCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if (commandNum == 1) {
             g2.drawString(">", x-gp.tileSize, y);
         }
 
@@ -387,7 +379,7 @@ public class UI {
         x = getXforCenteredText(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if (commandNum == 2) {
+        if (commandNum == 1) {
             g2.drawString(">", x-gp.tileSize, y);
         }
     }

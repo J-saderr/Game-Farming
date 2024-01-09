@@ -16,10 +16,11 @@ public class House extends Entity {
         super(gp);
         this.keyH = keyH;
         collision = false;
-        houseLevel = 1;
         getHouseImage();
     }
-
+    public void setDefault() {
+        houseLevel = 1;
+    }
     private void getHouseImage() {
         try {
             InputStream inputStream001 = new FileInputStream(new File("res/house/h1.png"));

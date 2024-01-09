@@ -173,10 +173,11 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void playerState(int code) {
-        if (code == KeyEvent.VK_E){
+        if (code == KeyEvent.VK_L){
             doing = true;
+            gp.player.life-=1;
         }
-        if (code == KeyEvent.VK_G){
+        if (code == KeyEvent.VK_H){
             harvest = true;
         }
         if(code == KeyEvent.VK_W) {
@@ -194,7 +195,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_P) {
             gp.gameState = gp.pauseState;
         }
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_I) {
             gp.gameState = gp.characterState;
         }
         if (code == KeyEvent.VK_O) {
@@ -237,7 +238,7 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void characterState(int code){
-        if(code == KeyEvent.VK_C){
+        if(code == KeyEvent.VK_I){
             gp.gameState = gp.characterState;
         }
         if (code == KeyEvent.VK_ENTER){
@@ -275,10 +276,10 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_E){
+        if (code == KeyEvent.VK_L){
             doing = true;
         }
-        if (code == KeyEvent.VK_G){
+        if (code == KeyEvent.VK_H){
             harvest = true;
         }
         if (code == KeyEvent.VK_W) {

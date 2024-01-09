@@ -156,11 +156,13 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
 
     public void reset() {
         player.setDefault();
+        player.inventory.clear();
         aSetter.setObject();
         currentDay = Clock.getDay();
         aSetter.setNPC();
         aSetter.setHouse();
         eManager.setUp();
+        player.setItems();
     }
     public void update() {
         if (gameState == playerState) {

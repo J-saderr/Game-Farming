@@ -19,14 +19,6 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font upheaval, minecraftia;
-    public String message = "";
-    public boolean messageOn = false;
-    int messageCount = 0;
-    public boolean gameFinished = false;
-    double playTime;
-    DecimalFormat dFormat = new DecimalFormat("0.00");
-    public int slotCol =0;
-    public int slotRow =0;
     public int commandNum = 0;
     BufferedImage energy, energybar0, moneybar0;
     public String currentDialogue = "";
@@ -37,6 +29,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
+    Entity entity;
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -181,7 +174,7 @@ public class UI {
         g2.drawString("Buy seeds", x, y);
         if (commandNum == 0) {
             g2.drawString(">", x-24, y);
-            if(gp.keyH.enter){subState = 1;}
+            if(gp.keyH.enter){subState =1;}
         }
 
         y += gp.tileSize;

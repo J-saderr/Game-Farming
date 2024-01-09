@@ -126,7 +126,7 @@ public class Lighting {
         if (dayState == night) {
             dayCounter++;
             if (dayCounter > 600) {
-                gp.player.life = 0;
+//                gp.player.life = 0;
                 dayState = dawn;
                 dayCounter = 0;
             }

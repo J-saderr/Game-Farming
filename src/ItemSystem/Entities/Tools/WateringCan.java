@@ -11,5 +11,6 @@ public class WateringCan extends Entity {
         name = "Watercan";
         down1 = setup("res/Tool/WateringCan");
         description = "Watercan";
+        stackable = false;
     }
 }

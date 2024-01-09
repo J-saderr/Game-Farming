@@ -11,5 +11,6 @@ public class Hoe extends Entity{
         name = "Hoe";
         down1 = setup("res/Tool/Hoe");
         description = "Hoe";
+        stackable = false;
     }
 }

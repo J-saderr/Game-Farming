@@ -370,8 +370,8 @@ public class UI {
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 12, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 10, gp.tileSize * 7, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 11, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
-        g2.drawImage(gp.tileManager.tile[19].image, x-120, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
-        g2.drawImage(gp.houselv.house4, x-170, y-80, gp.tileSize*4, gp.tileSize*4, null);
+        g2.drawImage(gp.tileManager.tile[19].image, x-120, gp.tileSize * 8 + 20, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(gp.houselv.house4, x-190, y-90, gp.tileSize*5, gp.tileSize*5, null);
         //g2.drawImage(gp.houselv.house5, x+255, y+30, gp.tileSize*4, gp.tileSize*4, null);
 
 
@@ -517,7 +517,7 @@ public class UI {
         int i = 0;
 
 
-        g2.drawImage(energybar0, x-10, y-45, null);
+        g2.drawImage(energybar0, x-8, y-53, null);
 
         while (i < gp.player.life) {
             g2.drawImage(energy, x, y, null);

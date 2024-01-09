@@ -1,4 +1,4 @@
-package Tile;
+package Map;
 import Main.GamePanel;
 import java.awt.*;
 import java.io.*;

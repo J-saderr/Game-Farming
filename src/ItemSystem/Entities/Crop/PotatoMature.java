@@ -8,8 +8,8 @@ public class PotatoMature extends Potato{
         super(gp);
         price = 90;
         type = type_potato_mature;
-        down1 = setup("res/Plants/5");
-        description = "Potato";
+        down1 = setup("res/Plants/6");
+        description = "Potato x "+ super.quantities;
     }
 }
 

@@ -1,5 +1,7 @@
-package Main;
-import Tile.*;
+package Map;
+import Main.Entity;
+import Main.GamePanel;
+
 public class Collision {
     public GamePanel gp;
     public Collision(GamePanel gp) {

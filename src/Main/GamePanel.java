@@ -1,18 +1,20 @@
 package Main;
-import Clock.Clock;
+import Environment.Clock;
 import Environment.EnvironmentManager;
+import Environment.Sound;
 import HouseLevel.House;
-import ItemSystem.UI;
 import ItemSystem.Entities.Crop.Carrot;
 import ItemSystem.Entities.Crop.Potato;
 import ItemSystem.Entities.Crop.Spinach;
-import Object.Soil.notWateredSoil;
-import Tile.TileManager;
+import ItemSystem.Entities.Soil.notWateredSoil;
+import Map.AssetSetter;
+import Map.Collision;
+import Map.TileManager;
 import HouseLevel.Sleeping;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import Money.*;
+
 import Character.*;
 
 
@@ -49,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
     public Entity house[] = new Entity[1];
+    public Entity entity;
     public AssetSetter aSetter = new AssetSetter(this);
     public EnvironmentManager eManager= new EnvironmentManager(this);
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -71,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int houselvState = 8;
     public final int tradeState = 9;
     public final int gameOverState = 10;
-    notWateredSoil notWateredSoil = new notWateredSoil();
+    notWateredSoil notWateredSoil = new notWateredSoil(this);
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(new Color(131,146,76));

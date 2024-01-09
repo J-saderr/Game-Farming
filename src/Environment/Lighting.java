@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ItemSystem.UI;
 import Main.GamePanel;
 
 public class Lighting {

@@ -1,5 +1,6 @@
 package Character;
 
+import ItemSystem.Crop;
 import Main.*;
 import ItemSystem.Entities.Crop.Carrot;
 import ItemSystem.Entities.Crop.Potato;

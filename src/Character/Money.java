@@ -1,4 +1,4 @@
-package Money;
+package Character;
 
 import ItemSystem.UtilityTool;
 import Main.Entity;

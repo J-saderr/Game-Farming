@@ -1,8 +1,8 @@
-package Main;
+package Map;
 import Character.*;
 import HouseLevel.House;
-import Money.Money;
-import Object.Soil.*;
+import ItemSystem.Entities.Soil.*;
+import Main.GamePanel;
 
 public class AssetSetter {
     GamePanel gp;

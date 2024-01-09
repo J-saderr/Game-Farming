@@ -1,17 +1,13 @@
-package ItemSystem;
+package Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
-import Energy.EnergyBar;
-import Money.Money;
+import Character.Money;
+import Environment.EnergyBar;
 import Main.Entity;
 import Main.GamePanel;
-
-import static java.awt.Color.white;
 
 
 public class UI {

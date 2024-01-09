@@ -1,7 +1,6 @@
-package Object.Soil;
+package ItemSystem.Entities.Soil;
 import Main.Entity;
 import Main.GamePanel;
-import Object.SuperObject;
 
 import java.io.File;
 import java.io.FileInputStream;

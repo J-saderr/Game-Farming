@@ -1,13 +1,11 @@
-package Main;
-import Character.MerchantNPC;
-import Clock.Clock;
+package ItemSystem;
+import Environment.Clock;
+import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-import Character.Player;
-public class Crop implements MerchantPrice {
+public class Crop{
     private String cropName;
     private double purchasePrice;
     private double sellPrice;

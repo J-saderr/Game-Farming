@@ -1,4 +1,4 @@
-package Energy;
+package Environment;
 
 import Main.Entity;
 import Main.GamePanel;

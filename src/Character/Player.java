@@ -4,8 +4,8 @@ import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
 import Main.*;
-import Object.Soil.notWateredSoil;
-import Object.Soil.wateredSoil;
+import ItemSystem.Entities.Soil.notWateredSoil;
+import ItemSystem.Entities.Soil.wateredSoil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import ItemSystem.Entities.Crop.*;
 import Main.Entity;
@@ -32,8 +31,8 @@ public class Player extends Entity {
     public Entity currentTool;
     public boolean isWater = false;
     public boolean soilWater = false;
-    wateredSoil wateredsoil = new wateredSoil();
-    notWateredSoil notWateredSoil = new notWateredSoil();
+    wateredSoil wateredsoil = new wateredSoil(gp);
+    notWateredSoil notWateredSoil = new notWateredSoil(gp);
 
         public Player(GamePanel gp, KeyHandler keyH) {
             super(gp);
@@ -309,19 +308,19 @@ public class Player extends Entity {
         for (Entity e : inventory) {
             if (e.type == type_carrot) {
                 e.quantities = i;
-                e.description = "Carrot seed";
+                e.description = "Carrot seed x " + e.quantities;
             }
         }
         for (Entity e : inventory) {
             if (e.type == type_potato) {
                 e.quantities = i;
-                e.description = "Potato seed";
+                e.description = "Potato seed x " + e.quantities;
             }
         }
         for (Entity e : inventory) {
             if (e.type == type_spinach) {
                 e.quantities = i;
-                e.description = "Spinach seed";
+                e.description = "Spinach seed x " + e.quantities;
             }
         }
     }

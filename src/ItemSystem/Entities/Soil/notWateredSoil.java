@@ -1,13 +1,15 @@
-package Object.Soil;
-import Object.SuperObject;
+package ItemSystem.Entities.Soil;
+import Main.Entity;
+import Main.GamePanel;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
-public class notWateredSoil extends SuperObject { // Corrected class name
-    public notWateredSoil() {
+public class notWateredSoil extends Entity { // Corrected class name
+    public notWateredSoil(GamePanel gp) {
+        super(gp);
         name = "notWateredSoil";
         collision = true;
         try {

@@ -1,4 +1,4 @@
-package Clock;
+package Environment;
 
 import Main.GamePanel;
 

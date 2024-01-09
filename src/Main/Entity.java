@@ -1,6 +1,6 @@
 package Main;
 
-import Clock.Clock;
+import Environment.Clock;
 import ItemSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import HouseLevel.House;
 
 public class Entity {
     public GamePanel gp;

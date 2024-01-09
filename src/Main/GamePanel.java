@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         this.setFocusable(true);
     }
     public void setupGame() {
+        houselv.setDefault();
         aSetter.setObject();
         currentDay = Clock.getDay();
         aSetter.setNPC();
@@ -166,6 +167,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         aSetter.setHouse();
         eManager.setUp();
         player.setItems();
+        houselv.setDefault();
     }
     public void update() {
         if (gameState == playerState) {

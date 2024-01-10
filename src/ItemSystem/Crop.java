@@ -1,4 +1,5 @@
 package ItemSystem;
+import Environment.Clock;
 import Main.GamePanel;
 
 import java.awt.*;
@@ -51,6 +52,17 @@ public class Crop{
         }
     }
 
+    public void setCurrentGrown() {
+        this.currentDay = Clock.getDay();
+    }
+    public void setDaysGrown() {
+        this.daysGrown = Clock.getDay();
+
+    }
+    public int getDaysPass() {
+
+        return currentDay - daysGrown;
+    }
     public double getPurchasePrice() {
         return purchasePrice;
     }

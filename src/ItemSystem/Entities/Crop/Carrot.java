@@ -42,27 +42,30 @@ public class Carrot extends Entity {
     }
     public void CarrotLogic(int i){
         if (gp.entities[i].waterDay[i] == 0) {
-            gp.entities[i].image = Carrot_seed;
+            gp.entities[i].name = "Carrot seed";
         }
-        if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Carrot_seed) {
+        if (gp.entities[i].waterDay[i] == 1 && gp.entities[i].name == "Carrot seed") {
+            gp.entities[i].name = "Carrot sprout";
             gp.entities[i].image = Carrot_sprout;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Carrot_seed){
+        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].name == "Carrot seed"){
             gp.entities[i].waterDay[i] = 0;
         }
-        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Carrot_sprout) {
+        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].name == "Carrot sprout") {
+            gp.entities[i].name = "Carrot sapling";
             gp.entities[i].image = Carrot_sapling;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Carrot_sprout) {
+        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].name == "Carrot sprout") {
             gp.entities[i].waterDay[i] = 1;
         }
-        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Carrot_sapling) {
+        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].name == "Carrot sapling") {
+            gp.entities[i].name = "Carrot mature";
             gp.entities[i].image = Carrot_mature;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Carrot_sapling){
+        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].name == "Carrot sapling"){
             gp.entities[i].waterDay[i] = 2;
         }
     }

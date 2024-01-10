@@ -21,6 +21,12 @@ public class MerchantNPC extends Entity {
      * The crops the store has for sale.
      */
     private ArrayList<Crop> cropsForSale = new ArrayList<Crop>();
+    private Carrot carrotNPC = new Carrot(gp);
+    private Potato potatoNPC = new Potato(gp);
+
+    private Spinach spinachNPC = new Spinach(gp);
+
+
 
     public MerchantNPC(GamePanel gp){
         super(gp);
@@ -46,9 +52,17 @@ public class MerchantNPC extends Entity {
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
     }
+
+    private void setDescription(){
+        carrotNPC.description = "Carrot seed";
+        potatoNPC.description = "Potato seed";
+        spinachNPC.description = "Spinach seed";
+
+    }
     public void setItems(){
-        inventory.add(new Carrot(gp));
-        inventory.add(new Potato(gp));
-        inventory.add(new Spinach(gp));
+        setDescription();
+        inventory.add(carrotNPC);
+        inventory.add(potatoNPC);
+        inventory.add(spinachNPC)  ;
     }
 }

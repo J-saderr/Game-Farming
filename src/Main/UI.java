@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import Character.Money;
+import Character.Player;
 import Environment.EnergyBar;
-import Main.Entity;
+import Main.Entity.*;
 import Main.GamePanel;
 
 
@@ -25,7 +26,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
-    Entity entity;
+    public Entity entity = new Entity(gp);
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -242,7 +243,31 @@ public class UI {
                 }
                 else {
                     gp.player.money -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                   // gp.player.inventory.add(npc.inventory.get(itemIndex));
+                   if(npc.inventory.get(itemIndex).type == entity.type_carrot){
+                       for (Entity e: gp.player.inventory) {
+                           if (e.type == entity.type_carrot) {
+                               e.quantities += 1;
+                               e.description = "Carrot seed x " + e.quantities;
+                           }
+                       }
+                    }
+                    else if(npc.inventory.get(itemIndex).type == entity.type_potato){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato) {
+                                e.quantities += 1;
+                                e.description = "Potato seed x " + e.quantities;
+                            }
+                        }
+                    }
+                    else if(npc.inventory.get(itemIndex).type == entity.type_spinach){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach) {
+                                e.quantities += 1;
+                                e.description = "Spinach seed x " + e.quantities;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -294,8 +319,78 @@ public class UI {
                     currentDialogue = "Ban roi lay j lam ma";
                 }
                 else {
-                    gp.player.inventory.remove(itemIndex);
-                    gp.player.money += price;
+                    if(gp.player.inventory.get(itemIndex).type == entity.type_carrot_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_carrot_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Carrot x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_carrot_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Potato x " + e.quantities;
+                                gp.player.money += price;
+                            } else if(e.type == entity.type_potato_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Spinach x " + e.quantities;
+                                gp.player.money += price;
+                            } else if(e.type == entity.type_spinach_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_carrot){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_carrot && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Carrot seed x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_carrot && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Potato seed x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_potato && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Spinach x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_spinach && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
 
                 }
             }
@@ -422,6 +517,7 @@ public class UI {
             gp.eManager.lighting.filterAlpha -= 0.1f;
             if (gp.eManager.lighting.filterAlpha <= 0f) {
                 gp.eManager.lighting.filterAlpha = 0f;
+                gp.eManager.lighting.dayCounter = 0;
                 counter = 0;
                 gp.eManager.lighting.dayState = gp.eManager.lighting.day;
                 gp.gameState = gp.playerState;

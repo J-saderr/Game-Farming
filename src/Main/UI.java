@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import Character.Money;
+import Character.Player;
 import Environment.EnergyBar;
+import Main.Entity.*;
 import ItemSystem.*;
 import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
@@ -29,7 +31,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
-
+    public Entity entity = new Entity(gp);
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -529,6 +531,7 @@ public class UI {
             gp.eManager.lighting.filterAlpha -= 0.1f;
             if (gp.eManager.lighting.filterAlpha <= 0f) {
                 gp.eManager.lighting.filterAlpha = 0f;
+                gp.eManager.lighting.dayCounter = 0;
                 counter = 0;
                 gp.eManager.lighting.dayState = gp.eManager.lighting.day;
                 gp.gameState = gp.playerState;

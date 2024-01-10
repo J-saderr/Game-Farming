@@ -21,7 +21,7 @@ import Main.Entity;
 public class Player extends Entity {
     KeyHandler keyH;
 
-    private Carrot carrot = new Carrot(gp);
+    public Carrot carrot = new Carrot(gp);
     private Potato potato = new Potato(gp);
     private Spinach spinach = new Spinach(gp);
     public final int screenX ;

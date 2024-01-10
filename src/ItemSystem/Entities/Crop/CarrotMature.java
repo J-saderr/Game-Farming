@@ -3,7 +3,6 @@ package ItemSystem.Entities.Crop;
 import Main.GamePanel;
 
 public class CarrotMature extends Carrot {
-    private GamePanel gp;
 
     public CarrotMature(GamePanel gp) {
         super(gp);

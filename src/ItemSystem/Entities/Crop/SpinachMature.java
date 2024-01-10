@@ -3,7 +3,6 @@ package ItemSystem.Entities.Crop;
 import Main.GamePanel;
 
 public class SpinachMature extends Spinach{
-    private GamePanel gp;
     public SpinachMature(GamePanel gp){
         super(gp);
         price = 120;

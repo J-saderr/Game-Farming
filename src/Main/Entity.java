@@ -108,6 +108,7 @@ public class Entity {
             daysGrown = daysToGrow;
         }
     }
+
     public String getName() {
         return cropName;
     }

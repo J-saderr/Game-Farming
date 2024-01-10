@@ -345,7 +345,7 @@ public class UI {
         for (int i = 0; i < entity.inventory.size(); i++) {
             //EQUIP CURSOR
             if (gp.player.inventory.get(i) == gp.player.currentTool){
-                g2.setColor(Color.YELLOW);
+                g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);

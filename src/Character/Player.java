@@ -22,6 +22,7 @@ public class Player extends Entity {
     KeyHandler keyH;
 
     private Carrot carrot = new Carrot(gp);
+    private CarrotMature carrotMature = new CarrotMature(gp);
     private Potato potato = new Potato(gp);
     private Spinach spinach = new Spinach(gp);
     public final int screenX ;
@@ -54,7 +55,7 @@ public class Player extends Entity {
             worldY = super.gp.tileSize * 5;
             speed = 4;
             direction = "down";
-            currentTool = new WateringCan(gp);
+            currentTool = new Hoe(gp);
             //player-status
             maxLife = 11;
             life = maxLife;
@@ -170,13 +171,13 @@ public class Player extends Entity {
             }
         }
     public void doingWorkImage(){
-        if(currentTool.type== type_watercan){
-            doRight1 = setuptool("res/Action/Watercan/water1",super.gp.tileSize,super.gp.tileSize);
-            doRight2 = setuptool("res/Action/Watercan/water2",super.gp.tileSize,super.gp.tileSize);
-        }
         if(currentTool.type== type_hoe){
             doRight1 = setuptool("res/Action/Hoe/hoe1",super.gp.tileSize,super.gp.tileSize);
             doRight2 = setuptool("res/Action/Hoe/hoe2",super.gp.tileSize,super.gp.tileSize);
+        }
+        if(currentTool.type== type_watercan){
+            doRight1 = setuptool("res/Action/Watercan/water1",super.gp.tileSize,super.gp.tileSize);
+            doRight2 = setuptool("res/Action/Watercan/water2",super.gp.tileSize,super.gp.tileSize);
         }
         if(currentTool.type== type_axe){
             doRight1 = setuptool("res/Action/Axe/axe1",super.gp.tileSize,super.gp.tileSize);

@@ -17,7 +17,7 @@ public class Clock {
     }
 
     public void resetClock() {
-        this.hour = 6;
+        this.hour = 3;
         this.minute = 0;
         day = 1;
     }
@@ -25,7 +25,7 @@ public class Clock {
     public void increaseTime() {
         if (hour == 23 & minute == 50) {
             day += 1;
-            hour = 6;
+            hour = 3;
         }
         else if (minute == 50) {
             hour += 1;

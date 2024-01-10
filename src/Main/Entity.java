@@ -66,9 +66,9 @@ public class Entity {
     public int daysToGrow;
     private int daysGrown;
     private int currentDay;
-    public final int type_axe=3;
-    public final int type_hoe=4;
-    public final int type_watercan = 2;
+    public static final int type_axe=3;
+    public static final int type_hoe=4;
+    public static final int type_watercan = 2;
     public final int type_carrot = 5;
     public final int type_carrot_mature = 45;
     public final int type_potato = 6;

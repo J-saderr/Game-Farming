@@ -6,6 +6,10 @@ import java.io.InputStream;
 
 import Character.Money;
 import Environment.EnergyBar;
+import ItemSystem.*;
+import ItemSystem.Entities.Tools.Axe;
+import ItemSystem.Entities.Tools.Hoe;
+import ItemSystem.Entities.Tools.WateringCan;
 import Main.Entity;
 import Main.GamePanel;
 
@@ -25,6 +29,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
+
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -285,16 +290,17 @@ public class UI {
             //Sell an item
             if (gp.keyH.enter) {
                 //sell tools
-                if(gp.player.inventory.get(itemIndex)== gp.player.currentTool){
-                    commandNum = 0;
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "You can't sell tool!";
+                if(gp.player.inventory.get(itemIndex).type == Entity.type_hoe ||
+                   gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
+                   gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
+                        commandNum = 0;
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        currentDialogue = "You can't sell tool!";
                 } else {
                     if (gp.player.inventory.get(itemIndex).quantities > 1) {
                         gp.player.inventory.get(itemIndex).quantities--;
                     }
-
                     else {
                         gp.player.inventory.remove(itemIndex);
                     }
@@ -337,6 +343,11 @@ public class UI {
 
         // DRAW PLAYER'S ITEMS
         for (int i = 0; i < entity.inventory.size(); i++) {
+            //EQUIP CURSOR
+            if (gp.player.inventory.get(i) == gp.player.currentTool){
+                g2.setColor(Color.YELLOW);
+                g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+            }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
             //DISPLAY AMOUNT
             if ( entity.inventory.get(i).quantities > 1){

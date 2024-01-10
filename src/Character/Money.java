@@ -17,16 +17,17 @@ public class Money extends Entity {
     public Money(GamePanel gp) {
         super(gp);
         getImage();
-        setAmount(500);
-        System.out.println("hi");
+        //setAmount(500);
     }
 
-    public int getAmount() { return amount; }
-    public void setAmount(int amount) { this.amount = amount; }
+//    public int getAmount() { return amount; }
+//    public void setAmount(int amount) { this.amount = amount; }
     public void getImage() {
         try {
-            InputStream input = new FileInputStream(new File("res/Money/moneybar.png"));
-            monbar = ImageIO.read(input);
+            InputStream input01 = new FileInputStream(new File("res/Money/moneybar.png"));
+            InputStream input02 = new FileInputStream(new File("res/Money/coin.png"));
+            monicon = ImageIO.read(input02);
+            monbar = ImageIO.read(input01);
 
             //uTool.scaleImage(image, 50, 50);
         } catch (IOException e) {

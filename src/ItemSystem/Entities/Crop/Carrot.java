@@ -15,13 +15,15 @@ public class Carrot extends Entity {
 
     public BufferedImage Carrot_seed, Carrot_sprout, Carrot_sapling , Carrot_mature;
     public Carrot(GamePanel gp) {
-        super("Carrot", 10.0, 25.0, 4);
-        this.gp = gp;
+        super(gp);
+        name = "Carrot";
         price = 50;
+        daysToGrow = 4;
         type = type_carrot;
         down1 = setup("res/Seed/Carrotseed");
-        description = "Carrot Seed x " + quantities;
         getCarrotImage();
+        stackable = true;
+        description = "Carrot Seed";
     }
 
 

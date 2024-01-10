@@ -11,5 +11,6 @@ public class Axe extends Entity {
         name = "Axe";
         down1 = setup("res/Tool/Axe");
         description = "Axe";
+        stackable = false;
     }
 }

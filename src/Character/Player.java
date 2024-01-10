@@ -28,6 +28,7 @@ public class Player extends Entity {
     public final int screenY ;
     public final int maxInventorySize = 20;
 
+
     public Entity currentTool;
     public boolean isWater = false;
     public boolean soilWater = false;
@@ -184,6 +185,7 @@ public class Player extends Entity {
         }
 
     }
+  
     public void doing() {
 
         spriteCounter++;
@@ -248,17 +250,17 @@ public class Player extends Entity {
             int objIndex = super.gp.collision.checkObject(this, true);
             if (objIndex != 999) {
 
-                    String objectName = gp.obj[objIndex].name;
+                String objectName = gp.obj[objIndex].name;
 
-                    switch (objectName) {
-                        case "notWateredSoil":
-                            gp.obj[objIndex].image = wateredsoil.image;
-                            gp.obj[objIndex].name = "wateredSoil";
-                            break;
-                        default:
-                            System.out.println("exception");
-                            break;
-                    }
+                switch (objectName) {
+                    case "notWateredSoil":
+                        gp.obj[objIndex].image = wateredsoil.image;
+                        gp.obj[objIndex].name = "wateredSoil";
+                        break;
+                    default:
+                        System.out.println("exception");
+                        break;
+                }
             }
         }
     }
@@ -294,27 +296,6 @@ public class Player extends Entity {
         }
         return 0;
     }
-
-    public void setSeedQuantities(int i) {
-        for (Entity e : inventory) {
-            if (e.type == type_carrot) {
-                e.quantities = i;
-                e.description = "Carrot seed x " + e.quantities;
-            }
-        }
-        for (Entity e : inventory) {
-            if (e.type == type_potato) {
-                e.quantities = i;
-                e.description = "Potato seed x " + e.quantities;
-            }
-        }
-        for (Entity e : inventory) {
-            if (e.type == type_spinach) {
-                e.quantities = i;
-                e.description = "Spinach seed x " + e.quantities;
-            }
-        }
-    }
     public void plantCrop() {
 
         //Check Object Collision
@@ -324,8 +305,8 @@ public class Player extends Entity {
         if (currentTool.type == type_carrot & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
             for (int i = 0; i <= 23; i++) {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
-                    for (Entity e: inventory) {
-                        if (e.quantities >0 && e.type == type_carrot) {
+                    for (Entity item: inventory) {
+                        if (item.quantities >0 && item.type == type_carrot) {
                             gp.entities[i] = new Carrot(gp);
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
@@ -334,6 +315,7 @@ public class Player extends Entity {
                             System.out.println("Checking plant " + gp.entities[i].image);
                                 e.quantities -= 1;
                                 e.description = "Carrot seed x " + e.quantities;
+                            item.quantities -= 1;
                         }
                         else {System.out.println("Not enough seed");}
 
@@ -341,9 +323,9 @@ public class Player extends Entity {
 
 
                 }
-        }
+            }
 
-    }
+        }
         if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
             for (int i = 0; i <= 23; i++) {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
@@ -394,8 +376,8 @@ public class Player extends Entity {
                    gp.entities[i].waterDay[i] += 1;
                     System.out.println("Checking water" + gp.entities[i].waterDay[i]);}
 
-            }
-            count[i] = 0;
+        }
+        count[i] = 0;
     }
     public void harvestCrop(int i) {
         //Check Object Collision
@@ -407,12 +389,12 @@ public class Player extends Entity {
                     if (gp.entities[i] != null){
                         if (gp.entities[i].cropPeriod == 3 && keyH.harvest) {
                             if (gp.entities[i].type == type_carrot) {
-                            for (Entity e: inventory) {
-                                if (e.type == type_carrot_mature) {
-                                    e.quantities += 1;
-                                    e.description = "Carrot x " + e.quantities;
+                                for (Entity e: inventory) {
+                                    if (e.type == type_carrot_mature) {
+                                        e.quantities += 1;
+                                        e.description = "Carrot x " + e.quantities;
+                                    }
                                 }
-                            }
                             }
                             if (gp.entities[i].type == type_potato) {
                                 for (Entity e: inventory) {
@@ -443,7 +425,40 @@ public class Player extends Entity {
             }
         }
     }
-        public void draw (Graphics2D g2) {
+    public int searchItemInventory(String itemName){
+        int itemIndex = 999;
+
+        for (int i = 0; i < inventory.size(); i++){
+            if (inventory.get(i).name.equals((itemName))){
+                itemIndex = i;
+                break;
+            }
+        }
+        return itemIndex;
+    }
+    public boolean canObtainItem(Entity item) {
+        boolean canObtain = false;
+        //check if stackable
+        if (item.stackable) {
+            int index = searchItemInventory(item.name);
+            if (index != 999) {
+                inventory.get(index).quantities++;
+                canObtain = true;
+            } else { //check xem inventory con cho trong khong
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+                }
+            }
+        } else { //not stackable, check xem con cho trong khong
+            if (inventory.size() != maxInventorySize) {
+                inventory.add(item);
+                canObtain = true;
+            }
+        }
+        return canObtain;
+    }
+    public void draw (Graphics2D g2) {
             //g2.setColor(Color.black);
             //g2.dispose();
 

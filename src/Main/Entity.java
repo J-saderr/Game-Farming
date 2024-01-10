@@ -157,6 +157,7 @@ public class Entity {
         return image;
     }
     public void speak(){
+
         if(dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }

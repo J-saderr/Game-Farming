@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import Character.Money;
-import Character.Player;
 import Environment.EnergyBar;
-import Main.Entity.*;
 import ItemSystem.*;
 import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
+import Main.Entity;
 import Main.GamePanel;
 
 
@@ -30,7 +29,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
-    public Entity entity = new Entity(gp);
+
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -246,39 +245,6 @@ public class UI {
                     gp.gameState = gp.dialogueState;
                     currentDialogue = "You don't have enough money!";
                     drawDialogueScreen();
-                }
-                else if (gp.player.inventory.size() == gp.player.maxInventorySize){
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "Co cho nao nua ma bo nua hai!";
-                    //drawDialogueScreen();
-                }
-                else {
-                    gp.player.money -= npc.inventory.get(itemIndex).price;
-                   // gp.player.inventory.add(npc.inventory.get(itemIndex));
-                   if(npc.inventory.get(itemIndex).type == entity.type_carrot){
-                       for (Entity e: gp.player.inventory) {
-                           if (e.type == entity.type_carrot) {
-                               e.quantities += 1;
-                               e.description = "Carrot seed x " + e.quantities;
-                           }
-                       }
-                    }
-                    else if(npc.inventory.get(itemIndex).type == entity.type_potato){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_potato) {
-                                e.quantities += 1;
-                                e.description = "Potato seed x " + e.quantities;
-                            }
-                        }
-                    }
-                    else if(npc.inventory.get(itemIndex).type == entity.type_spinach){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_spinach) {
-                                e.quantities += 1;
-                                e.description = "Spinach seed x " + e.quantities;
-                            }
-                        }
                 } else {
                     if (gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
                         gp.player.money -= npc.inventory.get(itemIndex).price;
@@ -325,92 +291,13 @@ public class UI {
             //Sell an item
             if (gp.keyH.enter) {
                 //sell tools
-                if(gp.player.inventory.get(itemIndex)== gp.player.currentTool){
+                if(gp.player.inventory.get(itemIndex).type == Entity.type_hoe ||
+                        gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
+                        gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
                     commandNum = 0;
                     subState = 0;
                     gp.gameState = gp.dialogueState;
-                    currentDialogue = "Ban roi lay j lam ma";
-                }
-                else {
-                    if(gp.player.inventory.get(itemIndex).type == entity.type_carrot_mature){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_carrot_mature && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Carrot x " + e.quantities;
-                                gp.player.money += price;
-                            } else if (e.type == entity.type_carrot_mature && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato_mature){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_potato_mature && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Potato x " + e.quantities;
-                                gp.player.money += price;
-                            } else if(e.type == entity.type_potato_mature && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach_mature){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_spinach_mature && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Spinach x " + e.quantities;
-                                gp.player.money += price;
-                            } else if(e.type == entity.type_spinach_mature && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                    else if(gp.player.inventory.get(itemIndex).type == entity.type_carrot){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_carrot && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Carrot seed x " + e.quantities;
-                                gp.player.money += price;
-                            } else if (e.type == entity.type_carrot && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_potato && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Potato seed x " + e.quantities;
-                                gp.player.money += price;
-                            } else if (e.type == entity.type_potato && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach){
-                        for (Entity e: gp.player.inventory) {
-                            if (e.type == entity.type_spinach && e.quantities >0) {
-                                e.quantities -= 1;
-                                e.description = "Spinach x " + e.quantities;
-                                gp.player.money += price;
-                            } else if (e.type == entity.type_spinach && e.quantities <0){
-                                subState = 0;
-                                gp.gameState = gp.dialogueState;
-                                currentDialogue = "Het roi ban gi ma";}
-                        }
-                    }
-                if(gp.player.inventory.get(itemIndex).type == Entity.type_hoe ||
-                   gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
-                   gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
-                        commandNum = 0;
-                        subState = 0;
-                        gp.gameState = gp.dialogueState;
-                        currentDialogue = "You can't sell tool!";
+                    currentDialogue = "You can't sell tool!";
                 } else {
                     if (gp.player.inventory.get(itemIndex).quantities > 1) {
                         gp.player.inventory.get(itemIndex).quantities--;
@@ -459,7 +346,7 @@ public class UI {
         for (int i = 0; i < entity.inventory.size(); i++) {
             //EQUIP CURSOR
             if (gp.player.inventory.get(i) == gp.player.currentTool){
-                g2.setColor(new Color(240,190,90));
+                g2.setColor(Color.YELLOW);
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
@@ -642,7 +529,6 @@ public class UI {
             gp.eManager.lighting.filterAlpha -= 0.1f;
             if (gp.eManager.lighting.filterAlpha <= 0f) {
                 gp.eManager.lighting.filterAlpha = 0f;
-                gp.eManager.lighting.dayCounter = 0;
                 counter = 0;
                 gp.eManager.lighting.dayState = gp.eManager.lighting.day;
                 gp.gameState = gp.playerState;
@@ -795,4 +681,5 @@ public class UI {
         return x;
     }
 }
+
 

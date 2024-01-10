@@ -21,8 +21,7 @@ import Main.Entity;
 public class Player extends Entity {
     KeyHandler keyH;
 
-    private Carrot carrot = new Carrot(gp);
-    private CarrotMature carrotMature = new CarrotMature(gp);
+    public Carrot carrot = new Carrot(gp);
     private Potato potato = new Potato(gp);
     private Spinach spinach = new Spinach(gp);
     public final int screenX ;
@@ -363,10 +362,12 @@ public class Player extends Entity {
 
     }
     public void checkWatering(int i) {
-        if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
-            count[i] += 1;
-            if (count[i] == 1){
-                gp.entities[i].waterDay[i] += 1;}
+            if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
+                System.out.println("Checking water");
+                count[i] += 1;
+                if (count[i] == 1){
+                   gp.entities[i].waterDay[i] += 1;
+                    System.out.println("Checking water" + gp.entities[i].waterDay[i]);}
 
         }
         count[i] = 0;

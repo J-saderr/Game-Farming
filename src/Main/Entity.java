@@ -108,13 +108,6 @@ public class Entity {
             daysGrown = daysToGrow;
         }
     }
-
-    public double getPurchasePrice() {
-        return purchasePrice;
-    }
-    public double getSellPrice() {
-        return sellPrice;
-    }
     public String getName() {
         return cropName;
     }

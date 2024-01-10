@@ -21,7 +21,7 @@ import Main.Entity;
 public class Player extends Entity {
     KeyHandler keyH;
 
-    public Carrot carrot = new Carrot(gp);
+    private Carrot carrot = new Carrot(gp);
     private Potato potato = new Potato(gp);
     private Spinach spinach = new Spinach(gp);
     public final int screenX ;
@@ -70,7 +70,6 @@ public class Player extends Entity {
             inventory.add(new CarrotMature(gp));
             inventory.add(new PotatoMature(gp));
             inventory.add(new SpinachMature(gp));
-            setSeedQuantities(1);
         }
         public void getPlayerImage() {
             try
@@ -311,10 +310,6 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = carrot.Carrot_seed;
-                            gp.entities[i].name = "Carrot seed";
-                            System.out.println("Checking plant " + gp.entities[i].image);
-                                e.quantities -= 1;
-                                e.description = "Carrot seed x " + e.quantities;
                             item.quantities -= 1;
                         }
                         else {System.out.println("Not enough seed");}
@@ -335,9 +330,8 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = potato.Potato_seed;
-                            gp.entities[i].name = "Potato seed";
-                                e.quantities -= 1;
-                                e.description = "Potato seed x " + e.quantities;
+                            e.quantities -= 1;
+                            e.description = "Potato seed x " + e.quantities;
                         }
                         else {System.out.println("Not enough seed");}
                     };
@@ -356,9 +350,8 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = spinach.Spinach_seed;
-                            gp.entities[i].name = "Spinach seed";
-                                e.quantities -= 1;
-                                e.description = "Spinach seed x " + e.quantities;
+                            e.quantities -= 1;
+                            e.description = "Spinach seed x " + e.quantities;
                         } else {
                             System.out.println("Not enough seed");
                         }
@@ -369,12 +362,10 @@ public class Player extends Entity {
 
     }
     public void checkWatering(int i) {
-            if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
-                System.out.println("Checking water");
-                count[i] += 1;
-                if (count[i] == 1){
-                   gp.entities[i].waterDay[i] += 1;
-                    System.out.println("Checking water" + gp.entities[i].waterDay[i]);}
+        if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
+            count[i] += 1;
+            if (count[i] == 1){
+                gp.entities[i].waterDay[i] += 1;}
 
         }
         count[i] = 0;

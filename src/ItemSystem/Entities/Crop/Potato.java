@@ -20,7 +20,7 @@ public class Potato extends Entity {
         price = 75;
         daysToGrow = 5;
         down1 = setup("res/Seed/Potatoseed");
-        description = "Potato Seed x " + quantities;
+        description = "Potato Seed";
         getPotatoImage();
         stackable = true;
     }
@@ -44,32 +44,28 @@ public class Potato extends Entity {
 
 
     public void PotatoLogic(int i){
-
         if (gp.entities[i].waterDay[i] == 0) {
-            gp.entities[i].name = "Potato seed";
-        }
-        if (gp.entities[i].waterDay[i] == 1 && gp.entities[i].name == "Potato seed") {
-            gp.entities[i].name = "Potato sprout";
+        gp.entities[i].image = Potato_seed;
+    }
+        if (gp.entities[i].waterDay[i] == 1 & gp.entities[i].image == Potato_seed) {
             gp.entities[i].image = Potato_sprout;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].name == "Potato seed"){
+        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Potato_seed){
             gp.entities[i].waterDay[i] = 0;
         }
-        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].name == "Potato sprout") {
-            gp.entities[i].name = "Potato sapling";
+        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Potato_sprout) {
             gp.entities[i].image = Potato_sapling;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].name == "Potato sprout") {
+        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Potato_sprout) {
             gp.entities[i].waterDay[i] = 1;
         }
-        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].name == "Potato sapling") {
-            gp.entities[i].name = "Potato mature";
+        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Potato_sapling) {
             gp.entities[i].image = Potato_mature;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].name == "Potato sapling"){
+        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Potato_sapling){
             gp.entities[i].waterDay[i] = 2;
         }
     }

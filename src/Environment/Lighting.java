@@ -7,17 +7,13 @@ import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import Character.Player;
 
-import ItemSystem.Entities.Crop.Carrot;
-import Main.Entity;
 import Main.GamePanel;
-import Main.KeyHandler;
 
 public class Lighting {
     GamePanel gp;
     BufferedImage darknessFilter;
-    public int dayCounter;
+    int dayCounter;
     public float filterAlpha = 0f;
     // day-state
     public final int day = 0;
@@ -25,9 +21,6 @@ public class Lighting {
     public final int night = 2;
     public final int dawn = 3;
     public int dayState = day;
-    private Entity entity = new Entity(gp);
-    private Carrot carrot = new Carrot(gp);
-
     Font upheaval, minecraftia;
 
     public Lighting(GamePanel gp) {
@@ -111,21 +104,7 @@ public class Lighting {
         // check-the-state-of-the-day
         if (dayState == day) {
             dayCounter++;
-            if (dayCounter==1){
-                for ( int i = 0 ; i<= 23; i++) {
-                    gp.player.checkWatering(i);
-                    if(gp.entities[i] != null) {
-                        if (gp.entities[i].type == entity.type_carrot) {
-                            gp.carrot.CarrotLogic(i);}
-                        else if (gp.entities[i].type == entity.type_potato) {
-                            gp.potato.PotatoLogic(i);}
-                        else if (gp.entities[i].type == entity.type_spinach) {
-                            gp.spinach.SpinachLogic(i);}
-                    }
-                }
-                gp.resetSoil();
-            }
-            else if (dayCounter > 600) {
+            if (dayCounter > 600) {
                 dayState = dusk;
                 dayCounter = 0;
             }
@@ -150,7 +129,6 @@ public class Lighting {
             if (filterAlpha < 0f) {
                 filterAlpha = 0f;
                 dayState = day;
-
             }
         }
     }

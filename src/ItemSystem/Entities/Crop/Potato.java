@@ -19,7 +19,7 @@ public class Potato extends Entity {
         price = 75;
         daysToGrow = 5;
         down1 = setup("res/Seed/Potatoseed");
-        description = "Potato Seed x " + quantities;
+        description = "Potato Seed";
         getPotatoImage();
         stackable = true;
     }

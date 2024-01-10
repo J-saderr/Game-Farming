@@ -560,9 +560,9 @@ public class UI {
         g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
-        int dFrameX = gp.tileSize - 30 ;
+        int dFrameX = gp.tileSize - 30;
         int dFrameY = gp.tileSize + 200;
-        int dFrameWidth = gp.tileSize *6;
+        int dFrameWidth = gp.tileSize * 6;
         int dFrameHeight = gp.tileSize*2;
         drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
 

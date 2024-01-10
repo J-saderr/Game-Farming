@@ -67,9 +67,7 @@ public class Player extends Entity {
             inventory.add(new Carrot(gp));
             inventory.add(new Potato(gp));
             inventory.add(new Spinach(gp));
-            inventory.add(new CarrotMature(gp));
-            inventory.add(new PotatoMature(gp));
-            inventory.add(new SpinachMature(gp));
+            //setSeedQuantities(1);
         }
         public void getPlayerImage() {
             try
@@ -310,6 +308,7 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = carrot.Carrot_seed;
+                            gp.entities[i].name = "Carrot seed";
                             item.quantities -= 1;
                         }
                         else {System.out.println("Not enough seed");}
@@ -330,8 +329,8 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = potato.Potato_seed;
+                            gp.entities[i].name = "Potato seed";
                             e.quantities -= 1;
-                            e.description = "Potato seed x " + e.quantities;
                         }
                         else {System.out.println("Not enough seed");}
                     };
@@ -350,8 +349,8 @@ public class Player extends Entity {
                             gp.entities[i].worldX = getSoilX(objIndex);
                             gp.entities[i].worldY = getSoilY(objIndex);
                             gp.entities[i].image = spinach.Spinach_seed;
+                            gp.entities[i].name = "Spinach seed";
                             e.quantities -= 1;
-                            e.description = "Spinach seed x " + e.quantities;
                         } else {
                             System.out.println("Not enough seed");
                         }
@@ -380,26 +379,35 @@ public class Player extends Entity {
                     if (gp.entities[i] != null){
                         if (gp.entities[i].cropPeriod == 3 && keyH.harvest) {
                             if (gp.entities[i].type == type_carrot) {
-                                for (Entity e: inventory) {
-                                    if (e.type == type_carrot_mature) {
-                                        e.quantities += 1;
-                                        e.description = "Carrot x " + e.quantities;
+                                if (!inventory.contains(new CarrotMature(gp))) {
+                                    inventory.add(new CarrotMature(gp));
+                                } else {
+                                    for (Entity e : inventory) {
+                                        if (e.type == type_carrot_mature) {
+                                            e.quantities += 1;
+                                        }
                                     }
                                 }
                             }
-                            if (gp.entities[i].type == type_potato) {
-                                for (Entity e: inventory) {
-                                    if (e.type == type_potato_mature) {
-                                        e.quantities += 1;
-                                        e.description = "Potato x " + e.quantities;
+                                    if (gp.entities[i].type == type_potato) {
+                                        if (!inventory.contains(new PotatoMature(gp))) {
+                                            inventory.add(new PotatoMature(gp));
+                                        } else {
+                                            for (Entity e : inventory) {
+                                                if (e.type == type_potato_mature) {
+                                                    e.quantities += 1;
+                                                }
+                                            }
+                                        }
                                     }
-                                }
-                            }
                             if (gp.entities[i].type == type_spinach) {
-                                for (Entity e : inventory) {
-                                    if (e.type == type_spinach_mature) {
-                                        e.quantities += 1;
-                                        e.description = "Spinach x " + e.quantities;
+                                if (!inventory.contains(new SpinachMature(gp))) {
+                                    inventory.add(new SpinachMature(gp));
+                                } else {
+                                    for (Entity e : inventory) {
+                                        if (e.type == type_spinach_mature) {
+                                            e.quantities += 1;
+                                        }
                                     }
                                 }
                             }

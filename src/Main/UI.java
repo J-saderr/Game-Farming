@@ -218,7 +218,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 3;
         int height = gp.tileSize * 2;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -269,7 +269,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 5;
         int height = gp.tileSize;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -399,7 +399,7 @@ public class UI {
             int textY = dFrameY + gp.tileSize;
             g2.setColor(Color.WHITE);
             g2.setFont(minecraftia);
-            g2.setFont(g2.getFont().deriveFont(25f));
+            g2.setFont(g2.getFont().deriveFont(15f));
 
             int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
 

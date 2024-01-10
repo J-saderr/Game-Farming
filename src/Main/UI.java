@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import Character.Money;
+import Character.Player;
 import Environment.EnergyBar;
+import Main.Entity.*;
 import ItemSystem.*;
 import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
 import ItemSystem.Entities.Tools.WateringCan;
-import Main.Entity;
 import Main.GamePanel;
 
 
@@ -29,7 +30,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
-
+    public Entity entity = new Entity(gp);
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -172,11 +173,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
-        x += gp.tileSize;
-        y += gp.tileSize;
+        x += gp.tileSize + 10;
+        y += gp.tileSize + 5;
 
         g2.drawString("Buy seeds", x, y);
         if (commandNum == 0) {
@@ -191,7 +192,7 @@ public class UI {
             if(gp.keyH.enter){subState = 2;}
         }
         y += gp.tileSize;
-        g2.drawString("Goodbye player!", x, y);
+        g2.drawString("Back to farm", x, y);
         if (commandNum == 2) {
             g2.drawString(">", x-24, y);
             if(gp.keyH.enter) {
@@ -205,7 +206,7 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
+        g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(25f));
 
         //Draw player inventory
@@ -218,7 +219,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 3;
         int height = gp.tileSize * 2;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -245,6 +246,39 @@ public class UI {
                     gp.gameState = gp.dialogueState;
                     currentDialogue = "You don't have enough money!";
                     drawDialogueScreen();
+                }
+                else if (gp.player.inventory.size() == gp.player.maxInventorySize){
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "Co cho nao nua ma bo nua hai!";
+                    //drawDialogueScreen();
+                }
+                else {
+                    gp.player.money -= npc.inventory.get(itemIndex).price;
+                   // gp.player.inventory.add(npc.inventory.get(itemIndex));
+                   if(npc.inventory.get(itemIndex).type == entity.type_carrot){
+                       for (Entity e: gp.player.inventory) {
+                           if (e.type == entity.type_carrot) {
+                               e.quantities += 1;
+                               e.description = "Carrot seed x " + e.quantities;
+                           }
+                       }
+                    }
+                    else if(npc.inventory.get(itemIndex).type == entity.type_potato){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato) {
+                                e.quantities += 1;
+                                e.description = "Potato seed x " + e.quantities;
+                            }
+                        }
+                    }
+                    else if(npc.inventory.get(itemIndex).type == entity.type_spinach){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach) {
+                                e.quantities += 1;
+                                e.description = "Spinach seed x " + e.quantities;
+                            }
+                        }
                 } else {
                     if (gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
                         gp.player.money -= npc.inventory.get(itemIndex).price;
@@ -258,7 +292,8 @@ public class UI {
         }
     }
     public void trade_sell(){
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(25f));
         //Draw player inventory
         drawInventory(gp.player, true);
         //Draw npc inventory
@@ -268,7 +303,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 5;
         int height = gp.tileSize;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -290,6 +325,85 @@ public class UI {
             //Sell an item
             if (gp.keyH.enter) {
                 //sell tools
+                if(gp.player.inventory.get(itemIndex)== gp.player.currentTool){
+                    commandNum = 0;
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "Ban roi lay j lam ma";
+                }
+                else {
+                    if(gp.player.inventory.get(itemIndex).type == entity.type_carrot_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_carrot_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Carrot x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_carrot_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Potato x " + e.quantities;
+                                gp.player.money += price;
+                            } else if(e.type == entity.type_potato_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach_mature){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach_mature && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Spinach x " + e.quantities;
+                                gp.player.money += price;
+                            } else if(e.type == entity.type_spinach_mature && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_carrot){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_carrot && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Carrot seed x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_carrot && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_potato){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_potato && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Potato seed x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_potato && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
+                    else if(gp.player.inventory.get(itemIndex).type == entity.type_spinach){
+                        for (Entity e: gp.player.inventory) {
+                            if (e.type == entity.type_spinach && e.quantities >0) {
+                                e.quantities -= 1;
+                                e.description = "Spinach x " + e.quantities;
+                                gp.player.money += price;
+                            } else if (e.type == entity.type_spinach && e.quantities <0){
+                                subState = 0;
+                                gp.gameState = gp.dialogueState;
+                                currentDialogue = "Het roi ban gi ma";}
+                        }
+                    }
                 if(gp.player.inventory.get(itemIndex).type == Entity.type_hoe ||
                    gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
                    gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
@@ -397,8 +511,8 @@ public class UI {
             int textX = dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
             g2.setColor(Color.WHITE);
-            g2.setFont(upheaval);
-            g2.setFont(g2.getFont().deriveFont(25f));
+            g2.setFont(minecraftia);
+            g2.setFont(g2.getFont().deriveFont(15f));
 
             int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
 
@@ -528,6 +642,7 @@ public class UI {
             gp.eManager.lighting.filterAlpha -= 0.1f;
             if (gp.eManager.lighting.filterAlpha <= 0f) {
                 gp.eManager.lighting.filterAlpha = 0f;
+                gp.eManager.lighting.dayCounter = 0;
                 counter = 0;
                 gp.eManager.lighting.dayState = gp.eManager.lighting.day;
                 gp.gameState = gp.playerState;
@@ -587,9 +702,9 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Press Enter to update", textX, textY + 25);
-            g2.drawString("update House Level.", textX, textY + 50);
-            g2.drawString("Press O to Exit", textX, textY + 75);
+            g2.drawString("You need " + gp.keyH.levelUpMoney + " to update your", textX, textY + 25);
+            g2.drawString("House Level.", textX, textY + 50);
+            g2.drawString("Press Enter to Update", textX, textY + 75);
         } else {
             g2.drawString("Your House Level is 5" , textX, textY);
             g2.drawString("You've reached max level!", textX, textY + 25);
@@ -638,11 +753,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
         x += gp.tileSize;
-        y += gp.tileSize;
+        y += gp.tileSize + 7;
         //DISPLAY MULTIPLES LINES
         for(String line: currentDialogue.split("\n")) {
             g2.drawString(line,x,y);

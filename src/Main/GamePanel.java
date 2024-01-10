@@ -1,5 +1,4 @@
 package Main;
-import Environment.Clock;
 import Environment.EnvironmentManager;
 import Environment.Sound;
 import HouseLevel.House;
@@ -60,7 +59,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Potato potato = new Potato(this);
     public Spinach spinach = new Spinach(this);
     Sound sound = new Sound();
-    Clock clock = new Clock(this);
     public int currentDay = 1;
     public int gameState;
     public int titleState = 0;
@@ -85,7 +83,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public void setupGame() {
         houselv.setDefault();
         aSetter.setObject();
-        currentDay = Clock.getDay();
         aSetter.setNPC();
         aSetter.setHouse();
         eManager.setUp();
@@ -97,14 +94,18 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         //playMusic(0);
     }
     public void resetSoil(){
-        if((Clock.getDay() - currentDay) == 1  ) {
-            for(int i=0; i<=23 ; i++ ){
-                if(obj[i].name == "wateredSoil"){
+        for(int i=0; i<=23 ; i++ ){
+            if(obj[i].name == "wateredSoil"){
                 obj[i].image = notWateredSoil.image;
                 obj[i].name = "notWateredSoil";
                 }
             }
-            currentDay = Clock.getDay();
+
+    }
+
+    public void resetPlant(){
+        for (int i = 0 ; i<=23; i++){
+            this.entities[i] = null;
         }
     }
     public void playMusic(int i) {
@@ -133,8 +134,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                 update();
                 if (timer >= 100000000){
                     //noticed
-                    clock.increaseTime();
-                    if (clock.getHour() == 23 && clock.getMinute() == 40){
+                    //clock.increaseTime();
+                    /*if (clock.getHour() == 23 && clock.getMinute() == 40){
                         for ( int i = 0 ; i<= 23; i++) {
                             player.checkWatering(i);
                             if(entities[i] != null) {
@@ -146,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
                                     spinach.SpinachLogic(i);}
                             }
                         }
-                        }
+                        }*/
                     drawCount =0;
                     timer =0;
                 }
@@ -162,19 +163,18 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         player.setDefault();
         player.inventory.clear();
         aSetter.setObject();
-        currentDay = Clock.getDay();
         aSetter.setNPC();
         aSetter.setHouse();
         eManager.setUp();
         player.setItems();
         houselv.setDefault();
+        resetPlant();
     }
     public void update() {
         if (gameState == playerState) {
             player.update();
             eManager.update();
             tileManager.update();
-            resetSoil();
             // noticed
             //clock.increaseTime();
         }

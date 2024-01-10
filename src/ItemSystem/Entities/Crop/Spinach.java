@@ -20,7 +20,7 @@ public class Spinach extends Entity {
         type = type_spinach;
         price = 100;
         daysToGrow = 4;
-        down1 = setup("res/Seed/Spinachseed");
+        down1 = setup("res/Plants/Spinachseed");
         description = "Spinach Seed";
         getSpinachImage();
         stackable = true;

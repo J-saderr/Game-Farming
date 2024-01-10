@@ -33,7 +33,7 @@ public class MerchantNPC extends Entity {
         direction = "down";
         collision= false;
         try {
-            InputStream inputStream14 = new FileInputStream(new File("res/merchantNPC/npc.png"));
+            InputStream inputStream14 = new FileInputStream(new File("res/tile/npc.png"));
             image = ImageIO.read(inputStream14);
         } catch (IOException e) {
             e.printStackTrace();

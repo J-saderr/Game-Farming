@@ -67,7 +67,9 @@ public class Player extends Entity {
             inventory.add(new Carrot(gp));
             inventory.add(new Potato(gp));
             inventory.add(new Spinach(gp));
-            //setSeedQuantities(1);
+            inventory.add(new CarrotMature(gp));
+            inventory.add(new PotatoMature(gp));
+            inventory.add(new SpinachMature(gp));
         }
         public void getPlayerImage() {
             try

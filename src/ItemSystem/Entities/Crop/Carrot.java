@@ -19,7 +19,7 @@ public class Carrot extends Entity {
         price = 50;
         daysToGrow = 4;
         type = type_carrot;
-        down1 = setup("res/Seed/Carrotseed");
+        down1 = setup("res/Plants/Carrotseed");
         getCarrotImage();
         stackable = true;
         description = "Carrot Seed";

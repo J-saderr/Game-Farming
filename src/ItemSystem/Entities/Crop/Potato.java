@@ -18,7 +18,7 @@ public class Potato extends Entity {
         type = type_potato;
         price = 75;
         daysToGrow = 5;
-        down1 = setup("res/Seed/Potatoseed");
+        down1 = setup("res/Plants/Potatoseed");
         description = "Potato Seed";
         getPotatoImage();
         stackable = true;

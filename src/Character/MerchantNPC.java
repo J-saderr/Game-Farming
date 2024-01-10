@@ -37,7 +37,7 @@ public class MerchantNPC extends Entity {
     }
     public void setDialogue() {
         //DISPLAY TEXT IN MULTIPLE LINES -> \n
-        dialogues[0] = "Welcome to BetterFarming \nI'm Ms.Doxep. How can I help you ?";
+        dialogues[0] = "Welcome to BetterFarming player! \nI'm Ms.Doxep. How can I help you ?";
     }
     public void speak() {
         super.speak();

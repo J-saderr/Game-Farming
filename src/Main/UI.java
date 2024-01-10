@@ -172,11 +172,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
-        x += gp.tileSize;
-        y += gp.tileSize;
+        x += gp.tileSize + 10;
+        y += gp.tileSize + 5;
 
         g2.drawString("Buy seeds", x, y);
         if (commandNum == 0) {
@@ -191,7 +191,7 @@ public class UI {
             if(gp.keyH.enter){subState = 2;}
         }
         y += gp.tileSize;
-        g2.drawString("Goodbye player!", x, y);
+        g2.drawString("Back to farm", x, y);
         if (commandNum == 2) {
             g2.drawString(">", x-24, y);
             if(gp.keyH.enter) {
@@ -205,7 +205,7 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
+        g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(25f));
 
         //Draw player inventory
@@ -258,7 +258,8 @@ public class UI {
         }
     }
     public void trade_sell(){
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(25f));
         //Draw player inventory
         drawInventory(gp.player, true);
         //Draw npc inventory
@@ -397,7 +398,7 @@ public class UI {
             int textX = dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
             g2.setColor(Color.WHITE);
-            g2.setFont(upheaval);
+            g2.setFont(minecraftia);
             g2.setFont(g2.getFont().deriveFont(25f));
 
             int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
@@ -587,9 +588,9 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Press Enter to update", textX, textY + 25);
-            g2.drawString("update House Level.", textX, textY + 50);
-            g2.drawString("Press O to Exit", textX, textY + 75);
+            g2.drawString("You need " + gp.keyH.levelUpMoney + " to update your", textX, textY + 25);
+            g2.drawString("House Level.", textX, textY + 50);
+            g2.drawString("Press Enter to Update", textX, textY + 75);
         } else {
             g2.drawString("Your House Level is 5" , textX, textY);
             g2.drawString("You've reached max level!", textX, textY + 25);
@@ -638,11 +639,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
         x += gp.tileSize;
-        y += gp.tileSize;
+        y += gp.tileSize + 7;
         //DISPLAY MULTIPLES LINES
         for(String line: currentDialogue.split("\n")) {
             g2.drawString(line,x,y);

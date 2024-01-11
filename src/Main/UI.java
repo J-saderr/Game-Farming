@@ -344,16 +344,17 @@ public class UI {
         int slotY = slotYstart;
         int slotSize = gp.tileSize + 3;
 
-        // DRAW PLAYER'S ITEMS
+        // DRAW ITEMS
         for (int i = 0; i < entity.inventory.size(); i++) {
             //EQUIP CURSOR
-            if (gp.player.inventory.get(i) == gp.player.currentTool){
+            if (entity.inventory == gp.player.inventory && gp.player.inventory.get(i) == gp.player.currentTool){
                 g2.setColor(Color.YELLOW);
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+
             //DISPLAY AMOUNT
-            if ( entity.inventory.get(i).quantities > 1){
+            if (entity.inventory.get(i).quantities > 1){
                 g2.setFont(g2.getFont().deriveFont(20));
                 int amountX;
                 int amountY;
@@ -377,7 +378,7 @@ public class UI {
             }
         }
         // CURSOR
-        if (cursor){
+        if (cursor) {
             int cursorX = slotXstart + (slotSize * slotCol);
             int cursorY = slotYstart + (slotSize * slotRow);
             int cursorWidth = gp.tileSize;
@@ -386,8 +387,8 @@ public class UI {
             // DRAW CURSOR
             Color c = new Color(243, 229, 215);
             g2.setColor(c);
-            g2.setStroke (new BasicStroke(3));
-            g2.drawRoundRect (cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
             //Description Frame
             int dFrameX = frameX;

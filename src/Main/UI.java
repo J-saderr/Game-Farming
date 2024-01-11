@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import Character.Money;
+import Character.Player;
 import Environment.EnergyBar;
+import Main.Entity.*;
 import ItemSystem.*;
 import ItemSystem.Entities.Tools.Axe;
 import ItemSystem.Entities.Tools.Hoe;
@@ -29,7 +31,7 @@ public class UI {
     public int npcSlotRow =0;
     public int subState = 0;
     public Entity npc;
-
+    public Entity entity = new Entity(gp);
 
     public UI(GamePanel gp) {
         this.gp =gp;
@@ -172,11 +174,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
-        x += gp.tileSize;
-        y += gp.tileSize;
+        x += gp.tileSize + 10;
+        y += gp.tileSize + 5;
 
         g2.drawString("Buy seeds", x, y);
         if (commandNum == 0) {
@@ -191,7 +193,7 @@ public class UI {
             if(gp.keyH.enter){subState = 2;}
         }
         y += gp.tileSize;
-        g2.drawString("Goodbye player!", x, y);
+        g2.drawString("Back to farm", x, y);
         if (commandNum == 2) {
             g2.drawString(">", x-24, y);
             if(gp.keyH.enter) {
@@ -205,7 +207,7 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
+        g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(25f));
 
         //Draw player inventory
@@ -218,7 +220,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 3;
         int height = gp.tileSize * 2;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -258,7 +260,8 @@ public class UI {
         }
     }
     public void trade_sell(){
-
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(25f));
         //Draw player inventory
         drawInventory(gp.player, true);
         //Draw npc inventory
@@ -268,7 +271,7 @@ public class UI {
         int y = gp.tileSize * 9;
         int width = gp.tileSize * 5;
         int height = gp.tileSize;
-        g2.drawString("[ESC] Back", x-130,y+30);
+        g2.drawString("[ESC] Back", x-120,y-155);
 
         //Draw player money window
         drawPlayerMoney();
@@ -341,16 +344,17 @@ public class UI {
         int slotY = slotYstart;
         int slotSize = gp.tileSize + 3;
 
-        // DRAW PLAYER'S ITEMS
+        // DRAW ITEMS
         for (int i = 0; i < entity.inventory.size(); i++) {
             //EQUIP CURSOR
-            if (gp.player.inventory.get(i) == gp.player.currentTool){
+            if (entity.inventory == gp.player.inventory && gp.player.inventory.get(i) == gp.player.currentTool){
                 g2.setColor(Color.YELLOW);
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+
             //DISPLAY AMOUNT
-            if ( entity.inventory.get(i).quantities > 1){
+            if (entity.inventory.get(i).quantities > 1){
                 g2.setFont(g2.getFont().deriveFont(20));
                 int amountX;
                 int amountY;
@@ -374,7 +378,7 @@ public class UI {
             }
         }
         // CURSOR
-        if (cursor){
+        if (cursor) {
             int cursorX = slotXstart + (slotSize * slotCol);
             int cursorY = slotYstart + (slotSize * slotRow);
             int cursorWidth = gp.tileSize;
@@ -383,8 +387,8 @@ public class UI {
             // DRAW CURSOR
             Color c = new Color(243, 229, 215);
             g2.setColor(c);
-            g2.setStroke (new BasicStroke(3));
-            g2.drawRoundRect (cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            g2.setStroke(new BasicStroke(3));
+            g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
             //Description Frame
             int dFrameX = frameX;
@@ -397,8 +401,8 @@ public class UI {
             int textX = dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
             g2.setColor(Color.WHITE);
-            g2.setFont(upheaval);
-            g2.setFont(g2.getFont().deriveFont(25f));
+            g2.setFont(minecraftia);
+            g2.setFont(g2.getFont().deriveFont(15f));
 
             int itemIndex = getItemIndexOnSlot(slotCol,slotRow);
 
@@ -528,6 +532,7 @@ public class UI {
             gp.eManager.lighting.filterAlpha -= 0.1f;
             if (gp.eManager.lighting.filterAlpha <= 0f) {
                 gp.eManager.lighting.filterAlpha = 0f;
+                gp.eManager.lighting.dayCounter = 0;
                 counter = 0;
                 gp.eManager.lighting.dayState = gp.eManager.lighting.day;
                 gp.gameState = gp.playerState;
@@ -587,9 +592,9 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(15F));
         if (gp.houselv.houseLevel < 6) {
             g2.drawString("Your House Level is " + gp.houselv.houseLevel, textX, textY);
-            g2.drawString("Press Enter to update", textX, textY + 25);
-            g2.drawString("update House Level.", textX, textY + 50);
-            g2.drawString("Press O to Exit", textX, textY + 75);
+            g2.drawString("You need " + gp.keyH.levelUpMoney + " to update your", textX, textY + 25);
+            g2.drawString("House Level.", textX, textY + 50);
+            g2.drawString("Press Enter to Update", textX, textY + 75);
         } else {
             g2.drawString("Your House Level is 5" , textX, textY);
             g2.drawString("You've reached max level!", textX, textY + 25);
@@ -638,11 +643,11 @@ public class UI {
         //Set font
         //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
-        g2.setFont(upheaval);
-        g2.setFont(g2.getFont().deriveFont(25f));
+        g2.setFont(minecraftia);
+        g2.setFont(g2.getFont().deriveFont(17f));
 
         x += gp.tileSize;
-        y += gp.tileSize;
+        y += gp.tileSize + 7;
         //DISPLAY MULTIPLES LINES
         for(String line: currentDialogue.split("\n")) {
             g2.drawString(line,x,y);

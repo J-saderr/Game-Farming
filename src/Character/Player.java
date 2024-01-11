@@ -312,7 +312,7 @@ public class Player extends Entity {
                            gp.entities[i].image = carrot.Carrot_seed;
                            gp.entities[i].name = "Carrot seed";
                            inventory.get(itemIndex).quantities --;
-                            if (inventory.get(itemIndex).quantities == 0){
+                           if (inventory.get(itemIndex).quantities == 0){
                                 inventory.remove(itemIndex);
                             }
                         }
@@ -320,6 +320,7 @@ public class Player extends Entity {
                 }
             }
         }
+      
         if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
             for (int i = 0; i <= 23; i++) {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
@@ -359,6 +360,7 @@ public class Player extends Entity {
             }
         }
     }
+  
     public void checkWatering(int i) {
         if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
             count[i] += 1;
@@ -381,11 +383,11 @@ public class Player extends Entity {
                                 if (!inventory.contains(new CarrotMature(gp))) {
                                     inventory.add(new CarrotMature(gp));
                                 } else {
-                                   for (Entity e : inventory) {
+                                    for (Entity e : inventory) {
                                         if (e.type == type_carrot_mature) {
                                             e.quantities += 1;
-                                       }
-                                   }
+                                        }
+                                    }
                                 }
                             }
                                     if (gp.entities[i].type == type_potato) {

@@ -3,7 +3,6 @@ package ItemSystem.Entities.Crop;
 import Main.GamePanel;
 
 public class PotatoMature extends Potato{
-    private GamePanel gp;
     public PotatoMature(GamePanel gp){
         super(gp);
         price = 90;

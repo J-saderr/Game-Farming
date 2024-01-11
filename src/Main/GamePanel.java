@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public final int houselvState = 8;
     public final int tradeState = 9;
     public final int gameOverState = 10;
+    public final int winState = 11;
     notWateredSoil notWateredSoil = new notWateredSoil(this);
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -166,6 +167,8 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
         eManager.setUp();
         player.setItems();
         houselv.setDefault();
+        keyH.levelUpMoney = 150;
+        keyH.counter = 0;
         resetPlant();
     }
     public void update() {

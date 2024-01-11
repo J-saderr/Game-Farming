@@ -9,8 +9,8 @@ public class KeyHandler implements KeyListener {
 
     public boolean up, down, left, right, enter, doing,harvest;
     public boolean canSleep = true;
-    int counter;
-    int levelUpMoney = 150;
+    public int counter;
+    public int levelUpMoney = 150;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
@@ -49,6 +49,9 @@ public class KeyHandler implements KeyListener {
             tradeState(code);
         }
         else if (gp.gameState == gp.gameOverState) {
+            gameOverState(code);
+        }
+        else if (gp.gameState == gp.winState) {
             gameOverState(code);
         }
     }
@@ -207,7 +210,7 @@ public class KeyHandler implements KeyListener {
     }
     public void gameOverState(int code){
 
-        if (gp.gameState == gp.gameOverState) {
+        if (gp.gameState == gp.gameOverState || gp.gameState == gp.winState ) {
             if(code == KeyEvent.VK_W) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {

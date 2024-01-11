@@ -304,64 +304,63 @@ public class Player extends Entity {
         if (currentTool.type == type_carrot & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
             for (int i = 0; i <= 23; i++) {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
-                    for (Entity item: inventory) {
-                        if (item.quantities >0 && item.type == type_carrot) {
-                            gp.entities[i] = new Carrot(gp);
-                            gp.entities[i].worldX = getSoilX(objIndex);
-                            gp.entities[i].worldY = getSoilY(objIndex);
-                            gp.entities[i].image = carrot.Carrot_seed;
-                            gp.entities[i].name = "Carrot seed";
-                            item.quantities -= 1;
-                        }
-                        else {System.out.println("Not enough seed");}
-
-                    };
-
-
-                }
-            }
-
-        }
-        if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
-            for (int i = 0; i <= 23; i++) {
-                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
-                    for (Entity e: inventory) {
-                        if (e.quantities >0 && e.type == type_potato ) {
-                            gp.entities[i] = new Potato(gp);
-                            gp.entities[i].worldX = getSoilX(objIndex);
-                            gp.entities[i].worldY = getSoilY(objIndex);
-                            gp.entities[i].image = potato.Potato_seed;
-                            gp.entities[i].name = "Potato seed";
-                            e.quantities -= 1;
-                        }
-                        else {System.out.println("Not enough seed");}
-                    };
-
-
-                }
-            }
-
-        }
-        if (currentTool.type == type_spinach & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
-            for (int i = 0; i <= 23; i++) {
-                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)) {
-                    for (Entity e : inventory) {
-                        if (e.quantities > 0 && e.type == type_spinach) {
-                            gp.entities[i] = new Spinach(gp);
-                            gp.entities[i].worldX = getSoilX(objIndex);
-                            gp.entities[i].worldY = getSoilY(objIndex);
-                            gp.entities[i].image = spinach.Spinach_seed;
-                            gp.entities[i].name = "Spinach seed";
-                            e.quantities -= 1;
-                        } else {
-                            System.out.println("Not enough seed");
+                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                        if (inventory.get(itemIndex).quantities > 0 && inventory.get(itemIndex).type == type_carrot){
+                           gp.entities[i] = new Carrot(gp);
+                           gp.entities[i].worldX = getSoilX(objIndex);
+                           gp.entities[i].worldY = getSoilY(objIndex);
+                           gp.entities[i].image = carrot.Carrot_seed;
+                           gp.entities[i].name = "Carrot seed";
+                           inventory.get(itemIndex).quantities --;
+                           if (inventory.get(itemIndex).quantities == 0){
+                                inventory.remove(itemIndex);
+                            }
                         }
                     }
                 }
             }
         }
-
+      
+        if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
+            for (int i = 0; i <= 23; i++) {
+                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
+                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                        if (inventory.get(itemIndex).quantities > 0 && inventory.get(itemIndex).type == type_potato){
+                            gp.entities[i] = new Potato(gp);
+                            gp.entities[i].worldX = getSoilX(objIndex);
+                            gp.entities[i].worldY = getSoilY(objIndex);
+                            gp.entities[i].image = potato.Potato_seed;
+                            gp.entities[i].name = "Potato seed";
+                            inventory.get(itemIndex).quantities --;
+                            if (inventory.get(itemIndex).quantities == 0){
+                                inventory.remove(itemIndex);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (currentTool.type == type_spinach & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
+            for (int i = 0; i <= 23; i++) {
+                if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
+                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                        if (inventory.get(itemIndex).quantities > 0 && inventory.get(itemIndex).type == type_spinach){
+                            gp.entities[i] = new Spinach(gp);
+                            gp.entities[i].worldX = getSoilX(objIndex);
+                            gp.entities[i].worldY = getSoilY(objIndex);
+                            gp.entities[i].image = spinach.Spinach_seed;
+                            gp.entities[i].name = "Spinach seed";
+                            inventory.get(itemIndex).quantities --;
+                            if (inventory.get(itemIndex).quantities == 0){
+                                inventory.remove(itemIndex);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+  
     public void checkWatering(int i) {
         if(gp.obj[i].name == "wateredSoil" && gp.entities[i] != null) {
             count[i] += 1;

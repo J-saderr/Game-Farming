@@ -31,6 +31,7 @@ public class Player extends Entity {
 
     public Entity currentTool;
     public boolean isWater = false;
+    public boolean soilWater = false;
     wateredSoil wateredsoil = new wateredSoil(gp);
     notWateredSoil notWateredSoil = new notWateredSoil(gp);
 
@@ -66,6 +67,9 @@ public class Player extends Entity {
             inventory.add(new Carrot(gp));
             inventory.add(new Potato(gp));
             inventory.add(new Spinach(gp));
+            inventory.add(new CarrotMature(gp));
+            inventory.add(new PotatoMature(gp));
+            inventory.add(new SpinachMature(gp));
         }
         public void getPlayerImage() {
             try
@@ -486,6 +490,7 @@ public class Player extends Entity {
                         }
                         break;
                     case "up":
+//                        if(doing == false){
                             if(spriteNum == 1) {
                                 image = up1;
                             }
@@ -494,6 +499,7 @@ public class Player extends Entity {
                             }
                         break;
                     case "down":
+//                        if(doing == false){
                             if(spriteNum == 1) {
                                 image = down1;
                             }

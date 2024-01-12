@@ -124,13 +124,13 @@ public class Lighting {
                 }
                 gp.resetSoil();
             }
-            else if (dayCounter > 100) {
+            else if (dayCounter > 600) {
                 dayState = dusk;
                 dayCounter = 0;
             }
         }
         if (dayState == dusk) {
-            filterAlpha += 0.1f;
+            filterAlpha += 0.001f;
             if (filterAlpha > 1f) {
                 filterAlpha = 1f;
                 dayState = night;
@@ -138,13 +138,13 @@ public class Lighting {
         }
         if (dayState == night) {
             dayCounter++;
-            if (dayCounter > 100) {
+            if (dayCounter > 600) {
                 dayState = dawn;
                 dayCounter = 0;
             }
         }
         if (dayState == dawn) {
-            filterAlpha -= 0.1f;
+            filterAlpha -= 0.001f;
             if (filterAlpha < 0f) {
                 filterAlpha = 0f;
                 dayState = day;

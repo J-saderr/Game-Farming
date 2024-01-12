@@ -1,5 +1,8 @@
 package Character;
 
+import ItemSystem.Entities.Crop.Carrot;
+import ItemSystem.Entities.Crop.Potato;
+import ItemSystem.Entities.Crop.Spinach;
 import Main.*;
 
 import javax.imageio.ImageIO;
@@ -12,8 +15,10 @@ public class MerchantNPC extends Entity {
     /**
      * The crops the store has for sale.
      */
+    private Carrot carrotNPC = new Carrot(gp);
+    private Potato potatoNPC = new Potato(gp);
 
-
+    private Spinach spinachNPC = new Spinach(gp);
 
     public MerchantNPC(GamePanel gp){
         super(gp);
@@ -28,6 +33,7 @@ public class MerchantNPC extends Entity {
             e.printStackTrace();
         }
         setDialogue();
+        setItems();
     }
     public void setDialogue() {
         //DISPLAY TEXT IN MULTIPLE LINES -> \n
@@ -39,4 +45,9 @@ public class MerchantNPC extends Entity {
         gp.ui.npc = this;
     }
 
+    public void setItems(){
+        inventory.add(carrotNPC);
+        inventory.add(potatoNPC);
+        inventory.add(spinachNPC)  ;
+    }
 }

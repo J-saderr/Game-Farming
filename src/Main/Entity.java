@@ -1,6 +1,5 @@
 package Main;
 
-import Environment.Clock;
 import ItemSystem.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -29,6 +28,7 @@ public class Entity {
     }
     public int worldX, worldY;
     public int speed = 4;
+
     public BufferedImage image;
     public Rectangle solidArea = new Rectangle(8, 16, 32, 32);
     public Rectangle solidAreaHouse = new Rectangle(250, 250, 250, 250);
@@ -108,16 +108,7 @@ public class Entity {
             daysGrown = daysToGrow;
         }
     }
-    public void setCurrentGrown() {
-        this.currentDay = Clock.getDay();
-    }
-    public void setDaysGrown() {
-        this.daysGrown = Clock.getDay();
-    }
-    public int getDaysPass() {
 
-        return currentDay - daysGrown;
-    }
     public String getName() {
         return cropName;
     }
@@ -157,6 +148,7 @@ public class Entity {
         return image;
     }
     public void speak(){
+
         if(dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }

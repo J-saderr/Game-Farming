@@ -294,12 +294,12 @@ public class UI {
             if (gp.keyH.enter) {
                 //sell tools
                 if(gp.player.inventory.get(itemIndex).type == Entity.type_hoe ||
-                   gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
-                   gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
-                        commandNum = 0;
-                        subState = 0;
-                        gp.gameState = gp.dialogueState;
-                        currentDialogue = "You can't sell tool!";
+                        gp.player.inventory.get(itemIndex).type == Entity.type_axe ||
+                        gp.player.inventory.get(itemIndex).type == Entity.type_watercan){
+                    commandNum = 0;
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "You can't sell tool!";
                 } else {
                     if (gp.player.inventory.get(itemIndex).quantities > 1) {
                         gp.player.inventory.get(itemIndex).quantities--;
@@ -562,9 +562,9 @@ public class UI {
         g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,15F));
         //Description Frame
-        int dFrameX = gp.tileSize - 30 ;
+        int dFrameX = gp.tileSize - 30;
         int dFrameY = gp.tileSize + 200;
-        int dFrameWidth = gp.tileSize *6;
+        int dFrameWidth = gp.tileSize * 6;
         int dFrameHeight = gp.tileSize*2;
         drawSubWindow(dFrameX,dFrameY, dFrameWidth, dFrameHeight);
 
@@ -686,4 +686,5 @@ public class UI {
         return x;
     }
 }
+
 

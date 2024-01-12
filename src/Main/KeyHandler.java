@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener {
     public boolean up, down, left, right, enter, doing,harvest;
     public boolean canSleep = true;
     int counter;
-    int levelUpMoney = 0;
+    int levelUpMoney = 150;
     public KeyHandler(GamePanel gp){
         this.gp=gp;
     }
@@ -132,11 +132,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             if (gp.player.money >= levelUpMoney) {
                 counter += 1;
-                levelUpMoney += 150;
-
                 if (counter < 5 && gp.player.money >= levelUpMoney) {
                     gp.player.money = gp.player.money - levelUpMoney;
                     gp.houselv.houseLevel = gp.houselv.houseLevel + 1;
+                    levelUpMoney += 150;
                 }
             } else {
                 gp.gameState = gp.cannotUpdateState;

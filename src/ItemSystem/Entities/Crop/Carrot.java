@@ -19,7 +19,7 @@ public class Carrot extends Entity {
         price = 50;
         daysToGrow = 4;
         type = type_carrot;
-        down1 = setup("res/Plants/Carrotseed");
+        down1 = setup("res/Plants/1");
         getCarrotImage();
         stackable = true;
         description = "Carrot Seed";
@@ -50,7 +50,7 @@ public class Carrot extends Entity {
             gp.entities[i].image = Carrot_sprout;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].name == "Carrot seed"){
+        if (gp.entities[i].waterDay[i] > 1 && gp.entities[i].name == "Carrot seed"){
             gp.entities[i].waterDay[i] = 0;
         }
         if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].name == "Carrot sprout") {
@@ -58,15 +58,16 @@ public class Carrot extends Entity {
             gp.entities[i].image = Carrot_sapling;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].name == "Carrot sprout") {
+        if (gp.entities[i].waterDay[i] > 2 && gp.entities[i].name == "Carrot sprout") {
             gp.entities[i].waterDay[i] = 1;
         }
         if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].name == "Carrot sapling") {
             gp.entities[i].name = "Carrot mature";
             gp.entities[i].image = Carrot_mature;
             gp.entities[i].cropPeriod += 1;
+            gp.entities[i].type = type_carrot_mature;
         }
-        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].name == "Carrot sapling"){
+        if (gp.entities[i].waterDay[i] > 3 && gp.entities[i].name == "Carrot sapling"){
             gp.entities[i].waterDay[i] = 2;
         }
     }

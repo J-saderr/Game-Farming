@@ -18,7 +18,7 @@ public class Potato extends Entity {
         type = type_potato;
         price = 75;
         daysToGrow = 5;
-        down1 = setup("res/Plants/Potatoseed");
+        down1 = setup("res/Plants/3");
         description = "Potato Seed";
         getPotatoImage();
         stackable = true;
@@ -67,6 +67,7 @@ public class Potato extends Entity {
             gp.entities[i].name = "Potato mature";
             gp.entities[i].image = Potato_mature;
             gp.entities[i].cropPeriod += 1;
+            gp.entities[i].type = type_potato_mature;
         }
         if (gp.entities[i].waterDay[i] >3 && gp.entities[i].name == "Potato sapling"){
             gp.entities[i].waterDay[i] = 2;

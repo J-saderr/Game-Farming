@@ -486,24 +486,20 @@ public class Player extends Entity {
                         }
                         break;
                     case "up":
-                        if(doing == false){
                             if(spriteNum == 1) {
                                 image = up1;
                             }
                             if(spriteNum == 2) {
                                 image = up2;
                             }
-                        }
                         break;
                     case "down":
-                        if(doing == false){
                             if(spriteNum == 1) {
                                 image = down1;
                             }
                             if(spriteNum == 2) {
                                 image = down2;
                             }
-                        }
                         break;
                 }
             }

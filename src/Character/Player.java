@@ -173,14 +173,21 @@ public class Player extends Entity {
         if(currentTool.type== type_hoe){
             doRight1 = setuptool("res/Action/Hoe/hoe1",super.gp.tileSize,super.gp.tileSize);
             doRight2 = setuptool("res/Action/Hoe/hoe2",super.gp.tileSize,super.gp.tileSize);
+            doLeft1 = setuptool("res/Action/Hoe/hoe3",super.gp.tileSize,super.gp.tileSize);
+            doLeft2 = setuptool("res/Action/Hoe/hoe4",super.gp.tileSize,super.gp.tileSize);
         }
         if(currentTool.type== type_watercan){
             doRight1 = setuptool("res/Action/Watercan/water1",super.gp.tileSize,super.gp.tileSize);
             doRight2 = setuptool("res/Action/Watercan/water2",super.gp.tileSize,super.gp.tileSize);
+            doLeft1 = setuptool("res/Action/Watercan/water3",super.gp.tileSize,super.gp.tileSize);
+            doLeft2 = setuptool("res/Action/Watercan/water4",super.gp.tileSize,super.gp.tileSize);
+
         }
         if(currentTool.type== type_axe){
             doRight1 = setuptool("res/Action/Axe/axe1",super.gp.tileSize,super.gp.tileSize);
             doRight2 = setuptool("res/Action/Axe/axe2",super.gp.tileSize,super.gp.tileSize);
+            doLeft1 = setuptool("res/Action/Axe/axe3",super.gp.tileSize,super.gp.tileSize);
+            doLeft2 = setuptool("res/Action/Axe/axe4",super.gp.tileSize,super.gp.tileSize);
         }
 
     }
@@ -463,13 +470,22 @@ public class Player extends Entity {
             if (direction != null) {
                 switch (direction) {
                     case "left":
-//                        if(doing == false){
-                            if(spriteNum == 1) {
+                        if(doing == false) {
+                            if (spriteNum == 1) {
                                 image = left1;
                             }
-                            if(spriteNum == 2) {
+                            if (spriteNum == 2) {
                                 image = left2;
                             }
+                        }
+                        if(doing == true){
+                            if(spriteNum == 1) {
+                                image = doLeft1;
+                            }
+                            if(spriteNum == 2) {
+                                image = doLeft2;
+                            }
+                        }
                         break;
                     case "right":
                         if(doing == false){

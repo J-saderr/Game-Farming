@@ -405,7 +405,7 @@ public class UI {
                 int amountX;
                 int amountY;
 
-                String s = "" + entity.inventory.get(i).quantities;
+                String s = "" + gp.player.inventory.get(i).quantities;
                 amountX = getXforAlignToRightText(s, slotX + 44);
                 amountY = slotY + gp.tileSize;
 

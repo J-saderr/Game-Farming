@@ -1,28 +1,17 @@
 package Character;
 
-import ItemSystem.Crop;
 import Main.*;
-import ItemSystem.Entities.Crop.Carrot;
-import ItemSystem.Entities.Crop.Potato;
-import ItemSystem.Entities.Crop.Spinach;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class MerchantNPC extends Entity {
     /**
      * The crops the store has for sale.
      */
-    private ArrayList<Crop> cropsForSale = new ArrayList<Crop>();
-    private Carrot carrotNPC = new Carrot(gp);
-    private Potato potatoNPC = new Potato(gp);
-
-    private Spinach spinachNPC = new Spinach(gp);
 
 
 
@@ -39,7 +28,6 @@ public class MerchantNPC extends Entity {
             e.printStackTrace();
         }
         setDialogue();
-        setItems();
     }
     public void setDialogue() {
         //DISPLAY TEXT IN MULTIPLE LINES -> \n
@@ -51,16 +39,4 @@ public class MerchantNPC extends Entity {
         gp.ui.npc = this;
     }
 
-    private void setDescription(){
-        carrotNPC.description = "Carrot seed";
-        potatoNPC.description = "Potato seed";
-        spinachNPC.description = "Spinach seed";
-
-    }
-    public void setItems(){
-        setDescription();
-        inventory.add(carrotNPC);
-        inventory.add(potatoNPC);
-        inventory.add(spinachNPC)  ;
-    }
 }

@@ -218,7 +218,6 @@ public class UI {
 
         //DRAW TEXT
         //Set font
-        //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
         g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,15f));
@@ -251,7 +250,6 @@ public class UI {
     }
     public void trade_buy(){
         //Set font
-        //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
         g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,25f));
@@ -501,7 +499,6 @@ public class UI {
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3 + 30;
         // shadow-color
-//        Color c = new Color(164, 76, 69);
         Color d = new Color(55, 66, 44);
         g2.setColor(d);
         g2.drawString(text, x+4, y+4);
@@ -518,7 +515,6 @@ public class UI {
         g2.drawImage(gp.tileManager.tile[16].image, gp.tileSize * 11, gp.tileSize * 8, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.tileManager.tile[19].image, x-120, gp.tileSize * 8 + 20, gp.tileSize * 2, gp.tileSize * 2, null);
         g2.drawImage(gp.houselv.house4, x-190, y-90, gp.tileSize*5, gp.tileSize*5, null);
-        //g2.drawImage(gp.houselv.house5, x+255, y+30, gp.tileSize*4, gp.tileSize*4, null);
 
 
         // menu
@@ -689,7 +685,6 @@ public class UI {
         drawSubWindow(x, y, width, height);
 
         //Set font
-        //Color c = new Color(102, 55, 68);
         g2.setColor(Color.WHITE);
         g2.setFont(minecraftia);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,15f));

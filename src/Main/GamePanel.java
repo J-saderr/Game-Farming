@@ -43,9 +43,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Money money = new Money(this);
     Thread gameThread;
     //set default position - coordinates of player
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 10;
     public Entity[] entities = new Entity[30];
     public Entity obj[] = new Entity[30];
     public Entity npc[] = new Entity[1];
@@ -53,7 +50,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
     public Entity entity;
     public AssetSetter aSetter = new AssetSetter(this);
     public EnvironmentManager eManager= new EnvironmentManager(this);
-    ArrayList<Entity> entityList = new ArrayList<>();
     public UI ui = new UI(this);
     public Carrot carrot = new Carrot(this);
     public Potato potato = new Potato(this);
@@ -133,20 +129,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             if (delta >=1 ){
                 update();
                 if (timer >= 100000000){
-//                    clock.increaseTime();
-//                    if (clock.getHour() == 23 && clock.getMinute() == 40){
-//                        for ( int i = 0 ; i<= 23; i++) {
-//                            player.checkWatering(i);
-//                            if(entities[i] != null) {
-//                                if (entities[i].cropName == "Carrot") {
-//                                    carrot.CarrotLogic(i);}
-//                                if (entities[i].cropName == "Potato") {
-//                                    potato.PotatoLogic(i);}
-//                                if (entities[i].cropName == "Spinach") {
-//                                    spinach.SpinachLogic(i);}
-//                            }
-//                        }
-//                        }
                     drawCount =0;
                     timer =0;
                 }
@@ -176,8 +158,6 @@ public class GamePanel extends JPanel implements Runnable{  //subclass of JPanel
             player.update();
             eManager.update();
             tileManager.update();
-            // noticed
-            //clock.increaseTime();
         }
         if (gameState == pauseState) {
             //nothing

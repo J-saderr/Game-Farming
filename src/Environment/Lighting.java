@@ -19,7 +19,6 @@ public class Lighting {
     BufferedImage darknessFilter;
     public int dayCounter;
     public float filterAlpha = 0f;
-    // day-state
     public final int day = 0;
     public final int dusk = 1;
     public final int night = 2;
@@ -140,7 +139,6 @@ public class Lighting {
         if (dayState == night) {
             dayCounter++;
             if (dayCounter > 600) {
-//                gp.player.life = 0;
                 dayState = dawn;
                 dayCounter = 0;
             }

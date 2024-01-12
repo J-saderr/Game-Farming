@@ -17,11 +17,9 @@ public class Entity {
     public int type; //player = 0; npc = 1; plants = 2; tools = ...
 //    public final int type_player = 0;
     public final int type_npc = 1;
-//    public final int type_plants = 2;
     //attributes
     public int money;
     public int price;
-
     public final int tileSize = originalTileSize * scale;
     public Entity(GamePanel gp){
         this.gp= gp;
@@ -42,7 +40,7 @@ public class Entity {
     public int solidDefaultY = 0;
     public BufferedImage down1, down2, down3, up1, up2, up3, right1, right2, right3, left1, left2, left3;
     public BufferedImage house1, house2, house3, house4, house5;
-    public BufferedImage doUp1, doUp2, doRight1, doRight2, doDown1, doDown2, doLeft1, doLeft2;
+    public BufferedImage doRight1, doRight2, doLeft1, doLeft2;
     public BufferedImage enbar, enbar0, monbar, monicon;
     public String direction;
     public int spriteCounter = 0;
@@ -62,10 +60,7 @@ public class Entity {
     public String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public boolean doing = false;
-    public String cropName;
     public int daysToGrow;
-    private int daysGrown;
-    private int currentDay;
     public static final int type_axe=3;
     public static final int type_hoe=4;
     public static final int type_watercan = 2;
@@ -77,52 +72,7 @@ public class Entity {
     public final int type_spinach_mature = 65;
     public int[] waterDay = new int[30];
     public int[] count = new int[30];
-
-//    public Entity(int initDaysToGrow) {
-////        cropName = name;
-////        purchasePrice = initPurchasePrice;
-////        sellPrice = initSellPrice;
-//        daysToGrow = initDaysToGrow;
-//    }
-//    public Entity(Entity entity) {
-////        cropName = entity.getName();
-////        purchasePrice = entity.getPurchasePrice();
-////       sellPrice = entity.getSellPrice();
-//        daysToGrow = entity.getDaysToGrow();
-//        daysGrown = 0;
-//    }
-    public boolean canHarvest() {
-        if (daysGrown >= daysToGrow) {
-            return true;
-        }
-        return false;
-    }
-    public void grow() {
-        if (getDaysLeftToGrow() > 0) {
-            daysGrown++;
-        }
-    }
-    public void tend(double daysToIncrease) {
-        daysGrown += daysToIncrease;
-        if (getDaysLeftToGrow() < 0) {
-            daysGrown = daysToGrow;
-        }
-    }
-
-    public String getName() {
-        return cropName;
-    }
-    public int getDaysToGrow() {
-        return daysToGrow;
-    }
-    public int getDaysLeftToGrow() {
-        return daysToGrow - daysGrown;
-    }
-    public int getDaysGrown(){
-        return daysGrown;
-    }
     public void update() {
-
     }
 
     public BufferedImage setup (String imagePath) {

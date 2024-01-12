@@ -351,6 +351,7 @@ public class UI {
                 g2.setColor(Color.YELLOW);
                 g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
             }
+
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
 
             //DISPLAY AMOUNT

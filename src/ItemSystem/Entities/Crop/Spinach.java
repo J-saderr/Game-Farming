@@ -11,7 +11,6 @@ import java.io.InputStream;
 
 
 public class Spinach extends Entity {
-    private GamePanel gp;
 
     public BufferedImage Spinach_seed, Spinach_sprout, Spinach_sapling , Spinach_mature;
 
@@ -21,7 +20,7 @@ public class Spinach extends Entity {
         type = type_spinach;
         price = 100;
         daysToGrow = 4;
-        down1 = setup("res/Seed/Spinachseed");
+        down1 = setup("res/Plants/2");
         description = "Spinach Seed";
         getSpinachImage();
         stackable = true;
@@ -45,28 +44,34 @@ public class Spinach extends Entity {
     }
 
     public void SpinachLogic(int i){
+
+
         if (gp.entities[i].waterDay[i] == 0) {
-            gp.entities[i].image = Spinach_seed;
+            gp.entities[i].name = "Spinach seed";
         }
-        if (gp.entities[i].waterDay[i] == 1& gp.entities[i].image == Spinach_seed) {
+        if (gp.entities[i].waterDay[i] == 1 && gp.entities[i].name == "Spinach seed") {
+            gp.entities[i].name = "Spinach sprout";
             gp.entities[i].image = Spinach_sprout;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].image == Spinach_seed){
+        if (gp.entities[i].waterDay[i] >1 && gp.entities[i].name == "Spinach seed"){
             gp.entities[i].waterDay[i] = 0;
         }
-        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].image == Spinach_sprout) {
+        if (gp.entities[i].waterDay[i] == 2 & gp.entities[i].name == "Spinach sprout") {
+            gp.entities[i].name = "Spinach sapling";
             gp.entities[i].image = Spinach_sapling;
             gp.entities[i].cropPeriod += 1;
         }
-        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].image == Spinach_sprout) {
+        if (gp.entities[i].waterDay[i] >2 && gp.entities[i].name == "Spinach sprout") {
             gp.entities[i].waterDay[i] = 1;
         }
-        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].image == Spinach_sapling) {
+        if (gp.entities[i].waterDay[i] == 3 & gp.entities[i].name == "Spinach sapling") {
+            gp.entities[i].name = "Spinach mature";
             gp.entities[i].image = Spinach_mature;
             gp.entities[i].cropPeriod += 1;
+            gp.entities[i].type = type_spinach_mature;
         }
-        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].image == Spinach_sapling){
+        if (gp.entities[i].waterDay[i] >3 && gp.entities[i].name == "Spinach sapling"){
             gp.entities[i].waterDay[i] = 2;
         }
     }

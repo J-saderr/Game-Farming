@@ -67,9 +67,9 @@ public class Player extends Entity {
             inventory.add(new Carrot(gp));
             inventory.add(new Potato(gp));
             inventory.add(new Spinach(gp));
-            inventory.add(new CarrotMature(gp));
-            inventory.add(new PotatoMature(gp));
-            inventory.add(new SpinachMature(gp));
+//            inventory.add(new CarrotMature(gp));
+//            inventory.add(new PotatoMature(gp));
+//            inventory.add(new SpinachMature(gp));
         }
         public void getPlayerImage() {
             try
@@ -306,12 +306,12 @@ public class Player extends Entity {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
                     for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
                         if (inventory.get(itemIndex).quantities > 0 && inventory.get(itemIndex).type == type_carrot){
-                           gp.entities[i] = new Carrot(gp);
-                           gp.entities[i].worldX = getSoilX(objIndex);
-                           gp.entities[i].worldY = getSoilY(objIndex);
-                           gp.entities[i].image = carrot.Carrot_seed;
-                           gp.entities[i].name = "Carrot seed";
-                           inventory.get(itemIndex).quantities --;
+                            gp.entities[i] = new Carrot(gp);
+                            gp.entities[i].worldX = getSoilX(objIndex);
+                            gp.entities[i].worldY = getSoilY(objIndex);
+                            gp.entities[i].image = carrot.Carrot_seed;
+                            gp.entities[i].name = "Carrot seed";
+                            inventory.get(itemIndex).quantities --;
                             if (inventory.get(itemIndex).quantities == 0){
                                 inventory.remove(itemIndex);
                             }
@@ -320,6 +320,7 @@ public class Player extends Entity {
                 }
             }
         }
+
         if (currentTool.type == type_potato & keyH.doing & objIndex != 999 & getSoilX(objIndex)!=0) {
             for (int i = 0; i <= 23; i++) {
                 if (gp.obj[i].name != "Soil" && gp.entities[i] == null && gp.obj[i].worldX == getSoilX(objIndex) && gp.obj[i].worldY == getSoilY(objIndex)){
@@ -377,39 +378,40 @@ public class Player extends Entity {
                 case "notWateredSoil", "wateredSoil":
                     if (gp.entities[i] != null){
                         if (gp.entities[i].cropPeriod == 3 && keyH.harvest) {
-                            if (gp.entities[i].type == type_carrot) {
-                                if (!inventory.contains(new CarrotMature(gp))) {
+                            if (gp.entities[i].type == type_carrot_mature) {
+                                if (searchItemInventory("Carrot Mature") == 999){
                                     inventory.add(new CarrotMature(gp));
                                 } else {
-                                   for (Entity e : inventory) {
-                                        if (e.type == type_carrot_mature) {
-                                            e.quantities += 1;
-                                       }
-                                   }
-                                }
-                            }
-                                    if (gp.entities[i].type == type_potato) {
-                                        if (!inventory.contains(new PotatoMature(gp))) {
-                                            inventory.add(new PotatoMature(gp));
-                                        } else {
-                                            for (Entity e : inventory) {
-                                                if (e.type == type_potato_mature) {
-                                                    e.quantities += 1;
-                                                }
-                                            }
+                                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                                        if (inventory.get(itemIndex).type == type_carrot_mature) {
+                                            inventory.get(itemIndex).quantities ++;
                                         }
                                     }
-                            if (gp.entities[i].type == type_spinach) {
-                                if (!inventory.contains(new SpinachMature(gp))) {
+                                }
+                            }
+                            if (gp.entities[i].type == type_potato_mature) {
+                                if (searchItemInventory("Potato Mature") == 999){
+                                    inventory.add(new PotatoMature(gp));
+                                } else {
+                                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                                        if (inventory.get(itemIndex).type == type_potato_mature) {
+                                            inventory.get(itemIndex).quantities ++;
+                                        }
+                                    }
+                                }
+                            }
+                            if (gp.entities[i].type == type_spinach_mature) {
+                                if (searchItemInventory("Spinach Mature") == 999){
                                     inventory.add(new SpinachMature(gp));
                                 } else {
-                                    for (Entity e : inventory) {
-                                        if (e.type == type_spinach_mature) {
-                                            e.quantities += 1;
+                                    for (int itemIndex = 0; itemIndex < inventory.size(); itemIndex++){
+                                        if (inventory.get(itemIndex).type == type_spinach_mature) {
+                                            inventory.get(itemIndex).quantities ++;
                                         }
                                     }
                                 }
                             }
+
                             gp.obj[i].name = "notWateredSoil";
                             gp.obj[i].image = notWateredSoil.image;
                             gp.entities[i].waterDay[i] = 0;
@@ -457,9 +459,6 @@ public class Player extends Entity {
         return canObtain;
     }
     public void draw (Graphics2D g2) {
-            //g2.setColor(Color.black);
-            //g2.dispose();
-
             BufferedImage image = null;
             if (direction != null) {
                 switch (direction) {
@@ -471,15 +470,6 @@ public class Player extends Entity {
                             if(spriteNum == 2) {
                                 image = left2;
                             }
-//                        }
-//                        if(doing == true){
-//                            if(spriteNum == 1) {
-//                                image = doLeft1;
-//                            }
-//                            if(spriteNum == 2) {
-//                                image = doLeft2;
-//                            }
-//                        }
                         break;
                     case "right":
                         if(doing == false){
@@ -507,15 +497,6 @@ public class Player extends Entity {
                             if(spriteNum == 2) {
                                 image = up2;
                             }
-//                        }
-//                        if(doing == true){
-//                            if(spriteNum == 1) {
-//                                image = doUp1;
-//                            }
-//                            if(spriteNum == 2) {
-//                                image = doUp2;
-//                            }
-//                        }
                         break;
                     case "down":
 //                        if(doing == false){
@@ -525,15 +506,6 @@ public class Player extends Entity {
                             if(spriteNum == 2) {
                                 image = down2;
                             }
-//                        }
-//                        if(doing == true){
-//                            if(spriteNum == 1) {
-//                                image = doDown1;
-//                            }
-//                            if(spriteNum == 2) {
-//                                image = doDown2;
-//                            }
-//                        }
                         break;
                 }
             }

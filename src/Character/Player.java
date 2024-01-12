@@ -21,7 +21,7 @@ import Main.Entity;
 public class Player extends Entity {
     KeyHandler keyH;
 
-    public Carrot carrot = new Carrot(gp);
+    private Carrot carrot = new Carrot(gp);
     private Potato potato = new Potato(gp);
     private Spinach spinach = new Spinach(gp);
     public final int screenX ;
@@ -67,9 +67,9 @@ public class Player extends Entity {
             inventory.add(new Carrot(gp));
             inventory.add(new Potato(gp));
             inventory.add(new Spinach(gp));
-            inventory.add(new CarrotMature(gp));
-            inventory.add(new PotatoMature(gp));
-            inventory.add(new SpinachMature(gp));
+//            inventory.add(new CarrotMature(gp));
+//            inventory.add(new PotatoMature(gp));
+//            inventory.add(new SpinachMature(gp));
         }
         public void getPlayerImage() {
             try

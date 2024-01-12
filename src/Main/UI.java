@@ -280,7 +280,6 @@ public class UI {
             height = gp.tileSize;
             drawSubWindow(x,y,width,height);
             g2.drawImage(moneyIcon,x+90, y+13,23,23,null);
-
             int price = npc.inventory.get(itemIndex).price;
             String text = "" + price;
             x = getXforAlignToRightText(text, gp.tileSize * 8 - 28);
@@ -401,7 +400,7 @@ public class UI {
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
 
             //DISPLAY AMOUNT
-            if (entity.inventory.get(i).quantities > 1){
+            if (gp.player.inventory.get(i).quantities > 1){
                 g2.setFont(g2.getFont().deriveFont(20));
                 int amountX;
                 int amountY;
